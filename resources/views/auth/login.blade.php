@@ -230,7 +230,7 @@
 
                 </form>
 
-                <div
+                <!-- <div
                     class="text-center mt-8"
                     data-aos="fade-up"
                     data-aos-delay="700">
@@ -243,7 +243,7 @@
 
                     </a>
 
-                </div>
+                </div> -->
 
             </div>
 
