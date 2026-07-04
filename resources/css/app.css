@@ -8,7 +8,9 @@
 @import "swiper/css/navigation";
 @import "swiper/css/pagination";
 
-
+::-webkit-scrollbar {
+    display: none;
+}
 
 @theme {
     --color-primary: #047857;
