@@ -855,12 +855,6 @@ Transparansi Keuangan
 
             </div>
 
-            <div class="card mt-12">
-
-                <canvas id="financeChart" height="100"></canvas>
-
-            </div>
-
         </div>
 
     </section>

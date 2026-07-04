@@ -1,14 +1,17 @@
 import AOS from 'aos';
 import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-import Chart from 'chart.js/auto';
 import "@fontsource/poppins/300.css";
 import "@fontsource/poppins/400.css";
 import "@fontsource/poppins/500.css";
 import "@fontsource/poppins/600.css";
 import "@fontsource/poppins/700.css";
+import Alpine from 'alpinejs';
+import Chart from 'chart.js/auto';
 
 window.Chart = Chart;
+
+console.log(window.Chart);
 
 window.Swiper = Swiper;
 
@@ -78,78 +81,4 @@ new Swiper(".gallerySwiper", {
 
 });
 
-/* ==========================
-Chart
-========================== */
-
-const ctx = document.getElementById("financeChart");
-
-if (ctx) {
-
-    new Chart(ctx, {
-
-        type: "bar",
-
-        data: {
-
-            labels: [
-
-                "Jan",
-
-                "Feb",
-
-                "Mar",
-
-                "Apr",
-
-                "Mei",
-
-                "Jun",
-
-            ],
-
-            datasets: [
-
-                {
-
-                    label: "Pemasukan",
-
-                    data: [12, 19, 15, 25, 18, 30],
-
-                    backgroundColor: "#047857",
-
-                },
-
-                {
-
-                    label: "Pengeluaran",
-
-                    data: [8, 10, 12, 14, 15, 18],
-
-                    backgroundColor: "#F59E0B",
-
-                },
-
-            ],
-
-        },
-
-        options: {
-
-            responsive: true,
-
-            plugins: {
-
-                legend: {
-
-                    position: "top",
-
-                },
-
-            },
-
-        },
-
-    });
-
-}
+import "./dashboard";
