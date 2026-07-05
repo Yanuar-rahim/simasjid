@@ -4,10 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\KegiatanController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\PengumumanController;
+
 
 Route::get('/', [HomeController::class, 'index'])
-    ->name('home');
+->name('home');
 
+Route::get('/kegiatan/{slug}', [HomeController::class, 'showKegiatan'])
+->name('kegiatan.detail');
 /*
 |--------------------------------------------------------------------------
 | Admin
@@ -15,14 +19,17 @@ Route::get('/', [HomeController::class, 'index'])
 */
 
 Route::middleware(['auth', 'admin'])->group(function () {
-
+    
     // Dashboard Admin
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
-    })->name('dashboard');
-
+        })->name('dashboard');
+        
     // CRUD Kegiatan
     Route::resource('kegiatan', KegiatanController::class);
+
+    // CRUD Pengumuman
+    Route::resource('pengumuman', PengumumanController::class);
 
 });
 

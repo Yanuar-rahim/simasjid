@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Models;
-
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Kegiatan extends Model
+class Pengumuman extends Model
 {
     use HasFactory;
 
@@ -13,12 +12,9 @@ class Kegiatan extends Model
         'judul',
         'slug',
         'gambar',
-        'tanggal',
-        'jam',
-        'lokasi',
-        'pemateri',
+        'kategori',
         'status',
-        'deskripsi'
+        'isi'
     ];
 
     public function getRouteKeyName()

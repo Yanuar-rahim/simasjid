@@ -38,10 +38,11 @@
 
         </a>
 
-        <a href="#"
+        <a href="{{ route('pengumuman.index') }}"
             class="{{ request()->routeIs('pengumuman.*') ? 'sidebar-active' : 'sidebar-menu' }}">
 
             <i class="fa-solid fa-bullhorn"></i>
+
             Pengumuman
 
         </a>

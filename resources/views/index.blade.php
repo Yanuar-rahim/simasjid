@@ -10,72 +10,7 @@
 
 <body class="bg-slate-50">
 
-    <nav
-        class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/80 border-b border-slate-100"
-        data-aos="fade-down">
-        <div class="max-w-8xl mx-auto px-8 sm:px-14 lg:px-28">
-            <div class="flex justify-between items-center h-20">
-
-                <!-- Logo -->
-
-                <a href="/" class="flex items-center gap-3">
-                    <div
-                        class="w-12 h-12 rounded-full bg-emerald-700 flex justify-center items-center text-white text-xl">
-                        <i class="fa-solid fa-mosque"></i>
-                    </div>
-
-                    <div>
-                        <h1 class="font-bold text-xl text-emerald-700">
-                            SIMASJID
-                        </h1>
-                        <small class="text-slate-500">
-                            Sistem Informasi Manajemen Masjid dan Keuangan Digital
-                        </small>
-                    </div>
-                </a>
-
-                <!-- Menu -->
-
-                <ul class="hidden lg:flex gap-8 font-medium">
-                    <li>
-                        <a href="#home" class="hover:text-emerald-700 duration-300">
-                            Beranda
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#tentang" class="hover:text-emerald-700 duration-300">
-                            Tentang
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#kegiatan" class="hover:text-emerald-700 duration-300">
-                            Kegiatan
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#keuangan" class="hover:text-emerald-700 duration-300">
-                            Keuangan
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#donasi" class="hover:text-emerald-700 duration-300">
-                            Donasi
-                        </a>
-                    </li>
-                </ul>
-
-                <div class="hidden lg:flex gap-3">
-                    <a href="{{ route('login') }}"
-                        class="btn-primary">
-                        Login
-                    </a>
-                </div>
-
-            </div>
-
-        </div>
-
-    </nav>
+    @include('partials.navbar')
 
     <section
         id="home"
@@ -542,8 +477,9 @@ Program Kegiatan
 
                         </p>
 
-                        <a href="#"
-                            class="inline-flex items-center gap-2 mt-6 text-emerald-700 font-semibold">
+                        <a
+                            href="{{ route('kegiatan.detail', $item->slug) }}"
+                            class="inline-flex items-center gap-2 mt-6 text-emerald-700 font-semibold hover:gap-3 transition-all">
 
                             Selengkapnya
 
@@ -992,104 +928,4 @@ Lokasi
 
     </section>
 
-    <footer class="bg-emerald-900 text-white">
-
-        <div class="max-w-8xl mx-auto px-8 sm:px-14 lg:px-28 py-16">
-
-            <div class="grid lg:grid-cols-4 gap-10">
-
-                <div>
-
-                    <h2 class="text-3xl font-bold">
-
-                        🕌 SIMASJID
-
-                    </h2>
-
-                    <p class="mt-5 text-emerald-100 leading-8">
-
-                        Sistem Informasi Manajemen Masjid
-                        dan Keuangan Digital.
-
-                    </p>
-
-                </div>
-
-                <div>
-
-                    <h3 class="font-bold text-xl">
-
-                        Menu
-
-                    </h3>
-
-                    <ul class="space-y-3 mt-5">
-
-                        <li><a href="#home">Beranda</a></li>
-
-                        <li><a href="#tentang">Tentang</a></li>
-
-                        <li><a href="#kegiatan">Kegiatan</a></li>
-
-                        <li><a href="#keuangan">Keuangan</a></li>
-
-                    </ul>
-
-                </div>
-
-                <div>
-
-                    <h3 class="font-bold text-xl">
-
-                        Kontak
-
-                    </h3>
-
-                    <p class="mt-5">
-
-                        +62-823-3109-6562
-
-                    </p>
-
-                    <p>
-
-                        info@simasjid.id
-
-                    </p>
-
-                </div>
-
-                <div>
-
-                    <h3 class="font-bold text-xl">
-
-                        Ikuti Kami
-
-                    </h3>
-
-                    <div class="flex gap-5 mt-5 text-2xl">
-
-                        <i class="fab fa-facebook"></i>
-
-                        <i class="fab fa-instagram"></i>
-
-                        <i class="fab fa-youtube"></i>
-
-                        <i class="fab fa-whatsapp"></i>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="border-t border-emerald-700 mt-12 pt-8 text-center text-emerald-200">
-
-                © {{ date('Y') }} SIMASJID.
-                All Rights Reserved.
-
-            </div>
-
-        </div>
-
-    </footer>
+    @include('partials.footer')
