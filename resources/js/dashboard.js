@@ -1,5 +1,6 @@
 import Chart from "chart.js/auto";
 
+
 document.addEventListener("DOMContentLoaded", () => {
 
     const chartCanvas = document.getElementById("donasiChart");

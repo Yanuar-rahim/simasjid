@@ -507,65 +507,42 @@ Program Kegiatan
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                @php
-                $kegiatan = [
-                [
-                'gambar' => 'kegiatan-1.jpg',
-                'judul' => 'Kajian Rutin Ahad Pagi',
-                'tanggal' => 'Minggu, 10 Agustus 2026',
-                'deskripsi' => 'Kajian bersama ustadz dengan tema membangun keluarga sakinah.',
-                ],
-                [
-                'gambar' => 'kegiatan-2.jpg',
-                'judul' => 'Santunan Anak Yatim',
-                'tanggal' => 'Sabtu, 16 Agustus 2026',
-                'deskripsi' => 'Penyaluran bantuan kepada anak yatim dan kaum dhuafa.',
-                ],
-                [
-                'gambar' => 'kegiatan-3.jpg',
-                'judul' => "Pelatihan Tahsin Al-Qur'an",
-                'tanggal' => 'Setiap Jumat',
-                'deskripsi' => "Program peningkatan kualitas bacaan Al-Qur'an untuk semua usia.",
-                ],
-                ];
-                @endphp
+                @if($kegiatan->count())
+
                 @foreach($kegiatan as $item)
 
                 <div
-                    class="group overflow-hidden rounded-3xl bg-white shadow-lg transform transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-2xl"
-                    data-aos="fade-up">
+                    class="group overflow-hidden rounded-3xl bg-white shadow-lg hover:-translate-y-2 transition duration-500">
 
                     <img
-                        src="{{ asset('assets/images/'.$item['gambar']) }}"
-                        class="w-full h-60 object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                        src="{{ $item->gambar
+                                ? asset('storage/'.$item->gambar)
+                                : asset('assets/images/no-image.png') }}"
+                        class="w-full h-60 object-cover">
 
                     <div class="p-7">
 
-                        <span
-                            class="inline-flex items-center gap-2 text-sm text-emerald-700">
+                        <span class="inline-flex items-center gap-2 text-sm text-emerald-700">
 
                             <i class="fa-solid fa-calendar"></i>
 
-                            {{ $item['tanggal'] }}
+                            {{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') }}
 
                         </span>
 
-                        <h3
-                            class="font-bold text-2xl mt-4">
+                        <h3 class="font-bold text-2xl mt-4">
 
-                            {{ $item['judul'] }}
+                            {{ $item->judul }}
 
                         </h3>
 
-                        <p
-                            class="text-slate-500 mt-4 leading-8">
+                        <p class="text-slate-500 mt-4 leading-8">
 
-                            {{ $item['deskripsi'] }}
+                            {{ Str::limit($item->deskripsi,51) }}
 
                         </p>
 
-                        <a
-                            href="#"
+                        <a href="#"
                             class="inline-flex items-center gap-2 mt-6 text-emerald-700 font-semibold">
 
                             Selengkapnya
@@ -579,6 +556,32 @@ Program Kegiatan
                 </div>
 
                 @endforeach
+
+                @else
+
+                <div class="col-span-3">
+
+                    <div class="text-center py-20">
+
+                        <i class="fa-solid fa-calendar-xmark text-6xl text-slate-300"></i>
+
+                        <h3 class="mt-5 text-2xl font-semibold">
+
+                            Belum ada kegiatan
+
+                        </h3>
+
+                        <p class="text-slate-500 mt-2">
+
+                            Data kegiatan akan tampil di sini.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                @endif
 
             </div>
 

@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Kegiatan;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        return view('index');
+        $kegiatan = Kegiatan::where('status', 'Aktif')
+            ->latest()
+            ->take(3)
+            ->get();
+
+        return view('index', compact('kegiatan'));
     }
 }
