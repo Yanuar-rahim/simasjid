@@ -13,9 +13,19 @@ class PengumumanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $pengumuman = Pengumuman::latest()->paginate(10);
+        $query = Pengumuman::query();
+
+        if ($request->search) {
+            $query->where('judul', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->status) {
+            $query->where('status', $request->status);
+        }
+        
+        $pengumuman = $query->latest()->paginate(10)->withQueryString();
 
         return view('admin.pengumuman.index', compact('pengumuman'));
     }
@@ -56,19 +66,12 @@ class PengumumanController extends Controller
         }
 
         Pengumuman::create([
-
             'judul' => $request->judul,
-
             'slug' => Str::slug($request->judul),
-
             'gambar' => $gambar,
-
             'kategori' => $request->kategori,
-
             'status' => $request->status,
-
             'isi' => $request->isi
-
         ]);
 
         return redirect()
@@ -79,9 +82,9 @@ class PengumumanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Pengumuman $pengumuman)
     {
-        //
+        return view('admin.pengumuman.show', compact('pengumuman'));
     }
 
     /**
@@ -98,17 +101,11 @@ class PengumumanController extends Controller
     public function update(Request $request, Pengumuman $pengumuman)
     {
         $request->validate([
-
             'judul' => 'required|max:255',
-
             'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:4096',
-
             'kategori' => 'required|max:100',
-
             'status' => 'required',
-
             'isi' => 'required',
-
         ]);
 
         $data = $request->except('gambar');
@@ -135,8 +132,18 @@ class PengumumanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Pengumuman $pengumuman)
     {
-        //
+        // Hapus gambar jika ada
+        if ($pengumuman->gambar && Storage::disk('public')->exists($pengumuman->gambar)) {
+            Storage::disk('public')->delete($pengumuman->gambar);
+        }
+
+        // Hapus data
+        $pengumuman->delete();
+
+        return redirect()
+            ->route('pengumuman.index')
+            ->with('success', 'Pengumuman berhasil dihapus.');
     }
 }

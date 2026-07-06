@@ -32,6 +32,11 @@ class KegiatanController extends Controller
         return view('admin.kegiatan.create');
     }
 
+    public function show(Kegiatan $kegiatan)
+    {
+        return view('admin.kegiatan.show', compact('kegiatan'));
+    }
+
     public function edit(Kegiatan $kegiatan)
     {
         return view('admin.kegiatan.edit', compact('kegiatan'));

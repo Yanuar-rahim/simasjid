@@ -180,15 +180,22 @@
                         <div class="flex justify-center gap-3">
 
                             <a
+                                href="{{ route('kegiatan.show',$item->id) }}"
+                                class="w-10 h-10 rounded-xl bg-emerald-50 hover:bg-emerald-100 flex items-center justify-center text-emerald-600">
+
+                                <i class="fa-solid fa-eye"></i>
+
+                            </a>
+
+                            <a
                                 href="{{ route('kegiatan.edit',$item->id) }}"
-                                class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center hover:bg-blue-100">
+                                class="w-10 h-10 rounded-xl bg-blue-50 hover:bg-blue-100 flex items-center justify-center text-blue-600">
 
                                 <i class="fa-solid fa-pen"></i>
 
                             </a>
 
-                            <form
-                                action="{{ route('kegiatan.destroy',$item->id) }}"
+                            <form action="{{ route('kegiatan.destroy',$item->id) }}"
                                 method="POST"
                                 class="delete-form">
 
@@ -196,8 +203,7 @@
                                 @method('DELETE')
 
                                 <button
-                                    type="submit"
-                                    class="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center hover:bg-red-100">
+                                    class="w-10 h-10 rounded-xl bg-red-50 hover:bg-red-100 flex items-center justify-center text-red-600">
 
                                     <i class="fa-solid fa-trash"></i>
 

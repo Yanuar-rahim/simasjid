@@ -17,8 +17,8 @@ class Pengumuman extends Model
         'isi'
     ];
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
+    // public function getRouteKeyName()
+    // {
+    //     return 'slug';
+    // }
 }

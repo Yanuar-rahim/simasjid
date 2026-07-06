@@ -199,14 +199,14 @@
                     <td>
 
                         <div class="flex justify-center gap-3">
-<!-- 
+
                             <a
                                 href="{{ route('pengumuman.show',$item) }}"
                                 class="w-10 h-10 rounded-xl bg-emerald-50 hover:bg-emerald-100 flex items-center justify-center text-emerald-600">
 
                                 <i class="fa-solid fa-eye"></i>
 
-                            </a> -->
+                            </a>
 
                             <a
                                 href="{{ route('pengumuman.edit',$item) }}"
