@@ -14,7 +14,7 @@ window.Swal = Swal;
 
 window.Chart = Chart;
 
-console.log(window.Chart);
+window.Alpine = Alpine;
 
 window.Swiper = Swiper;
 
@@ -83,5 +83,7 @@ new Swiper(".gallerySwiper", {
     },
 
 });
+
+Alpine.start();
 
 import "./dashboard";

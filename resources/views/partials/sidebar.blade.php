@@ -118,14 +118,21 @@
 
         </div>
 
-        <form method="POST" action="{{ route('logout') }}" class="mt-5">
+        <form
+            id="sidebar-logout-form"
+            method="POST"
+            action="{{ route('logout') }}"
+            class="mt-5">
 
             @csrf
 
             <button
+                type="button"
+                id="sidebar-logout-button"
                 class="w-full rounded-2xl bg-red-50 hover:bg-red-100 text-red-600 py-3 transition duration-300">
 
                 <i class="fa-solid fa-right-from-bracket mr-2"></i>
+
                 Logout
 
             </button>
@@ -135,3 +142,47 @@
     </div>
 
 </aside>
+
+@push('script');
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const logoutButton = document.getElementById('sidebar-logout-button');
+
+        if (logoutButton) {
+            logoutButton.addEventListener('click', function() {
+
+                Swal.fire({
+                    title: 'Logout?',
+                    text: 'Apakah Anda yakin ingin keluar dari sistem?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#059669',
+                    cancelButtonColor: '#dc2626',
+                    confirmButtonText: '<i class="fa-solid fa-check"></i> Ya, Logout',
+                    cancelButtonText: '<i class="fa-solid fa-xmark"></i> Batal',
+                    reverseButtons: true
+
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: 'Sedang Logout...',
+                            text: 'Mohon tunggu sebentar.',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            showConfirmButton: false,
+
+                            didOpen: () => {
+
+                                Swal.showLoading();
+                                setTimeout(() => {
+                                    document.getElementById('logout-form').submit();
+                                }, 700);
+                            }
+                        });
+                    }
+                });
+            });
+        }
+    });
+</script>

@@ -8,7 +8,7 @@ use App\Http\Controllers\Admin\PengumumanController;
 
 
 Route::get('/', [HomeController::class, 'index'])
-->name('home');
+    ->name('home');
 
 Route::get('/kegiatan/detail/{slug}', [HomeController::class, 'showKegiatan'])
     ->name('kegiatan.detail');
@@ -22,18 +22,18 @@ Route::get('/pengumuman/detail/{slug}', [HomeController::class, 'showPengumuman'
 */
 
 Route::middleware(['auth', 'admin'])->group(function () {
-    
+
     // Dashboard Admin
     Route::get('/dashboard', function () {
+
         return view('admin.dashboard');
-        })->name('dashboard');
-        
+    })->name('dashboard');
+
     // CRUD Kegiatan
     Route::resource('kegiatan', KegiatanController::class);
 
     // CRUD Pengumuman
     Route::resource('pengumuman', PengumumanController::class);
-
 });
 
 Route::middleware('auth')->group(function () {
@@ -46,7 +46,6 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/profile', [ProfileController::class, 'destroy'])
         ->name('profile.destroy');
-
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
