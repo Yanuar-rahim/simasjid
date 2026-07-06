@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\KegiatanController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\PengumumanController;
+use App\Http\Controllers\Admin\DonasiController;
 
 
 Route::get('/', [HomeController::class, 'index'])
@@ -34,6 +35,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     // CRUD Pengumuman
     Route::resource('pengumuman', PengumumanController::class);
+
+    // CRUD Donasi
+    Route::resource('donasi', DonasiController::class)
+        ->except(['create', 'store']);
 });
 
 Route::middleware('auth')->group(function () {

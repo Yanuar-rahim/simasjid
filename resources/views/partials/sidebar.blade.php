@@ -47,10 +47,11 @@
 
         </a>
 
-        <a href="#"
+        <a href="{{ route('donasi.index') }}"
             class="{{ request()->routeIs('donasi.*') ? 'sidebar-active' : 'sidebar-menu' }}">
 
             <i class="fa-solid fa-hand-holding-heart"></i>
+
             Donasi
 
         </a>
