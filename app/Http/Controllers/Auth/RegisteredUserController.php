@@ -33,7 +33,19 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'phone' => ['required', 'numeric', 'digits_between:10,15'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ], [
+            'name.required' => 'Nama lengkap wajib diisi.',
+            'name.max' => 'Nama maksimal 255 karakter.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah digunakan.',
+            'phone.required' => 'Nomor HP wajib diisi.',
+            'phone.numeric' => 'Nomor HP hanya boleh berisi angka.',
+            'phone.digits_between' => 'Nomor HP harus terdiri dari 10-15 digit.',
+            'password.required' => 'Password wajib diisi.',
+            'password.confirmed' => 'Konfirmasi password tidak cocok.',
         ]);
 
         $user = User::create([
@@ -46,7 +58,8 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        return redirect()->route('login')
-            ->with('success', 'Registrasi berhasil. Silakan login.');
+        return redirect()
+            ->route('login')
+            ->with('register_success', 'Registrasi berhasil.');
     }
 }
