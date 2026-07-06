@@ -76,9 +76,9 @@
 
         <table class="w-full">
 
-            <thead class="bg-slate-50">
+            <thead class="bg-emerald-600">
 
-                <tr class="text-left">
+                <tr class="text-left text-white">
 
                     <th class="p-5">Gambar</th>
                     <th>Judul</th>
@@ -95,7 +95,7 @@
 
                 @forelse($kegiatan as $item)
 
-                <tr class="border-t hover:bg-slate-50 transition">
+                <tr class="hover:bg-slate-50 transition text-slate-500">
 
                     <td class="p-4">
 

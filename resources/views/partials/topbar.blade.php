@@ -3,43 +3,55 @@
 
     <div class="h-full px-8 flex items-center justify-between">
 
+        <!-- Judul -->
         <div>
 
             <h2 class="text-3xl font-bold text-slate-800">
-
                 Dashboard
-
             </h2>
 
             <p class="text-slate-500 mt-1">
-
                 Selamat datang kembali,
                 {{ Auth::user()->name }}
-
             </p>
 
         </div>
 
+        <!-- Kanan -->
         <div class="flex items-center gap-6">
 
-            <!-- Search -->
+            <!-- Tanggal & Jam -->
+            <div class="">
 
-            <div class="relative">
+                <div>
 
-                <i
-                    class="fa-solid fa-magnifying-glass absolute left-5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <i class="fa-regular fa-calendar"></i>
 
-                <input
-                    type="text"
-                    placeholder="Cari menu..."
-                    class="pl-12 pr-5 h-12 w-72 rounded-2xl border border-slate-200 focus:outline-none focus:border-emerald-500">
+                    <span id="tanggalRealtime" class="font-bold"></span>
+
+                </div>
+
+                <div class="gap-2 mt-1">
+
+                    <i class="fa-regular fa-clock text-emerald-600"></i>
+
+                    <span
+                        id="jamRealtime"
+                        class="font-bold text-emerald-600 text-l">
+                    </span>
+
+                    <span class="text-l text-emerald-600 font-bold">
+                        WITA
+                    </span>
+
+                </div>
 
             </div>
 
             <!-- Notification -->
 
             <button
-                class="relative w-12 h-12 rounded-2xl border border-slate-200 hover:bg-slate-50">
+                class="relative w-12 h-12 rounded-2xl border border-slate-200 hover:bg-slate-50 transition">
 
                 <i class="fa-regular fa-bell"></i>
 
@@ -62,3 +74,30 @@
     </div>
 
 </header>
+
+<script>
+    function updateClock() {
+
+        const now = new Date();
+
+        const tanggal = now.toLocaleDateString('id-ID', {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+
+        const jam = now.toLocaleTimeString('id-ID', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+
+        document.getElementById('tanggalRealtime').textContent = tanggal;
+        document.getElementById('jamRealtime').textContent = jam;
+    }
+
+    updateClock();
+
+    setInterval(updateClock, 1000);
+</script>

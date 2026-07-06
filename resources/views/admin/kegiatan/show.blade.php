@@ -24,14 +24,14 @@
 
         </div>
 
-        <a href="{{ route('kegiatan.index') }}"
+        <!-- <a href="{{ route('kegiatan.index') }}"
             class="inline-flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 px-5 py-3 rounded-xl transition">
 
             <i class="fa-solid fa-arrow-left"></i>
 
             Kembali
 
-        </a>
+        </a> -->
 
     </div>
 

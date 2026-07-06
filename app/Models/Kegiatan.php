@@ -20,9 +20,4 @@ class Kegiatan extends Model
         'status',
         'deskripsi'
     ];
-
-    // public function getRouteKeyName()
-    // {
-    //     return 'slug';
-    // }
 }

@@ -529,81 +529,117 @@ Program Kegiatan
 Pengumuman
 ============================ -->
 
-    <section class="section bg-slate-100">
+    <section class="section bg-slate-100" id="pengumuman">
 
         <div class="max-w-8xl mx-auto px-8 sm:px-14 lg:px-28">
 
-            <div class="text-center">
+            <div class="text-center mb-16">
 
                 <span class="text-emerald-700 font-semibold">
-
                     Informasi
-
                 </span>
 
                 <h2 class="title mt-2">
-
-                    Pengumuman
-
+                    Pengumuman Terbaru
                 </h2>
+
+                <p class="subtitle">
+                    Informasi terbaru mengenai kegiatan dan layanan masjid.
+                </p>
 
             </div>
 
-            <div class="grid lg:grid-cols-3 gap-8 mt-14">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                <div class="card">
+                @forelse($pengumuman as $item)
 
-                    <i class="fa-solid fa-bullhorn text-4xl text-amber-400"></i>
+                <div
+                    class="bg-white rounded-3xl overflow-hidden shadow-lg hover:-translate-y-2 transition duration-300">
 
-                    <h3 class="font-bold text-xl mt-5">
+                    @if($item->gambar)
 
-                        Sholat Idul Adha
+                    <img
+                        src="{{ asset('storage/'.$item->gambar) }}"
+                        class="w-full h-56 object-cover">
 
-                    </h3>
+                    @else
 
-                    <p class="text-slate-500 mt-4">
+                    <img
+                        src="{{ asset('assets/images/no-image.png') }}"
+                        class="w-full h-56 object-cover">
 
-                        Pelaksanaan Sholat Idul Adha dimulai pukul 06.30 WITA.
+                    @endif
 
-                    </p>
+                    <div class="p-7">
+
+                        <div class="flex items-center justify-between">
+
+                            <span
+                                class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-sm">
+
+                                {{ $item->kategori }}
+
+                            </span>
+
+                            <span class="text-sm text-slate-500">
+
+                                {{ $item->created_at->format('d M Y') }}
+
+                            </span>
+
+                        </div>
+
+                        <h3 class="font-bold text-2xl mt-5">
+
+                            {{ $item->judul }}
+
+                        </h3>
+
+                        <p class="text-slate-500 leading-8 mt-4">
+
+                            {{ Str::limit(strip_tags($item->isi),100) }}
+
+                        </p>
+
+                        <a
+                            href="{{ route('pengumuman.detail',$item->slug) }}"
+                            class="inline-flex items-center gap-2 mt-6 text-emerald-700 font-semibold hover:gap-3 transition">
+
+                            Selengkapnya
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+                    </div>
 
                 </div>
 
-                <div class="card">
+                @empty
 
-                    <i class="fa-solid fa-book-quran text-4xl text-emerald-700"></i>
+                <div class="col-span-3">
 
-                    <h3 class="font-bold text-xl mt-5">
+                    <div class="text-center py-20">
 
-                        Pendaftaran TPA
+                        <i class="fa-solid fa-bullhorn text-6xl text-slate-300"></i>
 
-                    </h3>
+                        <h3 class="text-2xl font-semibold mt-5">
 
-                    <p class="text-slate-500 mt-4">
+                            Belum ada pengumuman
 
-                        Pendaftaran santri baru dibuka hingga akhir bulan.
+                        </h3>
 
-                    </p>
+                        <p class="text-slate-500 mt-2">
 
-                </div>
+                            Pengumuman terbaru akan tampil di sini.
 
-                <div class="card">
+                        </p>
 
-                    <i class="fa-solid fa-hand-holding-heart text-4xl text-red-500"></i>
-
-                    <h3 class="font-bold text-xl mt-5">
-
-                        Program Wakaf
-
-                    </h3>
-
-                    <p class="text-slate-500 mt-4">
-
-                        Mari ikut berpartisipasi dalam pembangunan ruang belajar Al-Qur'an.
-
-                    </p>
+                    </div>
 
                 </div>
+
+                @endforelse
 
             </div>
 

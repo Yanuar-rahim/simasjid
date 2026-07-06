@@ -16,9 +16,4 @@ class Pengumuman extends Model
         'status',
         'isi'
     ];
-
-    // public function getRouteKeyName()
-    // {
-    //     return 'slug';
-    // }
 }

@@ -2,10 +2,15 @@
 <html lang="id">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $kegiatan->judul }} | SIMASJID</title>
+
+    <title>{{ $pengumuman->judul }} | SIMASJID</title>
+
     @vite(['resources/css/app.css','resources/js/app.js'])
+
 </head>
 
 <body class="bg-slate-50">
@@ -20,53 +25,46 @@
         <div class="max-w-8xl mx-auto px-8 sm:px-14 lg:px-28">
 
             <a
-                href="{{ route('home') }}#kegiatan"
+                href="{{ route('home') }}#pengumuman"
                 class="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-white text-emerald-700 font-semibold shadow-md hover:bg-emerald-50 hover:shadow-lg transition-all duration-300">
 
                 <i class="fa-solid fa-arrow-left"></i>
 
-                <span>Kembali ke Kegiatan</span>
+                <span>Kembali ke Pengumuman</span>
 
             </a>
 
-            <span
-                class="inline-flex px-5 py-2 rounded-full bg-white/20">
+            <div class="mt-8">
 
-                {{ $kegiatan->status }}
+                <span class="inline-flex px-5 py-2 rounded-full bg-white/20">
 
-            </span>
+                    {{ $pengumuman->kategori }}
 
-            <h1
-                class="mt-6 text-5xl font-bold leading-tight">
+                </span>
 
-                {{ $kegiatan->judul }}
+            </div>
+
+            <h1 class="mt-6 text-5xl font-bold leading-tight">
+
+                {{ $pengumuman->judul }}
 
             </h1>
 
-            <div
-                class="flex flex-wrap gap-8 mt-8 text-emerald-100">
+            <div class="flex flex-wrap gap-8 mt-8 text-emerald-100">
 
                 <div>
 
                     <i class="fa-solid fa-calendar"></i>
 
-                    {{ \Carbon\Carbon::parse($kegiatan->tanggal)->translatedFormat('d F Y') }}
+                    {{ $pengumuman->created_at->translatedFormat('d F Y') }}
 
                 </div>
 
                 <div>
 
-                    <i class="fa-solid fa-clock"></i>
+                    <i class="fa-solid fa-folder-open"></i>
 
-                    {{ date('H:i',strtotime($kegiatan->jam)) }} WIB
-
-                </div>
-
-                <div>
-
-                    <i class="fa-solid fa-location-dot"></i>
-
-                    {{ $kegiatan->lokasi }}
+                    {{ $pengumuman->kategori }}
 
                 </div>
 
@@ -84,29 +82,31 @@
 
             <div class="grid lg:grid-cols-3 gap-10">
 
-                <!-- Kiri -->
+                <!-- Konten -->
 
                 <div class="lg:col-span-2">
 
-                    <div
-                        class="bg-white rounded-3xl shadow-lg overflow-hidden">
+                    <div class="bg-white rounded-3xl shadow-lg overflow-hidden">
+
+                        @if($pengumuman->gambar)
 
                         <img
-                            src="{{ asset('storage/'.$kegiatan->gambar) }}"
+                            src="{{ asset('storage/'.$pengumuman->gambar) }}"
                             class="w-full h-[520px] object-cover">
+
+                        @endif
 
                         <div class="p-10">
 
                             <h2 class="text-3xl font-bold">
 
-                                Tentang Kegiatan
+                                Detail Pengumuman
 
                             </h2>
 
-                            <div
-                                class="mt-8 leading-9 text-slate-600 text-lg">
+                            <div class="mt-8 leading-9 text-slate-600 text-lg">
 
-                                {!! nl2br(e($kegiatan->deskripsi)) !!}
+                                {!! nl2br(e($pengumuman->isi)) !!}
 
                             </div>
 
@@ -120,30 +120,27 @@
 
                 <div>
 
-                    <div
-                        class="bg-white rounded-3xl shadow-lg p-8 top-28">
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
 
-                        <h3
-                            class="text-2xl font-bold">
+                        <h3 class="text-2xl font-bold">
 
                             Informasi
 
                         </h3>
 
-                        <div
-                            class="mt-8 space-y-6">
+                        <div class="mt-8 space-y-6">
 
                             <div>
 
                                 <small class="text-slate-500">
 
-                                    Tanggal
+                                    Tanggal Publikasi
 
                                 </small>
 
                                 <h4 class="font-semibold mt-1">
 
-                                    {{ \Carbon\Carbon::parse($kegiatan->tanggal)->translatedFormat('d F Y') }}
+                                    {{ $pengumuman->created_at->translatedFormat('d F Y') }}
 
                                 </h4>
 
@@ -153,45 +150,13 @@
 
                                 <small class="text-slate-500">
 
-                                    Jam
+                                    Kategori
 
                                 </small>
 
                                 <h4 class="font-semibold mt-1">
 
-                                    {{ date('H:i',strtotime($kegiatan->jam)) }} WIB
-
-                                </h4>
-
-                            </div>
-
-                            <div>
-
-                                <small class="text-slate-500">
-
-                                    Lokasi
-
-                                </small>
-
-                                <h4 class="font-semibold mt-1">
-
-                                    {{ $kegiatan->lokasi }}
-
-                                </h4>
-
-                            </div>
-
-                            <div>
-
-                                <small class="text-slate-500">
-
-                                    Pemateri
-
-                                </small>
-
-                                <h4 class="font-semibold mt-1">
-
-                                    {{ $kegiatan->pemateri ?: '-' }}
+                                    {{ $pengumuman->kategori }}
 
                                 </h4>
 
@@ -207,26 +172,27 @@
 
                                 <br>
 
-                                <span
-                                    class="inline-flex mt-2 px-4 py-2 rounded-full bg-emerald-100 text-emerald-700">
+                                @if($pengumuman->status=='Aktif')
 
-                                    {{ $kegiatan->status }}
+                                <span class="inline-flex mt-2 px-4 py-2 rounded-full bg-emerald-100 text-emerald-700">
+
+                                    Aktif
 
                                 </span>
+
+                                @else
+
+                                <span class="inline-flex mt-2 px-4 py-2 rounded-full bg-yellow-100 text-yellow-700">
+
+                                    Draft
+
+                                </span>
+
+                                @endif
 
                             </div>
 
                         </div>
-
-                        <!-- <a
-                            href="{{ route('home') }}#donasi"
-                            class="btn-primary w-full mt-10 text-center">
-
-                            <i class="fa-solid fa-hand-holding-heart mr-2"></i>
-
-                            Donasi Sekarang
-
-                        </a> -->
 
                     </div>
 
@@ -238,7 +204,7 @@
 
     </section>
 
-    <!-- Kegiatan lainnya -->
+    <!-- Pengumuman Lainnya -->
 
     <section class="pb-24">
 
@@ -250,20 +216,20 @@
 
                     <span class="text-emerald-700 font-semibold">
 
-                        Program Masjid
+                        Informasi Masjid
 
                     </span>
 
                     <h2 class="title mt-2">
 
-                        Kegiatan Lainnya
+                        Pengumuman Lainnya
 
                     </h2>
 
                 </div>
 
                 <a
-                    href="{{ route('home') }}#kegiatan"
+                    href="{{ route('home') }}#pengumuman"
                     class="btn-secondary">
 
                     Lihat Semua
@@ -274,7 +240,7 @@
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
 
-                @foreach($lainnya as $item)
+                @foreach($pengumumanTerbaru as $item)
 
                 <div
                     class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:-translate-y-2 duration-500">
@@ -285,7 +251,13 @@
 
                     <div class="p-6">
 
-                        <h3 class="font-bold text-xl">
+                        <span class="text-sm text-emerald-600 font-semibold">
+
+                            {{ $item->kategori }}
+
+                        </span>
+
+                        <h3 class="font-bold text-xl mt-2">
 
                             {{ $item->judul }}
 
@@ -293,13 +265,13 @@
 
                         <p class="mt-3 text-slate-500">
 
-                            {{ Str::limit($item->deskripsi,80) }}
+                            {{ \Illuminate\Support\Str::limit(strip_tags($item->isi),80) }}
 
                         </p>
 
                         <a
-                            href="{{ route('kegiatan.detail',$item->slug) }}"
-                            class="inline-flex items-center gap-2 mt-6 text-emerald-700 font-semibold hover:gap-3">
+                            href="{{ route('pengumuman.detail',$item->slug) }}"
+                            class="inline-flex items-center gap-2 mt-6 text-emerald-700 font-semibold hover:gap-3 transition-all">
 
                             Selengkapnya
 

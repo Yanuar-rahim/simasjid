@@ -10,8 +10,11 @@ use App\Http\Controllers\Admin\PengumumanController;
 Route::get('/', [HomeController::class, 'index'])
 ->name('home');
 
-Route::get('/kegiatan/{slug}', [HomeController::class, 'showKegiatan'])
-->name('kegiatan.detail');
+Route::get('/kegiatan/detail/{slug}', [HomeController::class, 'showKegiatan'])
+    ->name('kegiatan.detail');
+
+Route::get('/pengumuman/detail/{slug}', [HomeController::class, 'showPengumuman'])
+    ->name('pengumuman.detail');
 /*
 |--------------------------------------------------------------------------
 | Admin

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kegiatan;
+use App\Models\Pengumuman;
 
 class HomeController extends Controller
 {
@@ -13,7 +14,12 @@ class HomeController extends Controller
             ->take(3)
             ->get();
 
-        return view('index', compact('kegiatan'));
+        $pengumuman = Pengumuman::where('status', 'Aktif')
+            ->latest()
+            ->take(3)
+            ->get();
+
+        return view('index', compact('kegiatan', 'pengumuman'));
     }
 
     public function showKegiatan($slug)
@@ -29,5 +35,20 @@ class HomeController extends Controller
             ->get();
 
         return view('kegiatan.detail', compact('kegiatan', 'lainnya'));
+    }
+
+    public function showPengumuman($slug)
+    {
+        $pengumuman = Pengumuman::where('slug', $slug)
+            ->where('status', 'Aktif')
+            ->firstOrFail();
+
+        $pengumumanTerbaru = Pengumuman::where('status', 'Aktif')
+            ->where('id', '!=', $pengumuman->id)
+            ->latest()
+            ->take(3)
+            ->get();
+
+        return view('pengumuman.detail', compact('pengumuman','pengumumanTerbaru'));
     }
 }

@@ -44,17 +44,11 @@ class PengumumanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-
             'judul' => 'required|max:255',
-
             'gambar' => 'required|image|mimes:jpg,jpeg,png|max:4096',
-
             'kategori' => 'required|max:100',
-
             'status' => 'required',
-
             'isi' => 'required'
-
         ]);
 
         $gambar = null;
