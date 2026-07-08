@@ -75,6 +75,13 @@ class DonasiController extends Controller
         return view('admin.donasi.show', compact('donasi'));
     }
 
+    public function store(Request $request)
+    {
+        // nanti kita isi proses simpan donasi
+
+        return back()->with('success','Donasi berhasil dikirim.');
+    }
+
     /**
      * Form Verifikasi
      */
