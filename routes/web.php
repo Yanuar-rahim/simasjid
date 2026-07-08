@@ -1,48 +1,62 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\KegiatanController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Admin\PengumumanController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DonasiController;
+use App\Http\Controllers\Admin\KegiatanController;
+use App\Http\Controllers\Admin\PengumumanController;
 
+/*
+|--------------------------------------------------------------------------
+| Landing Page Guest
+|--------------------------------------------------------------------------
+*/
 
 Route::get('/', [HomeController::class, 'index'])
-    ->name('home');
+    ->name('landing');
+
+/*
+|--------------------------------------------------------------------------
+| Detail Landing Page
+|--------------------------------------------------------------------------
+*/
 
 Route::get('/kegiatan/detail/{slug}', [HomeController::class, 'showKegiatan'])
     ->name('kegiatan.detail');
 
 Route::get('/pengumuman/detail/{slug}', [HomeController::class, 'showPengumuman'])
     ->name('pengumuman.detail');
+
 /*
 |--------------------------------------------------------------------------
-| Admin
+| User (Setelah Login)
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth'])->group(function () {
 
-    // Dashboard Admin
-    Route::get('/dashboard', function () {
+    // Beranda User
+    Route::get('/home', [HomeController::class, 'userHome'])
+        ->name('user.home');
 
-        return view('admin.dashboard');
-    })->name('dashboard');
+    // Donasi
+    Route::get('/home/donasi', [HomeController::class, 'donasi'])
+        ->name('user.donasi');
 
-    // CRUD Kegiatan
-    Route::resource('kegiatan', KegiatanController::class);
+    // Riwayat Donasi
+    Route::get('/home/riwayat', [HomeController::class, 'riwayat'])
+        ->name('user.riwayat');
 
-    // CRUD Pengumuman
-    Route::resource('pengumuman', PengumumanController::class);
+    // Kegiatan
+    Route::get('/home/kegiatan', [HomeController::class, 'kegiatan'])
+        ->name('user.kegiatan');
 
-    // CRUD Donasi
-    Route::resource('donasi', DonasiController::class)
-        ->except(['create', 'store']);
-});
+    // Pengumuman
+    Route::get('/home/pengumuman', [HomeController::class, 'pengumuman'])
+        ->name('user.pengumuman');
 
-Route::middleware('auth')->group(function () {
-
+    // Profil
     Route::get('/profile', [ProfileController::class, 'edit'])
         ->name('profile.edit');
 
@@ -51,6 +65,27 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/profile', [ProfileController::class, 'destroy'])
         ->name('profile.destroy');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Admin
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth', 'admin'])->group(function () {
+
+    Route::get('/dashboard', function () {
+
+        return view('admin.dashboard');
+    })->name('dashboard');
+
+    Route::resource('kegiatan', KegiatanController::class);
+
+    Route::resource('pengumuman', PengumumanController::class);
+
+    Route::resource('donasi', DonasiController::class)
+        ->except(['create', 'store']);
 });
 
 require __DIR__ . '/auth.php';

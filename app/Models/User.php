@@ -2,30 +2,38 @@
 
 namespace App\Models;
 
-use Database\Factories\UserFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable([
-    'name',
-    'email',
-    'phone',
-    'address',
-    'photo',
-    'role',
-    'password'
-])]
-#[Hidden([
-    'password',
-    'remember_token'
-])]
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    /**
+     * Mass Assignable
+     */
+    protected $fillable = [
+        'name',
+        'email',
+        'phone',
+        'address',
+        'foto',
+        'role',
+        'password',
+    ];
+
+    /**
+     * Hidden
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * Cast
+     */
     protected function casts(): array
     {
         return [

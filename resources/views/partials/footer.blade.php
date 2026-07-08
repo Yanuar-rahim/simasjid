@@ -1,101 +1,83 @@
-<footer class="bg-emerald-900 text-white">
-
-    <div class="max-w-8xl mx-auto px-8 sm:px-14 lg:px-28 py-16">
-
-        <div class="grid lg:grid-cols-4 gap-10">
-
-            <div>
-
-                <h2 class="text-3xl font-bold">
-
-                    🕌 SIMASJID
-
-                </h2>
-
-                <p class="mt-5 text-emerald-100 leading-8">
-
-                    Sistem Informasi Manajemen Masjid
-                    dan Keuangan Digital.
-
-                </p>
-
-            </div>
-
-            <div>
-
-                <h3 class="font-bold text-xl">
-
-                    Menu
-
-                </h3>
-
-                <ul class="space-y-3 mt-5">
-
-                    <li><a href="#home">Beranda</a></li>
-
-                    <li><a href="#tentang">Tentang</a></li>
-
-                    <li><a href="#kegiatan">Kegiatan</a></li>
-
-                    <li><a href="#keuangan">Keuangan</a></li>
-
-                </ul>
-
-            </div>
-
-            <div>
-
-                <h3 class="font-bold text-xl">
-
-                    Kontak
-
-                </h3>
-
-                <p class="mt-5">
-
-                    +62-823-3109-6562
-
-                </p>
-
-                <p>
-
-                    info@simasjid.id
-
-                </p>
-
-            </div>
-
-            <div>
-
-                <h3 class="font-bold text-xl">
-
-                    Ikuti Kami
-
-                </h3>
-
-                <div class="flex gap-5 mt-5 text-2xl">
-
-                    <i class="fab fa-facebook"></i>
-
-                    <i class="fab fa-instagram"></i>
-
-                    <i class="fab fa-youtube"></i>
-
-                    <i class="fab fa-whatsapp"></i>
-
+<!-- ======================================
+                    FOOTER
+    ======================================= -->
+    <footer class="bg-slate-900 text-slate-300">
+        <div class="max-w-8xl mx-auto px-8 sm:px-14 lg:px-28 py-20">
+            <div class="grid lg:grid-cols-4 gap-12">
+                <!-- Logo -->
+                <div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-600 flex items-center justify-center">
+                            <i class="fa-solid fa-mosque text-white text-2xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-white">
+                                SIMASJID
+                            </h2>
+                        </div>
+                    </div>
+                    <p class="mt-6 leading-8">
+                        Sistem Informasi Manajemen Masjid yang membantu
+                        pengurus dan jamaah dalam pengelolaa kegiatan,
+                        donasi, dan informasi secara digital.
+                    </p>
                 </div>
-
+                <!-- Menu -->
+                <div>
+                    <h3 class="text-xl font-semibold text-white">
+                        Menu
+                    </h3>
+                    <ul class="space-y-4 mt-6">
+                        <li><a href="#beranda" class="hover:text-white">Beranda</a></li>
+                        <li><a href="#donasi" class="hover:text-white">Donasi</a></li>
+                        <li><a href="#riwayat" class="hover:text-white">Riwayat</a></li>
+                        <li><a href="#kegiatan" class="hover:text-white">Kegiatan</a></li>
+                    </ul>
+                </div>
+                <!-- Kontak -->
+                <div>
+                    <h3 class="text-xl font-semibold text-white">
+                        Kontak
+                    </h3>
+                    <ul class="space-y-4 mt-6">
+                        <li>
+                            <i class="fa-solid fa-location-dot mr-2"></i>
+                            Kota Baubau
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-phone mr-2"></i>
+                            0812-3456-7890
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-envelope mr-2"></i>
+                            admin@simasjid.id
+                        </li>
+                    </ul>
+                </div>
+                <!-- Sosial -->
+                <div>
+                    <h3 class="text-xl font-semibold text-white">
+                        Media Sosial
+                    </h3>
+                    <div class="flex gap-4 mt-6">
+                        <a href="#"
+                            class="w-12 h-12 rounded-full bg-slate-800 hover:bg-emerald-600 flex items-center justify-center">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#"
+                            class="w-12 h-12 rounded-full bg-slate-800 hover:bg-emerald-600 flex items-center justify-center">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#"
+                            class="w-12 h-12 rounded-full bg-slate-800 hover:bg-emerald-600 flex items-center justify-center">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
-
+            <div class="border-t border-slate-700 mt-16 pt-8 text-center">
+                © {{ date('Y') }} SIMASJID.
+                All Rights Reserved.
+            </div>
         </div>
-
-        <div class="border-t border-emerald-700 mt-12 pt-8 text-center text-emerald-200">
-
-            © {{ date('Y') }} SIMASJID.
-            All Rights Reserved.
-
-        </div>
-
-    </div>
-
-</footer>
+    </footer>

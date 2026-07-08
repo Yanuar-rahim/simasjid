@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,15 +27,33 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user = $request->user();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $user->fill($request->validated());
+
+        if ($request->hasFile('foto')) {
+
+            // hapus foto lama
+            if ($user->foto && Storage::disk('public')->exists($user->foto)) {
+
+                Storage::disk('public')->delete($user->foto);
+            }
+
+            // simpan foto baru
+            $user->foto = $request
+                ->file('foto')
+                ->store('profile', 'public');
         }
 
-        $request->user()->save();
+        if ($user->isDirty('email')) {
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+            $user->email_verified_at = null;
+        }
+
+        $user->save();
+
+        return Redirect::route('profile.edit')
+            ->with('status', 'profile-updated');
     }
 
     /**

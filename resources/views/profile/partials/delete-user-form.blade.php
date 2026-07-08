@@ -1,55 +1,89 @@
-<section class="space-y-6">
-    <header>
-        <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Delete Account') }}
-        </h2>
+<section>
 
-        <p class="mt-1 text-sm text-gray-600">
-            {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.') }}
+    <div class="mb-8">
+
+        <h3 class="text-2xl font-bold text-red-600">
+
+            Hapus Akun
+
+        </h3>
+
+        <p class="text-slate-500 mt-2 leading-8">
+
+            Menghapus akun akan menghilangkan seluruh data Anda secara permanen.
+            Tindakan ini tidak dapat dibatalkan.
+
         </p>
-    </header>
 
-    <x-danger-button
-        x-data=""
-        x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
-    >{{ __('Delete Account') }}</x-danger-button>
+    </div>
 
-    <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
-        <form method="post" action="{{ route('profile.destroy') }}" class="p-6">
-            @csrf
-            @method('delete')
+    <div class="bg-red-50 border border-red-200 rounded-2xl p-6">
 
-            <h2 class="text-lg font-medium text-gray-900">
-                {{ __('Are you sure you want to delete your account?') }}
-            </h2>
+        <div class="flex items-start gap-4">
 
-            <p class="mt-1 text-sm text-gray-600">
-                {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.') }}
-            </p>
+            <div
+                class="w-12 h-12 rounded-xl bg-red-100 flex items-center justify-center">
 
-            <div class="mt-6">
-                <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" />
+                <i class="fa-solid fa-triangle-exclamation text-red-600"></i>
 
-                <x-text-input
-                    id="password"
-                    name="password"
-                    type="password"
-                    class="mt-1 block w-3/4"
-                    placeholder="{{ __('Password') }}"
-                />
-
-                <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2" />
             </div>
 
-            <div class="mt-6 flex justify-end">
-                <x-secondary-button x-on:click="$dispatch('close')">
-                    {{ __('Cancel') }}
-                </x-secondary-button>
+            <div>
 
-                <x-danger-button class="ms-3">
-                    {{ __('Delete Account') }}
-                </x-danger-button>
+                <h4 class="font-bold text-red-700">
+
+                    Peringatan
+
+                </h4>
+
+                <p class="text-slate-600 mt-2">
+
+                    Pastikan Anda benar-benar ingin menghapus akun ini.
+
+                </p>
+
             </div>
-        </form>
-    </x-modal>
+
+        </div>
+
+    </div>
+
+    <form
+        method="POST"
+        action="{{ route('profile.destroy') }}"
+        class="mt-8 space-y-6">
+
+        @csrf
+        @method('DELETE')
+
+        <div>
+
+            <label class="block mb-2 font-semibold text-slate-700">
+
+                Masukkan Password
+
+            </label>
+
+            <input
+                type="password"
+                name="password"
+                class="w-full rounded-2xl border-slate-300 focus:border-red-500 focus:ring-red-500">
+
+            <x-input-error
+                :messages="$errors->userDeletion->get('password')"
+                class="mt-2" />
+
+        </div>
+
+        <button
+            type="submit"
+            onclick="return confirm('Yakin ingin menghapus akun ini?')"
+            class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-2xl font-semibold transition">
+
+            Hapus Akun
+
+        </button>
+
+    </form>
+
 </section>
