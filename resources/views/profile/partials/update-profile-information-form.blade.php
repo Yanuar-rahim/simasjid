@@ -82,7 +82,7 @@
                 type="text"
                 name="name"
                 value="{{ old('name', $user->name) }}"
-                class="w-full rounded-2xl border-slate-300 focus:border-emerald-600 focus:ring-emerald-600">
+                class="w-full mt-3 px-5 py-2 text-lg rounded-2xl border border-slate-300 focus:border-emerald-600 focus:ring-emerald-600 transition">
 
             <x-input-error
                 :messages="$errors->get('name')"
@@ -101,7 +101,7 @@
                 type="email"
                 name="email"
                 value="{{ old('email', $user->email) }}"
-                class="w-full rounded-2xl border-slate-300 focus:border-emerald-600 focus:ring-emerald-600">
+                class="w-full mt-3 px-5 py-2 text-lg rounded-2xl border border-slate-300 focus:border-emerald-600 focus:ring-emerald-600 transition">
 
             <x-input-error
                 :messages="$errors->get('email')"
@@ -120,7 +120,7 @@
                 type="text"
                 name="phone"
                 value="{{ old('phone', $user->phone) }}"
-                class="w-full rounded-2xl border-slate-300 focus:border-emerald-600 focus:ring-emerald-600">
+                class="w-full mt-3 px-5 py-2 text-lg rounded-2xl border border-slate-300 focus:border-emerald-600 focus:ring-emerald-600 transition">
 
         </div>
 
@@ -134,7 +134,7 @@
             <textarea
                 name="address"
                 rows="4"
-                class="w-full rounded-2xl border-slate-300 focus:border-emerald-600 focus:ring-emerald-600">{{ old('address', $user->address) }}</textarea>
+                class="w-full mt-3 px-5 py-2 text-lg rounded-2xl border border-slate-300 focus:border-emerald-600 focus:ring-emerald-600 transition">{{ old('address', $user->address) }}</textarea>
 
         </div>
 

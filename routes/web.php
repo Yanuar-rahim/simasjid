@@ -14,7 +14,7 @@ use App\Http\Controllers\Admin\PengumumanController;
 */
 
 Route::get('/', [HomeController::class, 'index'])
-    ->name('landing');
+    ->name('home');
 
 /*
 |--------------------------------------------------------------------------

@@ -40,7 +40,7 @@
                             type="text"
                             value="{{ Auth::user()->name }}"
                             readonly
-                            class="w-full mt-3 rounded-2xl border border-slate-300 bg-slate-100">
+                            class="w-full mt-3 px-5 py-2 text-lg rounded-2xl border border-slate-300 focus:border-emerald-600 focus:ring-emerald-600 transition">
                     </div>
                     <div>
                         <label class="font-semibold">
@@ -50,14 +50,14 @@
                             type="email"
                             value="{{ Auth::user()->email }}"
                             readonly
-                            class="w-full mt-3 rounded-2xl border border-slate-300 bg-slate-100">
+                            class="w-full mt-3 px-5 py-2 text-lg rounded-2xl border border-slate-300 focus:border-emerald-600 focus:ring-emerald-600 transition">
                     </div>
                     <div>
                         <label class="font-semibold">
                             Jenis Donasi
                         </label>
                         <select
-                            class="w-full mt-3 rounded-2xl border border-slate-300">
+                            class="w-full mt-3 px-5 py-2 text-lg rounded-2xl border border-slate-300 focus:border-emerald-600 focus:ring-emerald-600 transition">
                             <option>Infak</option>
                             <option>Sedekah</option>
                             <option>Wakaf</option>
@@ -71,7 +71,7 @@
                         <input
                             type="number"
                             placeholder="100000"
-                            class="w-full mt-3 rounded-2xl border border-slate-300">
+                            class="w-full mt-3 px-5 py-2 text-lg rounded-2xl border border-slate-300 focus:border-emerald-600 focus:ring-emerald-600 transition">
                     </div>
                 </div>
                 <button

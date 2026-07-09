@@ -17,7 +17,6 @@
                     </small>
                 </div>
             </a>
-
             <!-- Menu -->
             <ul class="hidden lg:flex gap-8 font-medium">
 
