@@ -67,7 +67,7 @@
             <input
                 type="password"
                 name="password"
-                class="w-full rounded-2xl border-slate-300 focus:border-red-500 focus:ring-red-500">
+                class="w-full mt-3 px-5 py-2 text-lg rounded-2xl border border-slate-300 focus:border-red-500 focus:ring-red-500">
 
             <x-input-error
                 :messages="$errors->userDeletion->get('password')"

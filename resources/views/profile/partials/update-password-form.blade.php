@@ -30,7 +30,7 @@
             <input
                 type="password"
                 name="current_password"
-                class="w-full rounded-2xl border-slate-300 focus:border-emerald-600 focus:ring-emerald-600">
+                class="w-full mt-3 px-5 py-2 text-lg rounded-2xl border border-slate-300 focus:border-emerald-600 focus:ring-emerald-600 transition">
 
             <x-input-error
                 :messages="$errors->updatePassword->get('current_password')"
@@ -48,7 +48,7 @@
             <input
                 type="password"
                 name="password"
-                class="w-full rounded-2xl border-slate-300 focus:border-emerald-600 focus:ring-emerald-600">
+                class="w-full mt-3 px-5 py-2 text-lg rounded-2xl border border-slate-300 focus:border-emerald-600 focus:ring-emerald-600 transition">
 
             <x-input-error
                 :messages="$errors->updatePassword->get('password')"
@@ -66,7 +66,7 @@
             <input
                 type="password"
                 name="password_confirmation"
-                class="w-full rounded-2xl border-slate-300 focus:border-emerald-600 focus:ring-emerald-600">
+                class="w-full mt-3 px-5 py-2 text-lg rounded-2xl border border-slate-300 focus:border-emerald-600 focus:ring-emerald-600 transition">
 
         </div>
 

@@ -237,6 +237,12 @@
 
     </div>
 
+    <div>
+
+        {{ $kegiatan->links() }}
+
+    </div>
+
 </div>
 
 @endsection

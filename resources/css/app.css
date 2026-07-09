@@ -27,7 +27,6 @@
     body {
         font-family: 'Poppins', sans-serif;
     }
-
 }
 
 @layer components {
@@ -59,25 +58,18 @@
     .btn-secondary {
         @apply px-7 py-3 rounded-xl bg-amber-400 hover:bg-amber-500 text-white transition;
     }
-
 }
 
 .sidebar-menu {
-
     @apply flex items-center gap-4 px-5 py-4 rounded-2xl text-slate-500 font-medium transition-all duration-300;
-
 }
 
 .sidebar-menu:hover {
-
     @apply bg-slate-100 text-slate-800;
-
 }
 
 .sidebar-active {
-
     @apply flex items-center gap-4 px-5 py-4 rounded-2xl bg-emerald-50 text-emerald-700 font-semibold;
-
 }
 
 .dashboard-card {

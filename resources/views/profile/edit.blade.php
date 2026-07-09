@@ -155,7 +155,7 @@
                 <!-- Sidebar -->
                 <div class="space-y-6">
 
-                    <!-- Profil Singkat -->
+                    <!-- Profil Singkat
                     <div class="bg-white rounded-3xl shadow-lg p-8 text-center">
 
                         @if(Auth::user()->foto)
@@ -187,7 +187,7 @@
                             {{ ucfirst(Auth::user()->role) }}
                         </span>
 
-                    </div>
+                    </div> -->
 
                     <!-- Ringkasan Akun -->
                     <div class="bg-white rounded-3xl shadow-lg p-8">
