@@ -205,12 +205,12 @@
                                 </span>
                             </div>
 
-                            <div class="flex justify-between">
+                            <!-- <div class="flex justify-between">
                                 <span class="text-slate-500">Role</span>
                                 <span class="font-semibold">
                                     {{ ucfirst(Auth::user()->role) }}
                                 </span>
-                            </div>
+                            </div> -->
 
                             <div class="flex justify-between">
                                 <span class="text-slate-500">Bergabung</span>
@@ -238,7 +238,7 @@
                     </div>
 
                     <!-- Aktivitas Terbaru -->
-                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                    <!-- <div class="bg-white rounded-3xl shadow-lg p-8">
 
                         <h3 class="text-xl font-bold mb-6">
                             Aktivitas Terbaru
@@ -308,7 +308,7 @@
 
                         </div>
 
-                    </div>
+                    </div> -->
 
                     <!-- Achievement -->
                     <div class="bg-white rounded-3xl shadow-lg p-8">
