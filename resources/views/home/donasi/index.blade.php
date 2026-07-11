@@ -19,7 +19,7 @@
 
             <!-- Heading -->
 
-            <div class="text-center mb-16">
+            <div class="text-center mb-16" data-aos="fade-up">
 
                 <div
                     class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-emerald-100">
@@ -59,7 +59,7 @@
             FORM DONASI
             ============================ -->
 
-                <div class="lg:col-span-2">
+                <div class="lg:col-span-2" data-aos="fade-right">
 
                     <form
                         action="{{ route('user.donasi.store')}}"
@@ -232,7 +232,7 @@
             SIDEBAR
             ======================= -->
 
-                <div class="space-y-8">
+                <div class="space-y-8" data-aos="fade-left" data-aos-delay="200">
 
                     <!-- Ringkasan -->
 
@@ -324,7 +324,7 @@
 
                     <!-- Progress -->
 
-                    <div class="bg-white rounded-[35px] shadow-xl p-8">
+                    <div class="bg-white rounded-[35px] shadow-xl p-8" data-aos="fade-up" data-aos-delay="100">
 
                         <h3 class="text-2xl font-bold">
 
@@ -378,7 +378,8 @@
                     <!-- Aman -->
 
                     <div
-                        class="rounded-[35px] bg-gradient-to-br from-emerald-600 to-green-700 p-8 text-white">
+                        class="rounded-[35px] bg-gradient-to-br from-emerald-600 to-green-700 p-8 text-white"
+                        data-aos="fade-up" data-aos-delay="200">
 
                         <i class="fa-solid fa-shield-halved text-5xl"></i>
 

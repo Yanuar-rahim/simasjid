@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Donasi;
 use App\Models\Kegiatan;
 use App\Models\Pengumuman;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -40,7 +41,20 @@ class HomeController extends Controller
 
     public function userHome()
     {
-        return view('home.index');
+        $kegiatan = Kegiatan::where('status', 'Aktif')
+            ->latest()
+            ->take(3)
+            ->get();
+
+        $pengumuman = Pengumuman::where('status', 'Aktif')
+            ->latest()
+            ->take(3)
+            ->get();
+
+        return view('home.index', compact(
+            'kegiatan',
+            'pengumuman'
+        ));
     }
 
     public function donasi()
@@ -48,9 +62,48 @@ class HomeController extends Controller
         return view('home.donasi.index');
     }
 
-    public function riwayat()
+    public function riwayat(Request $request)
     {
-        return view('home.riwayat.index');
+        $userId = auth()->id();
+
+        $query = Donasi::query()
+            ->where('user_id', $userId);
+
+        $allowedJenis = ['Infak', 'Sedekah', 'Wakaf', 'Pembangunan'];
+
+        if ($request->filled('jenis') && in_array($request->jenis, $allowedJenis, true)) {
+            $query->where('jenis_donasi', $request->jenis);
+        }
+
+        $donasi = $query
+            ->latest('tanggal')
+            ->paginate(10)
+            ->withQueryString();
+
+        $totalDonasi = Donasi::where('user_id', $userId)
+            ->where('status', 'Diterima')
+            ->sum('nominal');
+
+        $jumlahTransaksi = Donasi::where('user_id', $userId)->count();
+
+        $donasiTerakhir = Donasi::where('user_id', $userId)
+            ->latest('tanggal')
+            ->first();
+
+        $distribusi = Donasi::query()
+            ->where('user_id', $userId)
+            ->selectRaw('jenis_donasi, count(*) as total')
+            ->groupBy('jenis_donasi')
+            ->pluck('total', 'jenis_donasi');
+
+        return view('home.riwayat.index', compact(
+            'donasi',
+            'totalDonasi',
+            'jumlahTransaksi',
+            'donasiTerakhir',
+            'distribusi',
+            'allowedJenis',
+        ));
     }
 
     public function kegiatan()

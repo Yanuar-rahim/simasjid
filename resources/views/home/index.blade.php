@@ -40,13 +40,13 @@
                     </p>
                     <div class="flex flex-wrap gap-5 mt-12">
                         <a
-                            href="#donasi"
+                            href="{{ route('user.donasi') }}"
                             class="px-8 py-4 rounded-2xl bg-white text-emerald-700 font-semibold hover:scale-105 transition">
                             <i class="fa-solid fa-hand-holding-heart mr-2"></i>
                             Donasi Sekarang
                         </a>
                         <a
-                            href="#riwayat"
+                            href="{{ route('user.riwayat') }}"
                             class="px-8 py-4 rounded-2xl border border-white hover:bg-white hover:text-emerald-700 transition">
                             <i class="fa-solid fa-clock-rotate-left mr-2"></i>
                             Riwayat Donasi
@@ -179,7 +179,7 @@
     <section class="pb-20 bg-white" data-aos="fade-up">
         <div class="max-w-8xl mx-auto px-8 sm:px-14 lg:px-28">
             <div class="grid md:grid-cols-4 gap-8">
-                <a href="#donasi"
+                <a href="{{ route('user.donasi') }}"
                     class="group bg-emerald-600 rounded-3xl p-8 text-white hover:-translate-y-2 duration-300"
                     data-aos="zoom-in">
                     <i class="fa-solid fa-hand-holding-heart text-4xl"></i>
@@ -190,7 +190,7 @@
                         Salurkan donasi Anda secara online.
                     </p>
                 </a>
-                <a href="#riwayat"
+                <a href="{{ route('user.riwayat') }}"
                     class="group bg-white rounded-3xl shadow-lg p-8 hover:-translate-y-2 duration-300"
                     data-aos="zoom-in" data-aos-delay="100">
                     <i class="fa-solid fa-receipt text-emerald-600 text-4xl"></i>
@@ -201,7 +201,7 @@
                         Lihat seluruh riwayat donasi Anda.
                     </p>
                 </a>
-                <a href="#kegiatan"
+                <a href="{{ route('user.kegiatan') }}"
                     class="group bg-white rounded-3xl shadow-lg p-8 hover:-translate-y-2 duration-300"
                     data-aos="zoom-in" data-aos-delay="200">
                     <i class="fa-solid fa-calendar-days text-emerald-600 text-4xl"></i>
@@ -212,7 +212,7 @@
                         Ikuti seluruh kegiatan masjid.
                     </p>
                 </a>
-                <a href="#pengumuman"
+                <a href="{{ route('user.pengumuman') }}"
                     class="group bg-white rounded-3xl shadow-lg p-8 hover:-translate-y-2 duration-300"
                     data-aos="zoom-in" data-aos-delay="300">
                     <i class="fa-solid fa-bullhorn text-emerald-600 text-4xl"></i>
@@ -244,101 +244,57 @@
                         Ikuti seluruh kegiatan yang diselenggarakan oleh masjid.
                     </p>
                 </div>
-                <a href="#" class="text-emerald-600 font-semibold">
+                <a href="{{ route('user.kegiatan') }}" class="text-emerald-600 font-semibold hover:text-emerald-700">
                     Lihat Semua →
                 </a>
             </div>
             <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-8 mt-14">
-                <!-- Card -->
-                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:-translate-y-2 duration-300" data-aos="fade-up">
-                    <img src="{{ asset('assets/images/hero-masjid.png') }}"
+                @forelse($kegiatan as $index => $item)
+                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:-translate-y-2 duration-300"
+                    data-aos="fade-up" @if($index > 0) data-aos-delay="{{ $index * 100 }}" @endif>
+                    <img
+                        src="{{ $item->gambar ? asset('storage/'.$item->gambar) : asset('assets/images/no-image.png') }}"
                         class="w-full h-60 object-cover">
                     <div class="p-7">
+                        @if($item->pemateri)
                         <span class="inline-flex px-4 py-1 rounded-full bg-emerald-100 text-emerald-700 text-sm">
-                            Kajian
+                            {{ $item->pemateri }}
                         </span>
+                        @endif
                         <h3 class="font-bold text-2xl mt-5">
-                            Kajian Ba'da Maghrib
+                            {{ $item->judul }}
                         </h3>
                         <p class="text-slate-500 mt-4 leading-8">
-                            Kajian rutin setiap malam Jumat bersama Ustadz Ahmad.
+                            {{ Str::limit($item->deskripsi, 80) }}
                         </p>
                         <div class="mt-6 space-y-2 text-slate-600">
                             <div>
                                 <i class="fa-solid fa-calendar mr-2"></i>
-                                12 Juli 2026
+                                {{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') }}
                             </div>
                             <div>
                                 <i class="fa-solid fa-location-dot mr-2"></i>
-                                Masjid Raya
+                                {{ $item->lokasi }}
                             </div>
                         </div>
-                        <button
-                            class="mt-8 w-full py-3 rounded-2xl bg-emerald-600 text-white hover:bg-emerald-700">
+                        <a
+                            href="{{ route('kegiatan.detail', $item->slug) }}"
+                            class="mt-8 block w-full py-3 rounded-2xl bg-emerald-600 text-white text-center hover:bg-emerald-700">
                             Selengkapnya
-                        </button>
+                        </a>
                     </div>
                 </div>
-                <!-- Card -->
-                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:-translate-y-2 duration-300" data-aos="fade-up" data-aos-delay="100">
-                    <img src="{{ asset('assets/images/hero-masjid.png') }}"
-                        class="w-full h-60 object-cover">
-                    <div class="p-7">
-                        <span class="inline-flex px-4 py-1 rounded-full bg-blue-100 text-blue-700 text-sm">
-                            Santunan
-                        </span>
-                        <h3 class="font-bold text-2xl mt-5">
-                            Santunan Anak Yatim
-                        </h3>
-                        <p class="text-slate-500 mt-4 leading-8">
-                            Penyaluran bantuan kepada anak yatim dan dhuafa.
-                        </p>
-                        <div class="mt-6 space-y-2 text-slate-600">
-                            <div>
-                                <i class="fa-solid fa-calendar mr-2"></i>
-                                20 Juli 2026
-                            </div>
-                            <div>
-                                <i class="fa-solid fa-location-dot mr-2"></i>
-                                Aula Masjid
-                            </div>
-                        </div>
-                        <button
-                            class="mt-8 w-full py-3 rounded-2xl bg-emerald-600 text-white hover:bg-emerald-700">
-                            Selengkapnya
-                        </button>
-                    </div>
+                @empty
+                <div class="col-span-full text-center py-20">
+                    <i class="fa-solid fa-calendar-xmark text-6xl text-slate-300"></i>
+                    <h3 class="mt-5 text-2xl font-semibold">
+                        Belum ada kegiatan
+                    </h3>
+                    <p class="text-slate-500 mt-2">
+                        Data kegiatan akan tampil di sini.
+                    </p>
                 </div>
-                <!-- Card -->
-                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:-translate-y-2 duration-300" data-aos="fade-up" data-aos-delay="200">
-                    <img src="{{ asset('assets/images/hero-masjid.png') }}"
-                        class="w-full h-60 object-cover">
-                    <div class="p-7">
-                        <span class="inline-flex px-4 py-1 rounded-full bg-orange-100 text-orange-700 text-sm">
-                            Gotong Royong
-                        </span>
-                        <h3 class="font-bold text-2xl mt-5">
-                            Kerja Bakti Masjid
-                        </h3>
-                        <p class="text-slate-500 mt-4 leading-8">
-                            Membersihkan area masjid bersama seluruh jamaah.
-                        </p>
-                        <div class="mt-6 space-y-2 text-slate-600">
-                            <div>
-                                <i class="fa-solid fa-calendar mr-2"></i>
-                                28 Juli 2026
-                            </div>
-                            <div>
-                                <i class="fa-solid fa-location-dot mr-2"></i>
-                                Halaman Masjid
-                            </div>
-                        </div>
-                        <button
-                            class="mt-8 w-full py-3 rounded-2xl bg-emerald-600 text-white hover:bg-emerald-700">
-                            Selengkapnya
-                        </button>
-                    </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </section>
@@ -359,84 +315,48 @@
                         Ikuti informasi terbaru dari pengurus masjid.
                     </p>
                 </div>
-                <a href="#"
+                <a href="{{ route('user.pengumuman') }}"
                     class="text-emerald-600 font-semibold hover:text-emerald-700">
                     Lihat Semua →
                 </a>
             </div>
             <div class="grid lg:grid-cols-3 gap-8 mt-14">
-                <!-- Card -->
+                @forelse($pengumuman as $index => $item)
                 <div
                     class="bg-white rounded-3xl shadow-lg overflow-hidden hover:-translate-y-2 duration-300"
-                    data-aos="fade-up">
+                    data-aos="fade-up" @if($index > 0) data-aos-delay="{{ $index * 100 }}" @endif>
                     <img
-                        src="{{ asset('assets/images/hero-masjid.png') }}"
-                        class="w-full h-56 object-cover">
-                    <div class="p-7">
-                        <span
-                            class="inline-flex px-4 py-1 rounded-full bg-blue-100 text-blue-700">
-                            Pengumuman
-                        </span>
-                        <h3 class="text-2xl font-bold mt-5">
-                            Jadwal Sholat Idul Adha
-                        </h3>
-                        <p class="text-slate-500 leading-8 mt-4">
-                            Pelaksanaan Sholat Idul Adha dimulai pukul 06.30 WITA.
-                        </p>
-                        <button
-                            class="mt-8 text-emerald-600 font-semibold">
-                            Selengkapnya →
-                        </button>
-                    </div>
-                </div>
-                <!-- Card -->
-                <div
-                    class="bg-white rounded-3xl shadow-lg overflow-hidden hover:-translate-y-2 duration-300"
-                    data-aos="fade-up" data-aos-delay="100">
-                    <img
-                        src="{{ asset('assets/images/hero-masjid.png') }}"
-                        class="w-full h-56 object-cover">
-                    <div class="p-7">
-                        <span
-                            class="inline-flex px-4 py-1 rounded-full bg-yellow-100 text-yellow-700">
-                            Informasi
-                        </span>
-                        <h3 class="text-2xl font-bold mt-5">
-                            Renovasi Tempat Wudhu
-                        </h3>
-                        <p class="text-slate-500 leading-8 mt-4">
-                            Renovasi dilaksanakan mulai tanggal 20 Juli sampai selesai.
-                        </p>
-                        <button
-                            class="mt-8 text-emerald-600 font-semibold">
-                            Selengkapnya →
-                        </button>
-                    </div>
-                </div>
-                <!-- Card -->
-                <div
-                    class="bg-white rounded-3xl shadow-lg overflow-hidden hover:-translate-y-2 duration-300"
-                    data-aos="fade-up" data-aos-delay="200">
-                    <img
-                        src="{{ asset('assets/images/hero-masjid.png') }}"
+                        src="{{ $item->gambar ? asset('storage/'.$item->gambar) : asset('assets/images/no-image.png') }}"
                         class="w-full h-56 object-cover">
                     <div class="p-7">
                         <span
                             class="inline-flex px-4 py-1 rounded-full bg-emerald-100 text-emerald-700">
-                            Agenda
+                            {{ $item->kategori }}
                         </span>
                         <h3 class="text-2xl font-bold mt-5">
-                            Musyawarah Pengurus
+                            {{ $item->judul }}
                         </h3>
                         <p class="text-slate-500 leading-8 mt-4">
-                            Seluruh pengurus dimohon hadir pada rapat bulanan.
+                            {{ Str::limit(strip_tags($item->isi), 100) }}
                         </p>
-                        <button
-                            class="mt-8 text-emerald-600 font-semibold">
+                        <a
+                            href="{{ route('pengumuman.detail', $item->slug) }}"
+                            class="mt-8 inline-block text-emerald-600 font-semibold">
                             Selengkapnya →
-                        </button>
+                        </a>
                     </div>
                 </div>
+                @empty
+                <div class="col-span-full text-center py-20">
+                    <i class="fa-solid fa-bullhorn text-6xl text-slate-300"></i>
+                    <h3 class="text-2xl font-semibold mt-5">
+                        Belum ada pengumuman
+                    </h3>
+                    <p class="text-slate-500 mt-2">
+                        Pengumuman terbaru akan tampil di sini.
+                    </p>
+                </div>
+                @endforelse
             </div>
         </div>
     </section>
@@ -453,7 +373,7 @@
                 yang terus mengalir pahalanya.
             </p>
             <a
-                href="#donasi"
+                href="{{ route('user.donasi') }}"
                 class="inline-flex items-center gap-3 mt-10 px-10 py-5 rounded-2xl bg-white text-emerald-700 font-bold hover:scale-105 transition">
                 <i class="fa-solid fa-hand-holding-heart"></i>
                 Donasi Sekarang
