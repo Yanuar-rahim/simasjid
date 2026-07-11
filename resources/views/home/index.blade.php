@@ -54,7 +54,11 @@
                     </div>
                 </div>
                 <!-- Kanan -->
+<<<<<<< HEAD
                 <div class="relative" data-aos="fade-left">
+=======
+                <div class="relative" data-aos="fade-left" data-aos-delay="200">
+>>>>>>> 197997ed7fbe93f2ccdd2d91cb6112be32996372
                     <img
                         src="{{ asset('assets/images/hero-masjid.png') }}"
                         class="w-full">
@@ -95,7 +99,7 @@
             </div>
             <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-8 mt-14" data-aos="fade-up">
                 <!-- Card -->
-                <div class="bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-3xl p-8 text-white shadow-xl">
+                <div class="bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-3xl p-8 text-white shadow-xl" data-aos="fade-up">
                     <div class="flex justify-between">
                         <div>
                             <p class="text-emerald-100">
@@ -114,7 +118,7 @@
                     </div>
                 </div>
                 <!-- Card -->
-                <div class="bg-white rounded-3xl shadow-lg p-8">
+                <div class="bg-white rounded-3xl shadow-lg p-8" data-aos="fade-up" data-aos-delay="100">
                     <div class="flex justify-between">
                         <div>
                             <p class="text-slate-500">
@@ -133,7 +137,7 @@
                     </div>
                 </div>
                 <!-- Card -->
-                <div class="bg-white rounded-3xl shadow-lg p-8">
+                <div class="bg-white rounded-3xl shadow-lg p-8" data-aos="fade-up" data-aos-delay="200">
                     <div class="flex justify-between">
                         <div>
                             <p class="text-slate-500">
@@ -152,7 +156,7 @@
                     </div>
                 </div>
                 <!-- Card -->
-                <div class="bg-white rounded-3xl shadow-lg p-8">
+                <div class="bg-white rounded-3xl shadow-lg p-8" data-aos="fade-up" data-aos-delay="300">
                     <div class="flex justify-between">
                         <div>
                             <p class="text-slate-500">
@@ -180,7 +184,8 @@
         <div class="max-w-8xl mx-auto px-8 sm:px-14 lg:px-28">
             <div class="grid md:grid-cols-4 gap-8">
                 <a href="#donasi"
-                    class="group bg-emerald-600 rounded-3xl p-8 text-white hover:-translate-y-2 duration-300">
+                    class="group bg-emerald-600 rounded-3xl p-8 text-white hover:-translate-y-2 duration-300"
+                    data-aos="zoom-in">
                     <i class="fa-solid fa-hand-holding-heart text-4xl"></i>
                     <h3 class="mt-6 text-2xl font-bold">
                         Donasi
@@ -190,7 +195,8 @@
                     </p>
                 </a>
                 <a href="#riwayat"
-                    class="group bg-white rounded-3xl shadow-lg p-8 hover:-translate-y-2 duration-300">
+                    class="group bg-white rounded-3xl shadow-lg p-8 hover:-translate-y-2 duration-300"
+                    data-aos="zoom-in" data-aos-delay="100">
                     <i class="fa-solid fa-receipt text-emerald-600 text-4xl"></i>
                     <h3 class="mt-6 text-2xl font-bold">
                         Riwayat
@@ -200,7 +206,8 @@
                     </p>
                 </a>
                 <a href="#kegiatan"
-                    class="group bg-white rounded-3xl shadow-lg p-8 hover:-translate-y-2 duration-300">
+                    class="group bg-white rounded-3xl shadow-lg p-8 hover:-translate-y-2 duration-300"
+                    data-aos="zoom-in" data-aos-delay="200">
                     <i class="fa-solid fa-calendar-days text-emerald-600 text-4xl"></i>
                     <h3 class="mt-6 text-2xl font-bold">
                         Kegiatan
@@ -210,7 +217,8 @@
                     </p>
                 </a>
                 <a href="#pengumuman"
-                    class="group bg-white rounded-3xl shadow-lg p-8 hover:-translate-y-2 duration-300">
+                    class="group bg-white rounded-3xl shadow-lg p-8 hover:-translate-y-2 duration-300"
+                    data-aos="zoom-in" data-aos-delay="300">
                     <i class="fa-solid fa-bullhorn text-emerald-600 text-4xl"></i>
                     <h3 class="mt-6 text-2xl font-bold">
                         Pengumuman
@@ -228,7 +236,7 @@
     ============================ -->
     <section id="kegiatan" class="py-24 bg-slate-50">
         <div class="max-w-8xl mx-auto px-8 sm:px-14 lg:px-28">
-            <div class="flex justify-between items-end">
+            <div class="flex justify-between items-end" data-aos="fade-up">
                 <div>
                     <span class="text-emerald-600 font-semibold">
                         Program Masjid
@@ -246,7 +254,7 @@
             </div>
             <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-8 mt-14">
                 <!-- Card -->
-                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:-translate-y-2 duration-300">
+                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:-translate-y-2 duration-300" data-aos="fade-up">
                     <img src="{{ asset('assets/images/hero-masjid.png') }}"
                         class="w-full h-60 object-cover">
                     <div class="p-7">
@@ -276,7 +284,7 @@
                     </div>
                 </div>
                 <!-- Card -->
-                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:-translate-y-2 duration-300">
+                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:-translate-y-2 duration-300" data-aos="fade-up" data-aos-delay="100">
                     <img src="{{ asset('assets/images/hero-masjid.png') }}"
                         class="w-full h-60 object-cover">
                     <div class="p-7">
@@ -306,7 +314,7 @@
                     </div>
                 </div>
                 <!-- Card -->
-                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:-translate-y-2 duration-300">
+                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:-translate-y-2 duration-300" data-aos="fade-up" data-aos-delay="200">
                     <img src="{{ asset('assets/images/hero-masjid.png') }}"
                         class="w-full h-60 object-cover">
                     <div class="p-7">
@@ -343,7 +351,7 @@
     ======================================= -->
     <section id="pengumuman" class="py-24 bg-white">
         <div class="max-w-8xl mx-auto px-8 sm:px-14 lg:px-28">
-            <div class="flex items-end justify-between">
+            <div class="flex items-end justify-between" data-aos="fade-up">
                 <div>
                     <span class="text-emerald-600 font-semibold">
                         Informasi Masjid
@@ -363,7 +371,8 @@
             <div class="grid lg:grid-cols-3 gap-8 mt-14">
                 <!-- Card -->
                 <div
-                    class="bg-white rounded-3xl shadow-lg overflow-hidden hover:-translate-y-2 duration-300">
+                    class="bg-white rounded-3xl shadow-lg overflow-hidden hover:-translate-y-2 duration-300"
+                    data-aos="fade-up">
                     <img
                         src="{{ asset('assets/images/hero-masjid.png') }}"
                         class="w-full h-56 object-cover">
@@ -386,7 +395,8 @@
                 </div>
                 <!-- Card -->
                 <div
-                    class="bg-white rounded-3xl shadow-lg overflow-hidden hover:-translate-y-2 duration-300">
+                    class="bg-white rounded-3xl shadow-lg overflow-hidden hover:-translate-y-2 duration-300"
+                    data-aos="fade-up" data-aos-delay="100">
                     <img
                         src="{{ asset('assets/images/hero-masjid.png') }}"
                         class="w-full h-56 object-cover">
@@ -409,7 +419,8 @@
                 </div>
                 <!-- Card -->
                 <div
-                    class="bg-white rounded-3xl shadow-lg overflow-hidden hover:-translate-y-2 duration-300">
+                    class="bg-white rounded-3xl shadow-lg overflow-hidden hover:-translate-y-2 duration-300"
+                    data-aos="fade-up" data-aos-delay="200">
                     <img
                         src="{{ asset('assets/images/hero-masjid.png') }}"
                         class="w-full h-56 object-cover">
@@ -437,7 +448,7 @@
                 CALL TO ACTION
     ======================================= -->
     <section class="py-24 bg-gradient-to-r from-emerald-700 to-emerald-600 text-white">
-        <div class="max-w-5xl mx-auto text-center px-8">
+        <div class="max-w-5xl mx-auto text-center px-8" data-aos="zoom-in">
             <h2 class="text-5xl font-bold leading-tight">
                 Mari Bersama Memakmurkan Masjid
             </h2>
