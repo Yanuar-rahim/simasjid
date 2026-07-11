@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Donasi extends Model
 {
@@ -11,17 +11,23 @@ class Donasi extends Model
 
     protected $fillable = [
         'user_id',
+        'order_id',
         'nama_donatur',
-        'jenis_donasi',
         'email',
         'no_hp',
+        'jenis_donasi',
         'nominal',
+        'pesan',
         'metode',
-        'bukti_transfer',
-        'doa',
+        'transaction_id',
+        'snap_token',
         'status',
-        'catatan_admin',
         'tanggal',
+    ];
+
+    protected $casts = [
+        'tanggal' => 'datetime',
+        'nominal' => 'integer',
     ];
 
     public function user()

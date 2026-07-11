@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <!-- Kanan -->
-                <div class="relative" data-aos="fade-left" data-aos-delay="200">
+                <div class="relative" data-aos="fade-left">
                     <img
                         src="{{ asset('assets/images/hero-masjid.png') }}"
                         class="w-full">
@@ -93,7 +93,7 @@
                     Berikut ringkasan aktivitas donasi yang pernah Anda lakukan.
                 </p>
             </div>
-            <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-8 mt-14">
+            <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-8 mt-14" data-aos="fade-up">
                 <!-- Card -->
                 <div class="bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-3xl p-8 text-white shadow-xl" data-aos="fade-up">
                     <div class="flex justify-between">
@@ -176,7 +176,7 @@
     <!-- ===========================
         QUICK MENU
     ============================ -->
-    <section class="pb-20 bg-white">
+    <section class="pb-20 bg-white" data-aos="fade-up">
         <div class="max-w-8xl mx-auto px-8 sm:px-14 lg:px-28">
             <div class="grid md:grid-cols-4 gap-8">
                 <a href="#donasi"

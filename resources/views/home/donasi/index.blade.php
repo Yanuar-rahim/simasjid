@@ -62,7 +62,7 @@
                 <div class="lg:col-span-2">
 
                     <form
-                        action="#"
+                        action="{{ route('user.donasi.store')}}"
                         method="POST"
                         class="bg-white rounded-[35px] shadow-xl p-10">
 
@@ -107,14 +107,14 @@
                                 </label>
 
                                 <select
+                                    name="jenis_donasi"
                                     id="jenisDonasi"
                                     class="w-full mt-3 px-5 py-4 rounded-2xl border border-slate-300">
 
-                                    <option>Infak</option>
-                                    <option>Sedekah</option>
-                                    <option>Zakat</option>
-                                    <option>Wakaf</option>
-                                    <option>Pembangunan Masjid</option>
+                                    <option value="Infak">Infak</option>
+                                    <option value="Sedekah">Sedekah</option>
+                                    <option value="Wakaf">Wakaf</option>
+                                    <option value="Pembangunan">Pembangunan</option>
 
                                 </select>
 
@@ -208,6 +208,7 @@
                             </label>
 
                             <textarea
+                                name="pesan"
                                 rows="5"
                                 placeholder="Tuliskan doa atau pesan..."
                                 class="w-full mt-3 px-5 py-4 rounded-2xl border border-slate-300 focus:ring-emerald-600 focus:border-emerald-600"></textarea>
