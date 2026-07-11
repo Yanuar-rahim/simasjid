@@ -108,12 +108,42 @@ class HomeController extends Controller
 
     public function kegiatan()
     {
-        return view('home.kegiatan.index');
+        $kegiatan = Kegiatan::where('status', 'Aktif')
+            ->latest()
+            ->paginate(6)
+            ->withQueryString();
+
+        return view('home.kegiatan.index', compact('kegiatan'));
     }
 
     public function pengumuman()
     {
-        return view('home.pengumuman.index');
+        $pengumuman = Pengumuman::where('status', 'Aktif')
+            ->latest()
+            ->paginate(6)
+            ->withQueryString();
+
+        return view('home.pengumuman.index', compact('pengumuman'));
+    }
+
+    public function publicKegiatan()
+    {
+        $kegiatan = Kegiatan::where('status', 'Aktif')
+            ->latest()
+            ->paginate(6)
+            ->withQueryString();
+
+        return view('kegiatan.index', compact('kegiatan'));
+    }
+
+    public function publicPengumuman()
+    {
+        $pengumuman = Pengumuman::where('status', 'Aktif')
+            ->latest()
+            ->paginate(6)
+            ->withQueryString();
+
+        return view('pengumuman.index', compact('pengumuman'));
     }
 
     /*
@@ -140,6 +170,24 @@ class HomeController extends Controller
         ));
     }
 
+    public function userShowKegiatan($slug)
+    {
+        $kegiatan = Kegiatan::where('slug', $slug)
+            ->where('status', 'Aktif')
+            ->firstOrFail();
+
+        $lainnya = Kegiatan::where('status', 'Aktif')
+            ->where('id', '!=', $kegiatan->id)
+            ->latest()
+            ->take(3)
+            ->get();
+
+        return view('home.kegiatan.detail', compact(
+            'kegiatan',
+            'lainnya'
+        ));
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Detail Pengumuman
@@ -159,6 +207,24 @@ class HomeController extends Controller
             ->get();
 
         return view('pengumuman.detail', compact(
+            'pengumuman',
+            'pengumumanTerbaru'
+        ));
+    }
+
+    public function userShowPengumuman($slug)
+    {
+        $pengumuman = Pengumuman::where('slug', $slug)
+            ->where('status', 'Aktif')
+            ->firstOrFail();
+
+        $pengumumanTerbaru = Pengumuman::where('status', 'Aktif')
+            ->where('id', '!=', $pengumuman->id)
+            ->latest()
+            ->take(3)
+            ->get();
+
+        return view('home.pengumuman.detail', compact(
             'pengumuman',
             'pengumumanTerbaru'
         ));

@@ -26,8 +26,14 @@ Route::get('/', [HomeController::class, 'index'])
 |--------------------------------------------------------------------------
 */
 
+Route::get('/kegiatan', [HomeController::class, 'publicKegiatan'])
+    ->name('kegiatan.index');
+
 Route::get('/kegiatan/detail/{slug}', [HomeController::class, 'showKegiatan'])
     ->name('kegiatan.detail');
+
+Route::get('/pengumuman', [HomeController::class, 'publicPengumuman'])
+    ->name('pengumuman.index');
 
 Route::get('/pengumuman/detail/{slug}', [HomeController::class, 'showPengumuman'])
     ->name('pengumuman.detail');
@@ -68,12 +74,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home/kegiatan', [HomeController::class, 'kegiatan'])
         ->name('user.kegiatan');
 
+    Route::get('/home/kegiatan/{slug}', [HomeController::class, 'userShowKegiatan'])
+        ->name('user.kegiatan.detail');
+
     // =====================
     // PENGUMUMAN
     // =====================
 
     Route::get('/home/pengumuman', [HomeController::class, 'pengumuman'])
         ->name('user.pengumuman');
+
+    Route::get('/home/pengumuman/{slug}', [HomeController::class, 'userShowPengumuman'])
+        ->name('user.pengumuman.detail');
 
     // =====================
     // PROFILE
@@ -101,9 +113,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
         return view('admin.dashboard');
     })->name('dashboard');
 
-    Route::resource('kegiatan', KegiatanController::class);
+    Route::resource('kegiatan', KegiatanController::class)
+        ->except(['index']);
 
-    Route::resource('pengumuman', PengumumanController::class);
+    Route::resource('pengumuman', PengumumanController::class)
+        ->except(['index']);
 
     Route::resource('donasi', AdminDonasiController::class)
         ->except(['create', 'store']);
