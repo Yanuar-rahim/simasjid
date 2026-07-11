@@ -438,6 +438,11 @@ Program Kegiatan
                     Berbagai kegiatan ibadah, pendidikan, dan sosial yang diselenggarakan oleh masjid.
                 </p>
 
+                <a href="{{ url('/kegiatan') }}" class="inline-flex items-center gap-2 mt-6 text-emerald-700 font-semibold hover:gap-3 transition-all">
+                    Lihat Semua Kegiatan
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -546,6 +551,11 @@ Pengumuman
                 <p class="subtitle">
                     Informasi terbaru mengenai kegiatan dan layanan masjid.
                 </p>
+
+                <a href="{{ url('/pengumuman') }}" class="inline-flex items-center gap-2 mt-6 text-emerald-700 font-semibold hover:gap-3 transition-all">
+                    Lihat Semua Pengumuman
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
 
             </div>
 

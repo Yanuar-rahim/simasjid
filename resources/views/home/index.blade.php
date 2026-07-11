@@ -278,7 +278,7 @@
                             </div>
                         </div>
                         <a
-                            href="{{ route('kegiatan.detail', $item->slug) }}"
+                            href="{{ route('user.kegiatan.detail', $item->slug) }}"
                             class="mt-8 block w-full py-3 rounded-2xl bg-emerald-600 text-white text-center hover:bg-emerald-700">
                             Selengkapnya
                         </a>
@@ -340,7 +340,7 @@
                             {{ Str::limit(strip_tags($item->isi), 100) }}
                         </p>
                         <a
-                            href="{{ route('pengumuman.detail', $item->slug) }}"
+                            href="{{ route('user.pengumuman.detail', $item->slug) }}"
                             class="mt-8 inline-block text-emerald-600 font-semibold">
                             Selengkapnya →
                         </a>
