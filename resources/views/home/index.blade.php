@@ -55,10 +55,14 @@
                 </div>
                 <!-- Kanan -->
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <div class="relative" data-aos="fade-left">
 =======
                 <div class="relative" data-aos="fade-left" data-aos-delay="200">
 >>>>>>> 197997ed7fbe93f2ccdd2d91cb6112be32996372
+=======
+                <div class="relative" data-aos="fade-left">
+>>>>>>> d2f34ae75c04b95ecdd59a460e42e80480d00117
                     <img
                         src="{{ asset('assets/images/hero-masjid.png') }}"
                         class="w-full">
