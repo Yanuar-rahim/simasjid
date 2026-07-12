@@ -483,7 +483,7 @@ Program Kegiatan
                         </p>
 
                         <a
-                            href="{{ route('kegiatan.detail', $item->slug) }}"
+                            href="{{ route('public.kegiatan.detail', $item->slug) }}"
                             class="inline-flex items-center gap-2 mt-6 text-emerald-700 font-semibold hover:gap-3 transition-all">
 
                             Selengkapnya
@@ -612,7 +612,7 @@ Pengumuman
                         </p>
 
                         <a
-                            href="{{ route('pengumuman.detail',$item->slug) }}"
+                            href="{{ route('public.pengumuman.detail',$item->slug) }}"
                             class="inline-flex items-center gap-2 mt-6 text-emerald-700 font-semibold hover:gap-3 transition">
 
                             Selengkapnya

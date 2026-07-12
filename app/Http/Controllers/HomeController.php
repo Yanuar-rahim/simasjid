@@ -106,6 +106,16 @@ class HomeController extends Controller
         ));
     }
 
+    public function keuangan()
+    {
+        $pemasukan = [];
+        $pengeluaran = [];
+
+        return view('home.keuangan.index', compact(
+            'pemasukan',
+            'pengeluaran'
+        ));
+    }
     public function kegiatan()
     {
         $kegiatan = Kegiatan::where('status', 'Aktif')
