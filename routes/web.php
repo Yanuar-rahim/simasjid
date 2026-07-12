@@ -74,6 +74,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/home/riwayat', [HomeController::class, 'riwayat'])
         ->name('user.riwayat');
 
+    Route::get('/home/keuangan', [HomeController::class, 'keuangan'])
+        ->name('user.keuangan');
+
     Route::get('/home/kegiatan', [HomeController::class, 'kegiatan'])
         ->name('user.kegiatan');
 
@@ -134,4 +137,4 @@ Route::middleware(['auth', 'admin'])->group(function () {
         ->except(['create', 'store']);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

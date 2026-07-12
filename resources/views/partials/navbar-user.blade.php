@@ -42,6 +42,13 @@
                 </li>
 
                 <li>
+                    <a href="{{ route('user.keuangan') }}"
+                    class="{{ request()->routeIs('user.keuangan*') ? 'text-emerald-700 font-semibold' : 'hover:text-emerald-700 duration-300' }}">
+                    Transparansi Keuangan
+                </a>
+                </li>
+
+                <li>
                     <a href="{{ route('user.kegiatan') }}"
                         class="{{ request()->routeIs('user.kegiatan*') ? 'text-emerald-700 font-semibold' : 'hover:text-emerald-700 duration-300' }}">
                         Kegiatan
