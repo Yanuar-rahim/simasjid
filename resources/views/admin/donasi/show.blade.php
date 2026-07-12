@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="max-w-7xl mx-auto space-y-8">
+<div class="max-w-8xl mx-auto space-y-8">
 
     <!-- Header -->
 
@@ -124,7 +124,7 @@
 
             <!-- Bukti Transfer -->
 
-            <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+            <!-- <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
 
                 <div class="px-8 pt-8">
 
@@ -152,7 +152,7 @@
 
                 @endif
 
-            </div>
+            </div> -->
 
             <!-- Doa -->
 
@@ -278,7 +278,7 @@
 
                 </div>
 
-                <a
+                <!-- <a
                     href="{{ route('donasi.edit',$donasi->id) }}"
                     class="mt-10 w-full inline-flex justify-center items-center gap-2 px-6 py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white transition">
 
@@ -286,7 +286,7 @@
 
                     Verifikasi Donasi
 
-                </a>
+                </a> -->
 
             </div>
 

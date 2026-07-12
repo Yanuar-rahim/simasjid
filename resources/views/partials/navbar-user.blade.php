@@ -58,6 +58,7 @@
             <div
                 x-data="{ open: false }"
                 class="relative flex items-center gap-4">
+                @auth
                 <button
                     @click="open = !open"
                     class="flex items-center gap-3 rounded-xl hover:bg-slate-100 px-3 py-2 transition">
@@ -141,6 +142,11 @@
                         </form>
                     </div>
                 </div>
+                @else
+                <a href="{{ route('login') }}" class="px-4 py-2 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition">
+                    Login
+                </a>
+                @endauth
             </div>
         </div>
     </div>

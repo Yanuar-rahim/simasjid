@@ -1,58 +1,69 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ProfileController;
-
-use App\Http\Controllers\DonasiController;
 use App\Http\Controllers\Admin\DonasiController as AdminDonasiController;
-
 use App\Http\Controllers\Admin\KegiatanController;
 use App\Http\Controllers\Admin\PengumumanController;
+use App\Http\Controllers\DonasiController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Landing Page Guest
+| Landing Page
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', [HomeController::class, 'index'])
-    ->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 /*
 |--------------------------------------------------------------------------
-| Detail Landing Page
+| HALAMAN PUBLIK
 |--------------------------------------------------------------------------
 */
 
-Route::get('/kegiatan', [HomeController::class, 'publicKegiatan'])
-    ->name('kegiatan.index');
+Route::prefix('kegiatan')->name('public.kegiatan.')->group(function () {
 
-Route::get('/kegiatan/detail/{slug}', [HomeController::class, 'showKegiatan'])
-    ->name('kegiatan.detail');
+    Route::get('/', [HomeController::class, 'publicKegiatan'])
+        ->name('index');
 
-Route::get('/pengumuman', [HomeController::class, 'publicPengumuman'])
-    ->name('pengumuman.index');
+    Route::get('/detail/{slug}', [HomeController::class, 'showKegiatan'])
+        ->name('detail');
+});
 
-Route::get('/pengumuman/detail/{slug}', [HomeController::class, 'showPengumuman'])
-    ->name('pengumuman.detail');
+Route::prefix('pengumuman')->name('public.pengumuman.')->group(function () {
+
+    Route::get('/', [HomeController::class, 'publicPengumuman'])
+        ->name('index');
+
+    Route::get('/detail/{slug}', [HomeController::class, 'showPengumuman'])
+        ->name('detail');
+});
 
 /*
 |--------------------------------------------------------------------------
-| User (Setelah Login)
+| Midtrans Notification
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth'])->group(function () {
+Route::get('/home/donasi/notification', [DonasiController::class, 'notificationPage'])
+    ->name('user.donasi.notification.page');
 
-    // Beranda
+Route::post('/home/donasi/notification', [DonasiController::class, 'notification'])
+    ->withoutMiddleware([VerifyCsrfToken::class])
+    ->name('user.donasi.notification');
+
+/*
+|--------------------------------------------------------------------------
+| USER LOGIN
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('auth')->group(function () {
+
     Route::get('/home', [HomeController::class, 'userHome'])
         ->name('user.home');
-
-    // =====================
-    // DONASI
-    // =====================
 
     Route::get('/home/donasi', [HomeController::class, 'donasi'])
         ->name('user.donasi');
@@ -60,16 +71,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/home/donasi', [DonasiController::class, 'store'])
         ->name('user.donasi.store');
 
-    // =====================
-    // RIWAYAT DONASI
-    // =====================
-
     Route::get('/home/riwayat', [HomeController::class, 'riwayat'])
         ->name('user.riwayat');
-
-    // =====================
-    // KEGIATAN
-    // =====================
 
     Route::get('/home/kegiatan', [HomeController::class, 'kegiatan'])
         ->name('user.kegiatan');
@@ -77,19 +80,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home/kegiatan/{slug}', [HomeController::class, 'userShowKegiatan'])
         ->name('user.kegiatan.detail');
 
-    // =====================
-    // PENGUMUMAN
-    // =====================
-
     Route::get('/home/pengumuman', [HomeController::class, 'pengumuman'])
         ->name('user.pengumuman');
 
     Route::get('/home/pengumuman/{slug}', [HomeController::class, 'userShowPengumuman'])
         ->name('user.pengumuman.detail');
-
-    // =====================
-    // PROFILE
-    // =====================
 
     Route::get('/profile', [ProfileController::class, 'edit'])
         ->name('profile.edit');
@@ -103,7 +98,7 @@ Route::middleware(['auth'])->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| Admin
+| ADMIN
 |--------------------------------------------------------------------------
 */
 
@@ -113,14 +108,30 @@ Route::middleware(['auth', 'admin'])->group(function () {
         return view('admin.dashboard');
     })->name('dashboard');
 
-    Route::resource('kegiatan', KegiatanController::class)
-        ->except(['index']);
+    /*
+    |-----------------------------
+    | Kegiatan Admin
+    |-----------------------------
+    */
 
-    Route::resource('pengumuman', PengumumanController::class)
-        ->except(['index']);
+    Route::resource('kegiatan', KegiatanController::class);
+
+    /*
+    |-----------------------------
+    | Pengumuman Admin
+    |-----------------------------
+    */
+
+    Route::resource('pengumuman', PengumumanController::class);
+
+    /*
+    |-----------------------------
+    | Donasi Admin
+    |-----------------------------
+    */
 
     Route::resource('donasi', AdminDonasiController::class)
         ->except(['create', 'store']);
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

@@ -21,6 +21,9 @@ class Donasi extends Model
         'metode',
         'transaction_id',
         'snap_token',
+        'payment_type',
+        'transaction_status',
+        'transaction_time',
         'status',
         'tanggal',
     ];
