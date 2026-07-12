@@ -124,59 +124,50 @@
 
         <div class="p-6 border-b border-slate-200">
 
-            <form method="GET" class="grid md:grid-cols-3 gap-4">
+            <form method="GET" class="flex flex-col lg:flex-row gap-4 justify-between">
 
                 <input
                     type="text"
                     name="search"
                     value="{{ request('search') }}"
                     placeholder="Cari nama atau email donatur..."
-                    class="rounded-2xl border border-slate-300 px-5 py-3">
+                    class="h-12 rounded-2xl border border-slate-300 px-5 w-full lg:w-80">
 
-                <select
-                    name="status"
-                    class="rounded-2xl border border-slate-300 px-5 py-3">
+                <div class="flex gap-3">
 
-                    <option value="">
+                    <select
+                        name="status"
+                        class="h-12 rounded-2xl border border-slate-300 px-5">
 
-                        Semua Status
+                        <option value="">Semua Status</option>
 
-                    </option>
+                        <option value="Menunggu"
+                            @selected(request('status')=='Menunggu' )>
+                            Menunggu
+                        </option>
 
-                    <option
-                        value="Menunggu"
-                        @selected(request('status')=='Menunggu' )>
+                        <option value="Diterima"
+                            @selected(request('status')=='Diterima' )>
+                            Diterima
+                        </option>
 
-                        Menunggu
+                        <option value="Ditolak"
+                            @selected(request('status')=='Ditolak' )>
+                            Ditolak
+                        </option>
 
-                    </option>
+                    </select>
 
-                    <option
-                        value="Diterima"
-                        @selected(request('status')=='Diterima' )>
+                    <button
+                        type="submit"
+                        class="h-12 px-6 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium transition flex items-center justify-center">
 
-                        Diterima
+                        <i class="fa-solid fa-magnifying-glass mr-2"></i>
+                        Cari
 
-                    </option>
+                    </button>
 
-                    <option
-                        value="Ditolak"
-                        @selected(request('status')=='Ditolak' )>
-
-                        Ditolak
-
-                    </option>
-
-                </select>
-
-                <button
-                    class="rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white">
-
-                    <i class="fa-solid fa-magnifying-glass mr-2"></i>
-
-                    Cari
-
-                </button>
+                </div>
 
             </form>
 
@@ -188,7 +179,7 @@
 
             <table class="min-w-full">
 
-                <thead class="bg-slate-50">
+                <thead class="bg-emerald-600 text-white text-sm font-semibold">
 
                     <tr>
 
@@ -242,7 +233,7 @@
 
                     @forelse($donasi as $item)
 
-                    <tr class="border-t hover:bg-slate-50">
+                    <tr class="hover:bg-slate-50">
 
                         <td class="px-6 py-5">
 
@@ -330,13 +321,13 @@
 
                                 </a>
 
-                                <a
+                                <!-- <a
                                     href="{{ route('donasi.edit',$item->id) }}"
                                     class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center hover:bg-emerald-100">
 
                                     <i class="fa-solid fa-circle-check"></i>
 
-                                </a>
+                                </a> -->
 
                                 <form
                                     action="{{ route('donasi.destroy',$item->id) }}"

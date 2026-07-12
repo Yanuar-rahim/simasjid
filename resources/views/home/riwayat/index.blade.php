@@ -29,10 +29,10 @@
     @endphp
 
     <!-- Hero -->
-    <section class="pt-36 pb-16 bg-gradient-to-br from-emerald-700 via-emerald-600 to-green-600 text-white">
+    <section class="pt-40 pb-24 bg-gradient-to-br from-emerald-700 via-emerald-600 to-green-600 text-white">
         <div class="max-w-8xl mx-auto px-8 sm:px-14 lg:px-28">
             <div class="text-center" data-aos="fade-up">
-                <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-white/15 backdrop-blur-sm">
+                <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-white/20">
                     <i class="fa-solid fa-clock-rotate-left text-5xl"></i>
                 </div>
                 <span class="block mt-6 font-semibold tracking-widest uppercase text-emerald-200">
@@ -47,38 +47,38 @@
             </div>
 
             <div class="grid md:grid-cols-3 gap-6 mt-14" data-aos="fade-up" data-aos-delay="100">
-                <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-7 border border-white/20">
+                <div class="bg-white/20 backdrop-blur-xl rounded-3xl p-7 shadow-xl shadow-emerald-950/20">
                     <div class="flex items-center gap-5">
-                        <div class="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center">
+                        <div class="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center text-white">
                             <i class="fa-solid fa-wallet text-2xl"></i>
                         </div>
                         <div>
-                            <p class="text-emerald-200 text-sm">Total Donasi Diterima</p>
-                            <h3 class="text-2xl font-bold mt-1">
+                            <p class="text-emerald-50 text-sm">Total Donasi Diterima</p>
+                            <h3 class="text-2xl font-bold mt-1 text-white">
                                 Rp{{ number_format($totalDonasi, 0, ',', '.') }}
                             </h3>
                         </div>
                     </div>
                 </div>
-                <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-7 border border-white/20">
+                <div class="bg-white/20 backdrop-blur-xl rounded-3xl p-7 shadow-xl shadow-emerald-950/20">
                     <div class="flex items-center gap-5">
-                        <div class="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center">
+                        <div class="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center text-white">
                             <i class="fa-solid fa-receipt text-2xl"></i>
                         </div>
                         <div>
-                            <p class="text-emerald-200 text-sm">Jumlah Transaksi</p>
-                            <h3 class="text-2xl font-bold mt-1">{{ $jumlahTransaksi }} Donasi</h3>
+                            <p class="text-emerald-50 text-sm">Jumlah Transaksi</p>
+                            <h3 class="text-2xl font-bold mt-1 text-white">{{ $jumlahTransaksi }} Donasi</h3>
                         </div>
                     </div>
                 </div>
-                <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-7 border border-white/20">
+                <div class="bg-white/20 backdrop-blur-xl rounded-3xl p-7 shadow-xl shadow-emerald-950/20">
                     <div class="flex items-center gap-5">
-                        <div class="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center">
+                        <div class="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center text-white">
                             <i class="fa-solid fa-calendar-check text-2xl"></i>
                         </div>
                         <div>
-                            <p class="text-emerald-200 text-sm">Donasi Terakhir</p>
-                            <h3 class="text-2xl font-bold mt-1">
+                            <p class="text-emerald-50 text-sm">Donasi Terakhir</p>
+                            <h3 class="text-2xl font-bold mt-1 text-white">
                                 {{ $donasiTerakhir?->tanggal?->translatedFormat('d F Y') ?? '-' }}
                             </h3>
                         </div>

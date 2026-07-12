@@ -13,37 +13,35 @@
 
     @include('partials.navbar-user')
 
-    <section class="pt-36 pb-24">
+    <section class="pt-40 pb-24 bg-gradient-to-br from-emerald-700 via-emerald-600 to-green-600 text-white">
 
-        <div class="max-w-8xl mx-auto px-8 sm:px-14 lg:px-20">
+        <div class="max-w-8xl mx-auto px-8 sm:px-14 lg:px-28">
 
-            <!-- Heading -->
-
-            <div class="text-center mb-16" data-aos="fade-up">
+            <div class="text-center" data-aos="fade-up">
 
                 <div
-                    class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-emerald-100">
+                    class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-white/20 backdrop-blur-sm">
 
-                    <i class="fa-solid fa-hand-holding-heart text-emerald-600 text-5xl"></i>
+                    <i class="fa-solid fa-hand-holding-heart text-5xl"></i>
 
                 </div>
 
                 <span
-                    class="block mt-6 text-emerald-600 font-semibold tracking-widest uppercase">
+                    class="block mt-6 font-semibold tracking-widest uppercase text-emerald-100">
 
                     Donasi Online
 
                 </span>
 
                 <h1
-                    class="text-5xl font-bold text-slate-800 mt-4">
+                    class="text-5xl font-bold mt-4">
 
                     Mari Berbagi Kebaikan
 
                 </h1>
 
                 <p
-                    class="max-w-3xl mx-auto mt-6 text-slate-500 leading-8">
+                    class="max-w-3xl mx-auto mt-6 text-emerald-100 leading-8 text-lg">
 
                     Setiap donasi yang Anda berikan akan membantu operasional masjid,
                     kegiatan dakwah, pendidikan Islam, serta berbagai kegiatan sosial
@@ -52,6 +50,30 @@
                 </p>
 
             </div>
+
+                <div class="grid md:grid-cols-3 gap-6 px-8 sm:px-14 lg:px-28 mt-16" data-aos="fade-up" data-aos-delay="100">
+                    <div class="rounded-2xl bg-white/20 p-6 text-center">
+                        <div class="text-3xl font-bold">100%</div>
+                        <div class="mt-2 text-sm text-emerald-50">Transparan</div>
+                    </div>
+                    <div class="rounded-2xl bg-white/20 p-6 text-center">
+                        <div class="text-3xl font-bold">24/7</div>
+                        <div class="mt-2 text-sm text-emerald-50">Aman & Cepat</div>
+                    </div>
+                    <div class="rounded-2xl bg-white/20 p-6 text-center">
+                        <div class="text-3xl font-bold">Real-time</div>
+                        <div class="mt-2 text-sm text-emerald-50">Riwayat Donasi</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="pt-20 pb-24 bg-white">
+
+        <div class="max-w-8xl mx-auto px-8 sm:px-14 lg:px-20">
 
             <div class="grid lg:grid-cols-3 gap-10">
 
@@ -216,6 +238,7 @@
                         </div>
 
                         <button
+                            type="submit"
                             class="mt-10 w-full py-5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-lg transition shadow-lg hover:shadow-xl">
 
                             <i class="fa-solid fa-paper-plane mr-2"></i>
@@ -409,6 +432,33 @@
     </section>
 
     @include('partials.footer')
+
+    @php
+        $riwayatUrl = route('user.riwayat');
+    @endphp
+
+    @if(isset($snapToken) && $snapToken)
+        <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const riwayatUrl = "{{ $riwayatUrl }}";
+
+                if (window.snap) {
+                    window.snap.pay('{{ $snapToken }}', {
+                        onSuccess: function(result){
+                            window.location.href = riwayatUrl;
+                        },
+                        onPending: function(result){
+                            window.location.href = riwayatUrl;
+                        },
+                        onError: function(result){
+                            alert('Pembayaran gagal. Silakan coba lagi.');
+                        }
+                    });
+                }
+            });
+        </script>
+    @endif
 
 </body>
 
