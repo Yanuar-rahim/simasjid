@@ -70,6 +70,10 @@ class DonasiController extends Controller
                 'quantity' => 1,
                 'name' => $request->jenis_donasi,
             ]],
+
+            'callbacks' => [
+                'finish' => route('user.riwayat'),
+            ],
         ];
 
         $snapToken = Snap::getSnapToken($params);
