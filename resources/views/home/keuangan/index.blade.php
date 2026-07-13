@@ -1,6 +1,13 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transparansi Keuangan | Sistem Informasi Manajemen Masjid</title>
+    @vite(['resources/css/app.css','resources/js/app.js'])
+</head>
 
-@section('content')
+<body class="bg-slate-50">
 
 @include('partials.navbar-user')
 
@@ -929,10 +936,10 @@
         INFORMASI TRANSPARANSI
 ======================================= -->
 
-<!-- <section class="py-24 bg-slate-50">
+<section class="py-24 bg-slate-50">
     <div class="max-w-8xl mx-auto px-8 sm:px-14 lg:px-28">
         <div class="bg-white rounded-3xl shadow-xl">
-            <div class="p-20 grid lg:grid-cols-2 gap-16">
+            <div class="flex flex-col lg:flex-row gap-16 p-10 lg:p-20">
                 <div>
 
                     <span class="text-emerald-600 font-semibold">
@@ -1001,7 +1008,7 @@
         </div>
     </div>
 
-</section> -->
+</section>
 
 <!-- ======================================
             CTA
@@ -1030,7 +1037,9 @@
 
 @include('partials.footer')
 
-@endsection
+</body>
+
+</html>
 
 @push('scripts')
 
