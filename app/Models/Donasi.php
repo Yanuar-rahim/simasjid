@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Donasi extends Model
 {
-    use HasFactory;
 
+    protected $table = 'donasis';
     protected $fillable = [
         'user_id',
         'order_id',
@@ -37,4 +37,16 @@ class Donasi extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /*
+|--------------------------------------------------------------------------
+| Relasi
+|--------------------------------------------------------------------------
+*/
+
+public function pemasukan()
+{
+    return $this->hasOne(Pemasukan::class, 'donasi_id', 'id');
+}
+
 }
