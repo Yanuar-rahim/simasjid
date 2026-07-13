@@ -50,7 +50,7 @@
 
             <!-- Notification -->
 
-            <button
+            <!-- <button
                 class="relative w-12 h-12 rounded-2xl border border-slate-200 hover:bg-slate-50 transition">
 
                 <i class="fa-regular fa-bell"></i>
@@ -58,7 +58,7 @@
                 <span
                     class="absolute top-3 right-3 w-2.5 h-2.5 rounded-full bg-red-500"></span>
 
-            </button>
+            </button> -->
 
             <!-- Avatar -->
 

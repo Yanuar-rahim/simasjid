@@ -3,6 +3,9 @@
 use App\Http\Controllers\Admin\DonasiController as AdminDonasiController;
 use App\Http\Controllers\Admin\KegiatanController;
 use App\Http\Controllers\Admin\PengumumanController;
+use App\Http\Controllers\Admin\KeuanganController;
+use App\Http\Controllers\Admin\PemasukanController;
+use App\Http\Controllers\Admin\PengeluaranController;
 use App\Http\Controllers\DonasiController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -135,6 +138,35 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::resource('donasi', AdminDonasiController::class)
         ->except(['create', 'store']);
+
+    /*
+|--------------------------------------------------------------------------
+| Transparansi Keuangan
+|--------------------------------------------------------------------------
+*/
+
+    Route::prefix('admin/keuangan')->group(function () {
+
+        // Dashboard Keuangan
+        Route::get('/', [KeuanganController::class, 'index'])
+            ->name('keuangan.index');
+
+        /*
+    |--------------------------------------------------------------------------
+    | Pemasukan
+    |--------------------------------------------------------------------------
+    */
+
+        Route::resource('pemasukan', PemasukanController::class);
+
+        /*
+    |--------------------------------------------------------------------------
+    | Pengeluaran
+    |--------------------------------------------------------------------------
+    */
+
+        Route::resource('pengeluaran', PengeluaranController::class);
+    });
 });
 
 require __DIR__ . '/auth.php';

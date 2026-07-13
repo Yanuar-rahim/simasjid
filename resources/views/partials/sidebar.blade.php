@@ -56,7 +56,7 @@
 
         </a>
 
-        <a href="#"
+        <a href="{{ route('keuangan.index') }}"
             class="{{ request()->routeIs('keuangan.*') ? 'sidebar-active' : 'sidebar-menu' }}">
 
             <i class="fa-solid fa-wallet"></i>
