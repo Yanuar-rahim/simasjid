@@ -5,11 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beranda | Sistem Informasi Manajemen Masjid</title>
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
     @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
 
 <body class="bg-slate-50">
-    
+
     @include('partials.navbar-user')
 
     <!-- HERO -->
@@ -69,7 +74,8 @@
                         <p class="text-slate-500 mt-3">
                             Terakhir Login
                         </p>
-                        <h4 class="font-semibold mt-1">
+                        <h4 class="font-semibold mt-1 text-slate-800">
+                            {{ \Carbon\Carbon::parse(Auth::user()->last_login_at)->translatedFormat('d F Y H:i') }}
                             Hari Ini
                         </h4>
                     </div>
@@ -102,7 +108,7 @@
                                 Total Donasi
                             </p>
                             <h2 class="text-4xl font-bold mt-3">
-                                Rp750.000
+                                Rp {{ number_format($totalDonasi,0,',','.') }}
                             </h2>
                             <p class="mt-4 text-sm">
                                 Sejak Bergabung
@@ -121,7 +127,7 @@
                                 Jumlah Donasi
                             </p>
                             <h2 class="text-4xl font-bold mt-3 text-slate-800">
-                                12
+                                {{ $jumlahDonasi }}
                             </h2>
                             <p class="mt-4 text-sm text-emerald-600">
                                 Donasi Berhasil
@@ -140,10 +146,18 @@
                                 Donasi Terakhir
                             </p>
                             <h2 class="text-2xl font-bold mt-3 text-slate-800">
-                                Rp100.000
+                                @if($donasiTerakhir)
+                                Rp {{ number_format($donasiTerakhir->nominal,0,',','.') }}
+                                @else
+                                Rp 0
+                                @endif
                             </h2>
                             <p class="mt-4 text-sm text-slate-500">
-                                08 Juli 2026
+                                @if($donasiTerakhir)
+                                {{ \Carbon\Carbon::parse($donasiTerakhir->tanggal)->translatedFormat('d F Y') }}
+                                @else
+                                Belum ada donasi
+                                @endif
                             </p>
                         </div>
                         <div class="w-16 h-16 rounded-2xl bg-blue-100 flex items-center justify-center">
@@ -226,7 +240,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- ===========================
         KEGIATAN TERBARU
     ============================ -->
@@ -251,7 +265,7 @@
             <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-8 mt-14">
                 @forelse($kegiatan as $index => $item)
                 <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:-translate-y-2 duration-300"
-                    data-aos="fade-up" @if($index > 0) data-aos-delay="{{ $index * 100 }}" @endif>
+                    data-aos="fade-up" @if($index> 0) data-aos-delay="{{ $index * 100 }}" @endif>
                     <img
                         src="{{ $item->gambar ? asset('storage/'.$item->gambar) : asset('assets/images/no-image.png') }}"
                         class="w-full h-60 object-cover">
@@ -298,6 +312,111 @@
             </div>
         </div>
     </section>
+
+    <!-- ======================================
+        GALERI MASJID
+======================================= -->
+
+    <section class="py-24 bg-white">
+
+        <div class="max-w-8xl mx-auto px-8 sm:px-14 lg:px-28">
+
+            <div class="text-center mb-16">
+
+                <span class="text-emerald-700 font-semibold">
+                    Galeri
+                </span>
+
+                <h2 class="text-4xl font-bold mt-3">
+                    Dokumentasi Kegiatan Masjid
+                </h2>
+
+                <p class="text-slate-500 mt-4">
+                    Dokumentasi berbagai kegiatan yang telah dilaksanakan
+                    oleh pengurus Masjid.
+                </p>
+
+            </div>
+
+            <div class="swiper gallerySwiper">
+
+                <div class="swiper-wrapper">
+
+                    @foreach($galeri as $item)
+
+                    <div class="swiper-slide">
+
+                        <a
+                            href="{{ asset('storage/'.$item->gambar) }}"
+                            class="glightbox">
+
+                            <div
+                                class="relative overflow-hidden rounded-3xl shadow-xl group">
+
+                                <img
+                                    src="{{ asset('storage/'.$item->gambar) }}"
+                                    class="w-full h-96 object-cover transition duration-700 group-hover:scale-110">
+
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-500">
+
+                                </div>
+
+                                <div
+                                    class="absolute bottom-0 left-0 right-0 p-7 text-white translate-y-10 group-hover:translate-y-0 transition duration-500">
+
+                                    <h3 class="text-2xl font-bold">
+
+                                        {{ $item->judul }}
+
+                                    </h3>
+
+                                    <p class="mt-2 text-slate-200">
+
+                                        {{ Str::limit($item->deskripsi,70) }}
+
+                                    </p>
+
+                                    <div
+                                        class="mt-4 flex items-center justify-between">
+
+                                        <span class="text-sm">
+
+                                            <i class="fa-solid fa-calendar"></i>
+
+                                            {{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') }}
+
+                                        </span>
+
+                                        <span
+                                            class="bg-white text-emerald-700 px-4 py-2 rounded-xl font-semibold">
+
+                                            Lihat Foto
+
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </a>
+
+                    </div>
+
+                    @endforeach
+
+                </div>
+
+                <div class="swiper-pagination mt-10"></div>
+
+            </div>
+
+        </div>
+
+    </section>
+
     <!-- ======================================
             PENGUMUMAN TERBARU
     ======================================= -->
@@ -324,7 +443,7 @@
                 @forelse($pengumuman as $index => $item)
                 <div
                     class="bg-white rounded-3xl shadow-lg overflow-hidden hover:-translate-y-2 duration-300"
-                    data-aos="fade-up" @if($index > 0) data-aos-delay="{{ $index * 100 }}" @endif>
+                    data-aos="fade-up" @if($index> 0) data-aos-delay="{{ $index * 100 }}" @endif>
                     <img
                         src="{{ $item->gambar ? asset('storage/'.$item->gambar) : asset('assets/images/no-image.png') }}"
                         class="w-full h-56 object-cover">
@@ -380,8 +499,54 @@
             </a>
         </div>
     </section>
-    
+
     @include('partials.footer')
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
+    <script>
+        new Swiper(".gallerySwiper", {
+
+            loop: true,
+
+            autoplay: {
+                delay: 3500,
+                disableOnInteraction: false,
+            },
+
+            spaceBetween: 30,
+
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+
+            breakpoints: {
+
+                0: {
+                    slidesPerView: 1,
+                },
+
+                768: {
+                    slidesPerView: 2,
+                },
+
+                1200: {
+                    slidesPerView: 3,
+                },
+
+                1600: {
+                    slidesPerView: 4,
+                }
+
+            }
+
+        });
+
+        const lightbox = GLightbox();
+    </script>
 
 </body>
 

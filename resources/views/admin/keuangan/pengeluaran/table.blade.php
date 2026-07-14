@@ -53,7 +53,7 @@
 
                 @forelse($pengeluaran as $item)
 
-                <tr class="hover:bg-slate-50 border-b">
+                <tr class="hover:bg-slate-50">
                     <td class="px-6 py-5">
                         {{ $loop->iteration }}
                     </td>
@@ -111,12 +111,6 @@
                                 href="{{ route('pengeluaran.show',$item->id) }}"
                                 class="w-10 h-10 rounded-xl bg-blue-50 hover:bg-blue-100 flex items-center justify-center text-blue-600">
                                 <i class="fa-solid fa-eye"></i>
-                            </a>
-
-                            <a
-                                href="{{ route('pengeluaran.edit',$item->id) }}"
-                                class="w-10 h-10 rounded-xl bg-yellow-50 hover:bg-yellow-100 flex items-center justify-center text-yellow-600">
-                                <i class="fa-solid fa-pen"></i>
                             </a>
 
                             <form

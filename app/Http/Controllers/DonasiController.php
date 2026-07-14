@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Donasi;
+use App\Models\Pemasukan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -27,7 +28,7 @@ class DonasiController extends Controller
             'nominal' => 'required|numeric|min:1000',
         ]);
 
-        $orderId = 'DONASI-'.time();
+        $orderId = 'DONASI-' . time();
 
         $donasi = Donasi::create([
             'user_id' => Auth::id(),
@@ -46,11 +47,11 @@ class DonasiController extends Controller
         $appUrl = config('app.url');
 
         if ($configuredBaseUrl) {
-            $notificationUrl = rtrim($configuredBaseUrl, '/').'/home/donasi/notification';
+            $notificationUrl = rtrim($configuredBaseUrl, '/') . '/home/donasi';
         } elseif ($appUrl && ! str_contains($appUrl, 'localhost') && ! str_contains($appUrl, '127.0.0.1')) {
-            $notificationUrl = rtrim($appUrl, '/').'/home/donasi/notification';
+            $notificationUrl = rtrim($appUrl, '/') . '/home/donasi';
         } else {
-            $notificationUrl = $request->getSchemeAndHttpHost().$request->getBaseUrl().'/home/donasi/notification';
+            $notificationUrl = $request->getSchemeAndHttpHost() . $request->getBaseUrl() . '/home/donasi';
         }
 
         $params = [
@@ -129,6 +130,26 @@ class DonasiController extends Controller
             'status' => $mappedStatus,
             'metode' => $payload['payment_type'] ?? $donasi->metode,
         ]);
+
+        // Jika pembayaran berhasil, otomatis catat sebagai pemasukan
+        if ($mappedStatus === 'Diterima') {
+
+            Pemasukan::firstOrCreate(
+
+                [
+                    'donasi_id' => $donasi->id,
+                ],
+
+                [
+                    'user_id'    => $donasi->user_id,
+                    'sumber'     => 'Donasi Online',
+                    'nominal'    => $donasi->nominal,
+                    'keterangan' => 'Donasi dari ' . $donasi->nama_donatur,
+                    'tanggal' => $donasi->tanggal->toDateString(),
+                ]
+
+            );
+        }
 
         return response()->json([
             'status' => 'ok',
