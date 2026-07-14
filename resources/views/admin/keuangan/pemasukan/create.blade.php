@@ -48,7 +48,8 @@
                         <select
                             id="donasiSelect"
                             name="donasi_id"
-                            class="w-full rounded-xl border border-slate-300">
+                            class="w-full rounded-xl border border-slate-300 shadow-sm px-4 py-3
+                    focus:border-emerald-500 focus:ring-emerald-500">
 
                             <option value="">
                                 Input Manual

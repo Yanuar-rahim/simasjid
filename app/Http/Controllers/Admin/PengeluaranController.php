@@ -16,7 +16,7 @@ class PengeluaranController extends Controller
             ->latest('tanggal')
             ->paginate(10);
 
-        return view('admin.keuangan.pengeluaran.index', compact('pengeluaran'));
+        return view('admin.keuangan.index', compact('pengeluaran'));
     }
 
     public function create()
@@ -51,7 +51,7 @@ class PengeluaranController extends Controller
         ]);
 
         return redirect()
-            ->route('pengeluaran.index')
+            ->route('keuangan.index')
             ->with('success', 'Pengeluaran berhasil ditambahkan');
     }
 
@@ -103,7 +103,7 @@ class PengeluaranController extends Controller
         $pengeluaran->update($data);
 
         return redirect()
-            ->route('pengeluaran.index')
+            ->route('keuangan.index')
             ->with('success', 'Pengeluaran berhasil diperbarui');
     }
 
@@ -117,7 +117,7 @@ class PengeluaranController extends Controller
         $pengeluaran->delete();
 
         return redirect()
-            ->route('pengeluaran.index')
+            ->route('keuangan.index')
             ->with('success', 'Pengeluaran berhasil dihapus');
     }
 }
