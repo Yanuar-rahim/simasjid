@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\PengumumanController;
 use App\Http\Controllers\Admin\KeuanganController;
 use App\Http\Controllers\Admin\PemasukanController;
 use App\Http\Controllers\Admin\PengeluaranController;
+use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\DonasiController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -92,6 +93,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/home/pengumuman/{slug}', [HomeController::class, 'userShowPengumuman'])
         ->name('user.pengumuman.detail');
 
+    Route::get('/home/galeri', [HomeController::class, 'galeri'])
+        ->name('user.galeri');
+
+    Route::get('/home/galeri/{id}', [HomeController::class, 'detailGaleri'])
+        ->name('user.galeri.detail');
+
     Route::get('/profile', [ProfileController::class, 'edit'])
         ->name('profile.edit');
 
@@ -129,6 +136,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     */
 
     Route::resource('pengumuman', PengumumanController::class);
+
+    Route::resource('galeri', GaleriController::class);
 
     /*
     |-----------------------------

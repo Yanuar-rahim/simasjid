@@ -64,7 +64,7 @@
 
         </a>
 
-        <a href="#"
+        <a href="{{ route('galeri.index') }}"
             class="{{ request()->routeIs('galeri.*') ? 'sidebar-active' : 'sidebar-menu' }}">
 
             <i class="fa-solid fa-images"></i>

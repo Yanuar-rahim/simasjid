@@ -150,21 +150,15 @@
 
                 {
                     label: 'Pemasukan',
-
                     data: @json($chartPemasukan),
-
                     backgroundColor: '#10b981',
-
                     borderRadius: 10
                 },
 
                 {
                     label: 'Pengeluaran',
-
                     data: @json($chartPengeluaran),
-
                     backgroundColor: '#ef4444',
-
                     borderRadius: 10
                 }
 
@@ -172,7 +166,6 @@
         },
 
         options: {
-
             responsive: true,
 
             maintainAspectRatio: false,

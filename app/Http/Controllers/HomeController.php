@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Donasi;
+use App\Models\Pemasukan;
+use App\Models\Pengeluaran;
+use App\Models\Galeri;
 use App\Models\Kegiatan;
 use App\Models\Pengumuman;
 use Illuminate\Http\Request;
@@ -14,7 +17,6 @@ class HomeController extends Controller
     | Landing Page Guest
     |--------------------------------------------------------------------------
     */
-
     public function index()
     {
         $kegiatan = Kegiatan::where('status', 'Aktif')
@@ -41,19 +43,82 @@ class HomeController extends Controller
 
     public function userHome()
     {
+        $user = auth()->user();
+
+        /*
+    |--------------------------------------------------------------------------
+    | Statistik Donatur
+    |--------------------------------------------------------------------------
+    */
+
+        $totalDonasi = Donasi::where('user_id', $user->id)
+            ->where('status', 'Diterima')
+            ->sum('nominal');
+
+        $jumlahDonasi = Donasi::where('user_id', $user->id)
+            ->where('status', 'Diterima')
+            ->count();
+
+        $donasiTerakhir = Donasi::where('user_id', $user->id)
+            ->where('status', 'Diterima')
+            ->latest('tanggal')
+            ->first();
+
+        /*
+    |--------------------------------------------------------------------------
+    | Kegiatan
+    |--------------------------------------------------------------------------
+    */
+
         $kegiatan = Kegiatan::where('status', 'Aktif')
             ->latest()
             ->take(3)
             ->get();
+
+        /*
+    |--------------------------------------------------------------------------
+    | Pengumuman
+    |--------------------------------------------------------------------------
+    */
 
         $pengumuman = Pengumuman::where('status', 'Aktif')
             ->latest()
             ->take(3)
             ->get();
 
+        /*
+    |--------------------------------------------------------------------------
+    | Galeri
+    |--------------------------------------------------------------------------
+    */
+
+        $galeri = Galeri::latest()
+            ->take(10)
+            ->get();
+
+        
+        /*
+    |--------------------------------------------------------------------------
+    | Statistik Masjid
+    |--------------------------------------------------------------------------
+    */
+
+        $totalPemasukan = Pemasukan::sum('nominal');
+        $totalPengeluaran = Pengeluaran::sum('nominal');
+        $saldoKas = $totalPemasukan - $totalPengeluaran;
+
         return view('home.index', compact(
+            'totalDonasi',
+            'jumlahDonasi',
+            'donasiTerakhir',
+
+            'totalPemasukan',
+            'totalPengeluaran',
+            'saldoKas',
+
             'kegiatan',
-            'pengumuman'
+            'pengumuman',
+            'galeri'
         ));
     }
 
@@ -108,12 +173,92 @@ class HomeController extends Controller
 
     public function keuangan()
     {
-        $pemasukan = [];
-        $pengeluaran = [];
+        $pemasukan = Pemasukan::latest('tanggal')->get();
+        $pengeluaran = Pengeluaran::latest('tanggal')->get();
+        $totalPemasukan = Pemasukan::sum('nominal');
+        $totalPengeluaran = Pengeluaran::sum('nominal');
+        $saldoKas = $totalPemasukan - $totalPengeluaran;
+
+        /*
+    |--------------------------------------------------------------------------
+    | Grafik Bulanan
+    |--------------------------------------------------------------------------
+    */
+
+        $bulan = [
+            'Jan',
+            'Feb',
+            'Mar',
+            'Apr',
+            'Mei',
+            'Jun',
+            'Jul',
+            'Agu',
+            'Sep',
+            'Okt',
+            'Nov',
+            'Des'
+        ];
+
+        $chartPemasukan = [];
+        $chartPengeluaran = [];
+
+        foreach (range(1, 12) as $i) {
+
+            $chartPemasukan[] = Pemasukan::whereMonth('tanggal', $i)
+                ->whereYear('tanggal', now()->year)
+                ->sum('nominal');
+
+            $chartPengeluaran[] = Pengeluaran::whereMonth('tanggal', $i)
+                ->whereYear('tanggal', now()->year)
+                ->sum('nominal');
+        }
+
+        /*
+    |--------------------------------------------------------------------------
+    | Rekap Bulanan
+    |--------------------------------------------------------------------------
+    */
+
+        $rekapBulanan = [];
+
+        foreach (range(1, 12) as $i) {
+
+            $masuk = Pemasukan::whereMonth('tanggal', $i)
+                ->whereYear('tanggal', now()->year)
+                ->sum('nominal');
+
+            $keluar = Pengeluaran::whereMonth('tanggal', $i)
+                ->whereYear('tanggal', now()->year)
+                ->sum('nominal');
+
+            $rekapBulanan[] = [
+
+                'bulan' => $bulan[$i - 1],
+
+                'pemasukan' => $masuk,
+
+                'pengeluaran' => $keluar,
+
+                'saldo' => $masuk - $keluar
+
+            ];
+        }
 
         return view('home.keuangan.index', compact(
+
             'pemasukan',
-            'pengeluaran'
+            'pengeluaran',
+
+            'totalPemasukan',
+            'totalPengeluaran',
+            'saldoKas',
+
+            'chartPemasukan',
+            'chartPengeluaran',
+
+            'rekapBulanan'
+
         ));
     }
     public function kegiatan()
