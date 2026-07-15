@@ -352,55 +352,33 @@
                         </td>
 
                     </tr>
-
                     @empty
-
                     <tr>
-
                         <td
                             colspan="7"
                             class="py-16 text-center">
-
                             <i class="fa-solid fa-hand-holding-heart text-5xl text-slate-300"></i>
-
                             <h3 class="mt-5 text-xl font-semibold">
-
                                 Belum Ada Donasi
-
                             </h3>
-
                             <p class="text-slate-500 mt-2">
-
                                 Data donasi akan muncul di sini.
-
                             </p>
-
                         </td>
-
                     </tr>
-
                     @endforelse
-
                 </tbody>
-
             </table>
-
         </div>
 
         <!-- Pagination -->
 
         @if($donasi->hasPages())
-
         <div class="p-6 border-t">
-
             {{ $donasi->links() }}
-
         </div>
-
         @endif
-
     </div>
-
 </div>
 
 @push('scripts')

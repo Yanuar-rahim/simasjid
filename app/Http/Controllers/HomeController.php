@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Donasi;
 use App\Models\Pemasukan;
@@ -22,6 +23,9 @@ class HomeController extends Controller
     */
     public function index(AladhanService $jadwal)
     {
+
+        $user = Auth::user();
+
         $kegiatan = Kegiatan::where('status', 'Aktif')
             ->latest()
             ->take(3)
@@ -220,20 +224,13 @@ class HomeController extends Controller
     |--------------------------------------------------------------------------
     */
 
-        $bulan = [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'Mei',
-            'Jun',
-            'Jul',
-            'Agu',
-            'Sep',
-            'Okt',
-            'Nov',
-            'Des'
-        ];
+        Carbon::setLocale('id');
+
+        $labelsBulan = [];
+
+        for ($i = 1; $i <= 12; $i++) {
+            $labelsBulan[] = Carbon::create()->month($i)->translatedFormat('F');
+        }
 
         $chartPemasukan = [];
         $chartPengeluaran = [];
@@ -268,7 +265,7 @@ class HomeController extends Controller
                 ->sum('nominal');
 
             $rekapBulanan[] = [
-                'bulan' => $bulan[$i - 1],
+                'bulan' => $labelsBulan[$i - 1],
                 'pemasukan' => $masuk,
                 'pengeluaran' => $keluar,
                 'saldo' => $masuk - $keluar
@@ -278,7 +275,7 @@ class HomeController extends Controller
         $masjid = Masjid::first();
 
         return view('home.keuangan.index', compact(
-
+            'labelsBulan',
             'pemasukan',
             'pengeluaran',
             'totalPemasukan',
