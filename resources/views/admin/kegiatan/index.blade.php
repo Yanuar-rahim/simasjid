@@ -221,10 +221,14 @@
 
                 <tr>
 
-                    <td colspan="6" class="py-12 text-center text-slate-500">
-
-                        Belum ada data kegiatan.
-
+                    <td colspan="6" class="py-16 text-center">
+                        <i class="fa-solid fa-calendar-days text-5xl text-slate-300"></i>
+                        <h3 class="mt-5 text-xl font-semibold">
+                            Belum Ada Kegiatan
+                        </h3>
+                        <p class="text-slate-500 mt-2">
+                            Data kegiatan akan muncul di sini.
+                        </p>
                     </td>
 
                 </tr>
