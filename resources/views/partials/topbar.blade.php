@@ -109,7 +109,7 @@
                     </div>
 
                     <!-- Menu -->
-                    <a href="{{ route('profile.edit') }}"
+                    <a href="#"
                         class="flex items-center gap-3 px-5 py-3 hover:bg-slate-100 transition">
 
                         <i class="fa-regular fa-user text-emerald-600"></i>
@@ -118,7 +118,7 @@
 
                     </a>
 
-                    <a href="{{ route('profile.edit') }}"
+                    <a href="#"
                         class="flex items-center gap-3 px-5 py-3 hover:bg-slate-100 transition">
 
                         <i class="fa-solid fa-gear text-blue-600"></i>

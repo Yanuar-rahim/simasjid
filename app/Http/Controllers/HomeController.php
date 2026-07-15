@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Donasi;
 use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
+use App\Models\Masjid;
 use App\Models\Galeri;
 use App\Models\Kegiatan;
 use App\Models\Pengumuman;
+use App\Services\AladhanService;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -17,7 +20,7 @@ class HomeController extends Controller
     | Landing Page Guest
     |--------------------------------------------------------------------------
     */
-    public function index()
+    public function index(AladhanService $jadwal)
     {
         $kegiatan = Kegiatan::where('status', 'Aktif')
             ->latest()
@@ -29,9 +32,34 @@ class HomeController extends Controller
             ->take(3)
             ->get();
 
+        $galeri = Galeri::where('status', 1)
+            ->latest()
+            ->take(8)
+            ->get();
+
+        $masjid = Masjid::first();
+        $jumlahJamaah = User::where('role', 'user')->count();
+        $jumlahPengurus = User::where('role', 'admin')->count();
+        $jumlahKegiatan = Kegiatan::count();
+        $totalDonasi = Donasi::where('status', 'Diterima')->sum('nominal');
+        $totalPemasukan = Pemasukan::sum('nominal');
+        $totalPengeluaran = Pengeluaran::sum('nominal');
+        $saldoKas = $totalPemasukan - $totalPengeluaran;
+        $jadwalSholat = $jadwal->getJadwal();
+
         return view('index', compact(
+            'masjid',
             'kegiatan',
-            'pengumuman'
+            'pengumuman',
+            'galeri',
+            'jumlahJamaah',
+            'jumlahPengurus',
+            'jumlahKegiatan',
+            'totalDonasi',
+            'totalPemasukan',
+            'totalPengeluaran',
+            'jadwalSholat',
+            'saldoKas'
         ));
     }
 
@@ -44,6 +72,8 @@ class HomeController extends Controller
     public function userHome()
     {
         $user = auth()->user();
+
+        $masjid = Masjid::first();
 
         /*
     |--------------------------------------------------------------------------
@@ -96,7 +126,7 @@ class HomeController extends Controller
             ->take(10)
             ->get();
 
-        
+
         /*
     |--------------------------------------------------------------------------
     | Statistik Masjid
@@ -111,11 +141,10 @@ class HomeController extends Controller
             'totalDonasi',
             'jumlahDonasi',
             'donasiTerakhir',
-
+            'masjid',
             'totalPemasukan',
             'totalPengeluaran',
             'saldoKas',
-
             'kegiatan',
             'pengumuman',
             'galeri'
@@ -124,7 +153,10 @@ class HomeController extends Controller
 
     public function donasi()
     {
-        return view('home.donasi.index');
+
+        $masjid = Masjid::first();
+
+        return view('home.donasi.index', compact('masjid'));
     }
 
     public function riwayat(Request $request)
@@ -161,6 +193,8 @@ class HomeController extends Controller
             ->groupBy('jenis_donasi')
             ->pluck('total', 'jenis_donasi');
 
+        $masjid = Masjid::first();
+
         return view('home.riwayat.index', compact(
             'donasi',
             'totalDonasi',
@@ -168,6 +202,7 @@ class HomeController extends Controller
             'donasiTerakhir',
             'distribusi',
             'allowedJenis',
+            'masjid',
         ));
     }
 
@@ -233,32 +268,26 @@ class HomeController extends Controller
                 ->sum('nominal');
 
             $rekapBulanan[] = [
-
                 'bulan' => $bulan[$i - 1],
-
                 'pemasukan' => $masuk,
-
                 'pengeluaran' => $keluar,
-
                 'saldo' => $masuk - $keluar
-
             ];
         }
+
+        $masjid = Masjid::first();
 
         return view('home.keuangan.index', compact(
 
             'pemasukan',
             'pengeluaran',
-
             'totalPemasukan',
             'totalPengeluaran',
             'saldoKas',
-
             'chartPemasukan',
             'chartPengeluaran',
-
-            'rekapBulanan'
-
+            'rekapBulanan',
+            'masjid',
         ));
     }
     public function kegiatan()
@@ -268,7 +297,9 @@ class HomeController extends Controller
             ->paginate(6)
             ->withQueryString();
 
-        return view('home.kegiatan.index', compact('kegiatan'));
+        $masjid = Masjid::first();
+
+        return view('home.kegiatan.index', compact('kegiatan', 'masjid'));
     }
 
     public function pengumuman()
@@ -278,7 +309,9 @@ class HomeController extends Controller
             ->paginate(6)
             ->withQueryString();
 
-        return view('home.pengumuman.index', compact('pengumuman'));
+        $masjid = Masjid::first();
+
+        return view('home.pengumuman.index', compact('pengumuman', 'masjid'));
     }
 
     public function publicKegiatan()

@@ -120,7 +120,7 @@
                     </div>
                     <div class="py-3">
                         <a
-                            href="{{ route('profile.edit') }}"
+                            href="{{ route('user.profile') }}"
                             class="flex items-center gap-3 px-6 py-3 hover:bg-slate-100 transition">
                             <i class="fa-regular fa-user w-5 text-emerald-600"></i>
                             Profil Saya

@@ -46,11 +46,11 @@
                         </li>
                         <li>
                             <i class="fa-solid fa-phone mr-2"></i>
-                            0812-3456-7890
+                            {{ $masjid->telepon }}
                         </li>
                         <li>
                             <i class="fa-solid fa-envelope mr-2"></i>
-                            admin@simasjid.id
+                            {{ $masjid->email }}
                         </li>
                     </ul>
                 </div>

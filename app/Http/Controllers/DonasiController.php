@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Donasi;
 use App\Models\Pemasukan;
+use App\Models\Masjid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -83,7 +84,9 @@ class DonasiController extends Controller
             'snap_token' => $snapToken,
         ]);
 
-        return view('home.donasi.index', [
+        $masjid = Masjid::first();
+
+        return view('home.donasi.index', compact('masjid'), [
             'snapToken' => $snapToken,
             'orderId' => $orderId,
         ])->with('success', 'Silakan lanjutkan pembayaran melalui Midtrans.');
