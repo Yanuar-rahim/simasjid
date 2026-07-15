@@ -64,7 +64,7 @@
     </div>
 
     <form method="post"
-        action="{{ route('profile.update') }}"
+        action="{{ route('user.profile.update') }}"
         enctype="multipart/form-data"
         class="mt-8 space-y-6">
 
@@ -81,7 +81,7 @@
             <input
                 type="text"
                 name="name"
-                value="{{ old('name', $user->name) }}"
+                value="{{ old('name', auth()->user()->name) }}"
                 class="w-full mt-3 px-5 py-2 text-lg rounded-2xl border border-slate-300 focus:border-emerald-600 focus:ring-emerald-600 transition">
 
             <x-input-error
@@ -100,7 +100,7 @@
             <input
                 type="email"
                 name="email"
-                value="{{ old('email', $user->email) }}"
+                value="{{ old('email', auth()->user()->email) }}"
                 class="w-full mt-3 px-5 py-2 text-lg rounded-2xl border border-slate-300 focus:border-emerald-600 focus:ring-emerald-600 transition">
 
             <x-input-error
@@ -119,7 +119,7 @@
             <input
                 type="text"
                 name="phone"
-                value="{{ old('phone', $user->phone) }}"
+                value="{{ old('phone', auth()->user()->phone) }}"
                 class="w-full mt-3 px-5 py-2 text-lg rounded-2xl border border-slate-300 focus:border-emerald-600 focus:ring-emerald-600 transition">
 
         </div>
@@ -134,7 +134,7 @@
             <textarea
                 name="address"
                 rows="4"
-                class="w-full mt-3 px-5 py-2 text-lg rounded-2xl border border-slate-300 focus:border-emerald-600 focus:ring-emerald-600 transition">{{ old('address', $user->address) }}</textarea>
+                class="w-full mt-3 px-5 py-2 text-lg rounded-2xl border border-slate-300 focus:border-emerald-600 focus:ring-emerald-600 transition">{{ old('address', auth()->user()->address) }}</textarea>
 
         </div>
 

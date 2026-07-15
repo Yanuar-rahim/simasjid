@@ -27,9 +27,15 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
         $request->session()->regenerate();
         $user = Auth::user();
+
+        // Simpan waktu login terakhir
+        $user->last_login_at = now();
+        $user->save();
+
         if ($user->role == 'admin') {
             return redirect()->route('dashboard');
         }
+
         return redirect()->route('user.home');
     }
 

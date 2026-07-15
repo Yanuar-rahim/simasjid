@@ -120,9 +120,9 @@
                     <!-- Informasi Profil -->
                     <div class="bg-white rounded-3xl shadow-lg p-8">
 
-                        <div class="max-w-3xl">
+                        <div class="max-w-8xl">
 
-                            @include('profile.partials.update-profile-information-form')
+                            @include('home.profile.partials.update-profile-information-form')
 
                         </div>
 
@@ -131,9 +131,9 @@
                     <!-- Password -->
                     <div class="bg-white rounded-3xl shadow-lg p-8">
 
-                        <div class="max-w-3xl">
+                        <div class="max-w-8xl">
 
-                            @include('profile.partials.update-password-form')
+                            @include('home.profile.partials.update-password-form')
 
                         </div>
 
@@ -142,9 +142,9 @@
                     <!-- Hapus Akun -->
                     <div class="bg-white rounded-3xl shadow-lg p-8 border border-red-100">
 
-                        <div class="max-w-3xl">
+                        <div class="max-w-8xl">
 
-                            @include('profile.partials.delete-user-form')
+                            @include('home.profile.partials.delete-user-form')
 
                         </div>
 

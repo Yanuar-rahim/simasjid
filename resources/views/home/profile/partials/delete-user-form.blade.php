@@ -50,7 +50,7 @@
 
     <form
         method="POST"
-        action="{{ route('profile.destroy') }}"
+        action="{{ route('user.profile.destroy') }}"
         class="mt-8 space-y-6">
 
         @csrf

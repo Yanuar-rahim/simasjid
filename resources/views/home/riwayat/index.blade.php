@@ -169,7 +169,7 @@
                                                         {{ $item->tanggal->translatedFormat('d F Y') }}
                                                     </p>
                                                     <p class="text-xs text-slate-400">
-                                                        {{ $item->tanggal->format('H:i') }} WIB
+                                                        {{ $item->tanggal->format('H:i') }} WITA
                                                     </p>
                                                 </div>
                                             </div>

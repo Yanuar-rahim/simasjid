@@ -64,7 +64,7 @@
                         src="{{ asset('assets/images/hero-masjid.png') }}"
                         class="w-full">
                     <div
-                        class="absolute -bottom-8 left-8 bg-white rounded-3xl shadow-xl p-6 w-72">
+                        class="absolute -bottom-8 left-8 bg-white rounded-3xl shadow-xl p-6 w-80">
                         <p class="text-slate-500">
                             Status Akun
                         </p>
@@ -75,7 +75,16 @@
                             Terakhir Login
                         </p>
                         <h4 class="font-semibold mt-1 text-slate-800">
-                            {{ \Carbon\Carbon::parse(Auth::user()->last_login_at)->translatedFormat('d F Y H:i') }}
+                            @if(Auth::user()->last_login_at)
+
+                            {{ Auth::user()->last_login_at
+                                ->timezone('Asia/Makassar')
+                                ->translatedFormat('l, d F Y H:i') }}
+                            @else
+
+                            Login Pertama
+
+                            @endif
                             Hari Ini
                         </h4>
                     </div>
@@ -318,103 +327,128 @@
 ======================================= -->
 
     <section class="py-24 bg-white">
-
         <div class="max-w-8xl mx-auto px-8 sm:px-14 lg:px-28">
-
             <div class="text-center mb-16">
-
                 <span class="text-emerald-700 font-semibold">
                     Galeri
                 </span>
-
                 <h2 class="text-4xl font-bold mt-3">
                     Dokumentasi Kegiatan Masjid
                 </h2>
-
                 <p class="text-slate-500 mt-4">
                     Dokumentasi berbagai kegiatan yang telah dilaksanakan
                     oleh pengurus Masjid.
                 </p>
-
             </div>
-
+            @if($galeri->count())
             <div class="swiper gallerySwiper">
-
                 <div class="swiper-wrapper">
-
                     @foreach($galeri as $item)
-
                     <div class="swiper-slide">
-
                         <a
                             href="{{ asset('storage/'.$item->gambar) }}"
                             class="glightbox">
-
                             <div
-                                class="relative overflow-hidden rounded-3xl shadow-xl group">
-
+                                class="relative overflow-hidden rounded-3xl shadow-xl group cursor-pointer">
+                                <!-- IMAGE -->
                                 <img
                                     src="{{ asset('storage/'.$item->gambar) }}"
-                                    class="w-full h-96 object-cover transition duration-700 group-hover:scale-110">
-
+                                    class="w-full h-96 object-cover transition-all duration-700 group-hover:scale-110">
+                                <!-- OVERLAY -->
                                 <div
-                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-500">
-
+                                    class="absolute inset-0
+                                            bg-gradient-to-t
+                                            from-black/90
+                                            via-black/40
+                                            to-transparent
+                                            opacity-0
+                                            group-hover:opacity-100
+                                            transition-all
+                                            duration-500">
                                 </div>
-
+                                <!-- GARIS HIJAU -->
                                 <div
-                                    class="absolute bottom-0 left-0 right-0 p-7 text-white translate-y-10 group-hover:translate-y-0 transition duration-500">
-
-                                    <h3 class="text-2xl font-bold">
-
+                                    class="absolute left-0 top-0 h-full w-1 bg-emerald-500
+                                            scale-y-0
+                                            group-hover:scale-y-100
+                                            origin-bottom
+                                            transition-all
+                                            duration-500">
+                                </div>
+                                <!-- CONTENT -->
+                                <div
+                                    class="absolute inset-0 z-20 flex flex-col justify-end p-7">
+                                    <!-- JUDUL -->
+                                    <h3
+                                        class="text-2xl font-bold text-white
+                                                translate-y-14
+                                                opacity-0
+                                                group-hover:translate-y-0
+                                                group-hover:opacity-100
+                                                transition-all
+                                                duration-500">
                                         {{ $item->judul }}
-
                                     </h3>
-
-                                    <p class="mt-2 text-slate-200">
-
-                                        {{ Str::limit($item->deskripsi,70) }}
-
+                                    <!-- DESKRIPSI -->
+                                    <p
+                                        class="mt-3 text-slate-200 leading-7
+                                                translate-y-14
+                                                opacity-0
+                                                group-hover:translate-y-0
+                                                group-hover:opacity-100
+                                                transition-all
+                                                duration-700
+                                                delay-100">
+                                        {{ Str::limit($item->deskripsi,80) }}
                                     </p>
-
+                                    <!-- FOOTER -->
                                     <div
-                                        class="mt-4 flex items-center justify-between">
-
-                                        <span class="text-sm">
-
-                                            <i class="fa-solid fa-calendar"></i>
-
-                                            {{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') }}
-
-                                        </span>
-
+                                        class="mt-6 flex items-center justify-between
+                                                translate-y-14
+                                                opacity-0
+                                                group-hover:translate-y-0
+                                                group-hover:opacity-100
+                                                transition-all
+                                                duration-700
+                                                delay-200">
                                         <span
-                                            class="bg-white text-emerald-700 px-4 py-2 rounded-xl font-semibold">
-
-                                            Lihat Foto
-
+                                            class="text-sm text-white flex items-center gap-2">
+                                            <i class="fa-solid fa-calendar-days"></i>
+                                            {{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') }}
                                         </span>
-
+                                        <!-- Tombol Glass -->
+                                        <span
+                                            class="w-12 h-12 rounded-full
+                                                    bg-white/20
+                                                    backdrop-blur-md
+                                                    border border-white/30
+                                                    flex items-center justify-center
+                                                    text-white
+                                                    hover:bg-emerald-600
+                                                    transition">
+                                            <i class="fa-solid fa-magnifying-glass-plus"></i>
+                                        </span>
                                     </div>
-
                                 </div>
-
                             </div>
-
                         </a>
-
                     </div>
-
                     @endforeach
-
                 </div>
-
                 <div class="swiper-pagination mt-10"></div>
-
             </div>
-
+            @else
+            <div class="text-center py-20">
+                <i class="fa-solid fa-images text-6xl text-slate-300"></i>
+                <h3 class="text-2xl font-semibold mt-5">
+                    Belum ada galeri
+                </h3>
+                <p class="text-slate-500 mt-2">
+                    Dokumentasi kegiatan akan tampil di sini.
+                </p>
+            </div>
+            @endif
         </div>
-
     </section>
 
     <!-- ======================================
@@ -511,36 +545,37 @@
 
             loop: true,
 
+            // centeredSlides: true,
+
+            speed: 900,
+
             autoplay: {
-                delay: 3500,
-                disableOnInteraction: false,
+                delay: 3000,
+                disableOnInteraction: false
             },
+
+            grabCursor: true,
 
             spaceBetween: 30,
 
             pagination: {
                 el: ".swiper-pagination",
-                clickable: true,
+                clickable: true
             },
 
             breakpoints: {
-
                 0: {
-                    slidesPerView: 1,
+                    slidesPerView: 1
                 },
-
                 768: {
-                    slidesPerView: 2,
+                    slidesPerView: 2
                 },
-
                 1200: {
-                    slidesPerView: 3,
+                    slidesPerView: 3
                 },
-
                 1600: {
-                    slidesPerView: 4,
+                    slidesPerView: 4
                 }
-
             }
 
         });
