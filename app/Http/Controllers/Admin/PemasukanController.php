@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Helpers\ActivityHelper;
 use App\Models\Donasi;
 use App\Models\Pemasukan;
 use Illuminate\Http\Request;
@@ -71,6 +72,13 @@ class PemasukanController extends Controller
             'keterangan' => $request->keterangan,
             'tanggal'    => $request->tanggal,
         ]);
+
+        ActivityHelper::log(
+            'Pemasukan',
+            'Menambahkan pemasukan Rp ' . number_format($pemasukan->nominal, 0, ',', '.'),
+            'fa-wallet',
+            'emerald'
+        );
 
         return redirect()
             ->route('keuangan.index')

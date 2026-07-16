@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kegiatan;
+use App\Helpers\ActivityHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -106,6 +107,13 @@ class KegiatanController extends Controller
             'status' => $request->status,
             'deskripsi' => $request->deskripsi,
         ]);
+
+        ActivityHelper::log(
+            'Kegiatan',
+            'Menambahkan kegiatan ' . $request->judul,
+            'fa-calendar-days',
+            'orange'
+        );
 
         return redirect()
             ->route('kegiatan.index')

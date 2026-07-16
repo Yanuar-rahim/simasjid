@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Helper\ActivityHelper;
 use App\Models\Pengumuman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -24,7 +25,7 @@ class PengumumanController extends Controller
         if ($request->status) {
             $query->where('status', $request->status);
         }
-        
+
         $pengumuman = $query->latest()->paginate(10)->withQueryString();
 
         return view('admin.pengumuman.index', compact('pengumuman'));
@@ -67,6 +68,13 @@ class PengumumanController extends Controller
             'status' => $request->status,
             'isi' => $request->isi
         ]);
+
+        ActivityHelper::log(
+            'Pengumuman',
+            'Menambahkan pengumuman ' . $pengumuman->judul,
+            'fa-bullhorn',
+            'amber'
+        );
 
         return redirect()
             ->route('pengumuman.index')

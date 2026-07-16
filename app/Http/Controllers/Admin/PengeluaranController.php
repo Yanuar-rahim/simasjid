@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pengeluaran;
+use App\Helper\ActivityHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -49,6 +50,13 @@ class PengeluaranController extends Controller
             'keterangan' => $request->keterangan,
             'bukti' => $bukti,
         ]);
+
+        ActivityHelper::log(
+            'Pengeluaran',
+            'Menambahkan pengeluaran Rp ' . number_format($pengeluaran->nominal, 0, ',', '.'),
+            'fa-money-bill-wave',
+            'red'
+        );
 
         return redirect()
             ->route('keuangan.index')

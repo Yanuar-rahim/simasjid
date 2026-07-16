@@ -24,7 +24,7 @@ class HomeController extends Controller
     public function index(AladhanService $jadwal)
     {
 
-        $user = Auth::user();
+        // $user = Auth::user();
 
         $kegiatan = Kegiatan::where('status', 'Aktif')
             ->latest()
@@ -50,6 +50,22 @@ class HomeController extends Controller
         $totalPengeluaran = Pengeluaran::sum('nominal');
         $saldoKas = $totalPemasukan - $totalPengeluaran;
         $jadwalSholat = $jadwal->getJadwal();
+        $targetPembangunan = $masjid->target_pembangunan ?? 0;
+        $danaTerkumpul = $masjid->dana_terkumpul ?? 0;
+
+        // atau jika dana terkumpul berasal dari donasi:
+        $danaTerkumpul = Donasi::where('status', 'Diterima')
+            ->sum('nominal');
+
+        $persenPembangunan = 0;
+
+        if ($targetPembangunan > 0) {
+            $persenPembangunan = round(($danaTerkumpul / $targetPembangunan) * 100);
+
+            if ($persenPembangunan > 100) {
+                $persenPembangunan = 100;
+            }
+        }
 
         return view('index', compact(
             'masjid',
@@ -151,7 +167,7 @@ class HomeController extends Controller
             'saldoKas',
             'kegiatan',
             'pengumuman',
-            'galeri'
+            'galeri',
         ));
     }
 
@@ -367,8 +383,11 @@ class HomeController extends Controller
             ->take(3)
             ->get();
 
+        $masjid = Masjid::first();
+
         return view('home.kegiatan.detail', compact(
             'kegiatan',
+            'masjid',
             'lainnya'
         ));
     }
@@ -409,8 +428,11 @@ class HomeController extends Controller
             ->take(3)
             ->get();
 
+        $masjid = Masjid::first();
+
         return view('home.pengumuman.detail', compact(
             'pengumuman',
+            'masjid',
             'pengumumanTerbaru'
         ));
     }

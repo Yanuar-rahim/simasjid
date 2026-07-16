@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Donasi;
 use App\Models\Pemasukan;
+use App\Helpers\ActivityHelper;
 use App\Models\Masjid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,6 +44,13 @@ class DonasiController extends Controller
             'status' => 'Menunggu',
             'tanggal' => now(),
         ]);
+
+        ActivityHelper::log(
+            'Donasi',
+            auth()->user()->name . ' berdonasi Rp ' . number_format($donasi->nominal, 0, ',', '.'),
+            'fa-hand-holding-heart',
+            'green'
+        );
 
         $configuredBaseUrl = env('MIDTRANS_NOTIFICATION_URL');
         $appUrl = config('app.url');

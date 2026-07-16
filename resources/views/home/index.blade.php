@@ -268,7 +268,7 @@
                     </p>
                 </div>
                 <a href="{{ route('user.kegiatan') }}" class="text-emerald-600 font-semibold hover:text-emerald-700">
-                    Lihat Semua →
+                    Lihat Semua
                 </a>
             </div>
             <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-8 mt-14">
@@ -470,7 +470,7 @@
                 </div>
                 <a href="{{ route('user.pengumuman') }}"
                     class="text-emerald-600 font-semibold hover:text-emerald-700">
-                    Lihat Semua →
+                    Lihat Semua
                 </a>
             </div>
             <div class="grid lg:grid-cols-3 gap-8 mt-14">
@@ -494,8 +494,8 @@
                         </p>
                         <a
                             href="{{ route('user.pengumuman.detail', $item->slug) }}"
-                            class="mt-8 inline-block text-emerald-600 font-semibold">
-                            Selengkapnya →
+                            class="mt-8 block w-full py-3 rounded-2xl bg-emerald-600 text-white text-center hover:bg-emerald-700">
+                            Selengkapnya
                         </a>
                     </div>
                 </div>

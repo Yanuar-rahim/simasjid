@@ -55,7 +55,7 @@
                         <div>
                             <p class="text-emerald-50 text-sm">Total Donasi Diterima</p>
                             <h3 class="text-2xl font-bold mt-1 text-white">
-                                Rp{{ number_format($totalDonasi, 0, ',', '.') }}
+                                Rp      {{ number_format($totalDonasi, 0, ',', '.') }}
                             </h3>
                         </div>
                     </div>
