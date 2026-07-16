@@ -75,7 +75,7 @@ class PemasukanController extends Controller
 
         ActivityHelper::log(
             'Pemasukan',
-            'Menambahkan pemasukan Rp ' . number_format($pemasukan->nominal, 0, ',', '.'),
+            'Menambahkan pemasukan Rp ' . number_format($request->nominal, 0, ',', '.'),
             'fa-wallet',
             'emerald'
         );
