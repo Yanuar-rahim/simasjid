@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pengeluaran;
-use App\Helper\ActivityHelper;
+use App\Helpers\ActivityHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -53,7 +53,7 @@ class PengeluaranController extends Controller
 
         ActivityHelper::log(
             'Pengeluaran',
-            'Menambahkan pengeluaran Rp ' . number_format($pengeluaran->nominal, 0, ',', '.'),
+            'Menambahkan pengeluaran Rp ' . number_format($request->nominal, 0, ',', '.'),
             'fa-money-bill-wave',
             'red'
         );

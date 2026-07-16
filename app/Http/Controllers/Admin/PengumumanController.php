@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Helper\ActivityHelper;
+use App\Helpers\ActivityHelper;
 use App\Models\Pengumuman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -71,7 +71,7 @@ class PengumumanController extends Controller
 
         ActivityHelper::log(
             'Pengumuman',
-            'Menambahkan pengumuman ' . $pengumuman->judul,
+            'Menambahkan pengumuman ' . $request->judul,
             'fa-bullhorn',
             'amber'
         );
