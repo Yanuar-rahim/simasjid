@@ -152,44 +152,45 @@
     <!-- Aktivitas -->
 
     <div class="dashboard-card">
-        <div class="flex justify-between">
-            <h3 class="text-xl font-semibold">
-                Aktivitas Terbaru
-            </h3>
-            <button class="text-emerald-600">
-                Lihat Semua
-            </button>
-        </div>
+        @forelse($aktivitas as $item)
 
-        <div class="mt-8 space-y-6">
-            <div class="flex justify-between">
-                <div>
-                    <h4 class="font-semibold">
-                        Donasi berhasil diterima
-                    </h4>
-                    <p class="text-slate-500">
-                        Ahmad menyumbang Rp500.000
-                    </p>
+        <div class="flex justify-between items-start py-4">
+
+            <div class="flex gap-4">
+
+                <div class="w-11 h-11 rounded-xl bg-{{ $item->color }}-100 flex items-center justify-center">
+
+                    <i class="fa-solid {{ $item->icon }} text-{{ $item->color }}-600"></i>
+
                 </div>
-                <span class="text-sm text-slate-400">
-                    5 menit lalu
-                </span>
+
+                <div>
+
+                    <h4 class="font-semibold">
+                        {{ $item->aktivitas }}
+                    </h4>
+
+                    <p class="text-slate-500">
+                        {{ $item->deskripsi }}
+                    </p>
+
+                </div>
+
             </div>
 
-            <div class="flex justify-between">
-                <div>
-                    <h4 class="font-semibold">
-                        User baru mendaftar
-                    </h4>
-                    <p class="text-slate-500">
-                        Muhammad Rizki
-                    </p>
-                </div>
-                <span class="text-sm text-slate-400">
-                    15 menit lalu
-                </span>
-            </div>
+            <span class="text-sm text-slate-400">
+                {{ $item->created_at->diffForHumans() }}
+            </span>
+
         </div>
+
+        @empty
+
+        <p class="text-slate-500 text-center py-6">
+            Belum ada aktivitas.
+        </p>
+
+        @endforelse
     </div>
 </div>
 

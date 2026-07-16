@@ -383,8 +383,11 @@ class HomeController extends Controller
             ->take(3)
             ->get();
 
+        $masjid = Masjid::first();
+
         return view('home.kegiatan.detail', compact(
             'kegiatan',
+            'masjid',
             'lainnya'
         ));
     }
@@ -425,8 +428,11 @@ class HomeController extends Controller
             ->take(3)
             ->get();
 
+        $masjid = Masjid::first();
+
         return view('home.pengumuman.detail', compact(
             'pengumuman',
+            'masjid',
             'pengumumanTerbaru'
         ));
     }

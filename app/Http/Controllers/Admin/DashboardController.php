@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Helpers\ActivityHelper;
 use App\Models\User;
 use App\Models\Donasi;
 use App\Models\Kegiatan;
 use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
+use App\Models\ActivityLog;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -113,6 +115,11 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
+        $aktivitas = ActivityLog::latest()
+            ->where('created_at', '>=', now()->subMinutes(10))
+            ->take(10)
+            ->get();
+
         return view('admin.dashboard', compact(
             'totalUser',
             'userBulanIni',
@@ -124,6 +131,7 @@ class DashboardController extends Controller
             'labels',
             'chartDonasi',
             'donasiTerbaru',
+            'aktivitas',
             'userTerbaru'
         ));
     }

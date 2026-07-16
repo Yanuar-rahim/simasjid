@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Helpers\ActivityHelper;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -55,6 +56,13 @@ class RegisteredUserController extends Controller
             'role' => 'user',
             'password' => Hash::make($request->password),
         ]);
+
+        ActivityHelper::log(
+            'Registrasi',
+            $user->name . ' membuat akun baru.',
+            'fa-user-plus',
+            'blue'
+        );
 
         event(new Registered($user));
 
