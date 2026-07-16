@@ -15,11 +15,8 @@
                         Total User
                     </p>
                     <h2 class="mt-3 text-4xl font-bold">
-                        245
+                        {{ $totalUser }}
                     </h2>
-                    <p class="mt-3 text-sm text-emerald-600">
-                        +12 bulan ini
-                    </p>
                 </div>
                 <div class="dashboard-icon">
                     <i class="fa-solid fa-users"></i>
@@ -33,11 +30,8 @@
                         Total Donasi
                     </p>
                     <h2 class="mt-3 text-4xl font-bold">
-                        Rp48 Jt
+                        Rp {{ number_format($totalDonasi, 0, ',', '.') }}
                     </h2>
-                    <p class="mt-3 text-sm text-emerald-600">
-                        +18%
-                    </p>
                 </div>
                 <div class="dashboard-icon">
                     <i class="fa-solid fa-hand-holding-heart"></i>
@@ -51,11 +45,8 @@
                         Kegiatan
                     </p>
                     <h2 class="mt-3 text-4xl font-bold">
-                        18
+                        {{$jumlahKegiatan}}
                     </h2>
-                    <p class="mt-3 text-sm text-emerald-600">
-                        3 Minggu ini
-                    </p>
                 </div>
                 <div class="dashboard-icon">
                     <i class="fa-solid fa-calendar-days"></i>
@@ -69,11 +60,8 @@
                         Saldo Kas
                     </p>
                     <h2 class="mt-3 text-4xl font-bold">
-                        Rp124 Jt
+                        Rp {{ number_format($saldoKas, 0, ',', '.') }}
                     </h2>
-                    <p class="mt-3 text-sm text-emerald-600">
-                        Update Hari Ini
-                    </p>
                 </div>
                 <div class="dashboard-icon">
                     <i class="fa-solid fa-wallet"></i>
@@ -109,41 +97,55 @@
             </div>
         </div>
 
-        <!-- Jadwal -->
+        <!-- Kegiatan Terbaru -->
 
         <div class="dashboard-card">
+
             <h3 class="text-xl font-semibold">
-                Jadwal Hari Ini
+                Kegiatan Terbaru
             </h3>
 
             <div class="mt-8 space-y-5">
-                <div class="border-l-4 border-emerald-500 pl-4">
+
+                @forelse($kegiatanTerbaru as $kegiatan)
+
+                @php
+                $warna = match($loop->index % 4){
+                0 => 'border-emerald-500',
+                1 => 'border-blue-500',
+                2 => 'border-orange-500',
+                default => 'border-purple-500',
+                };
+                @endphp
+
+                <div class="border-l-4 {{ $warna }} pl-4">
+
                     <p class="font-semibold">
-                        Kajian Ba'da Maghrib
+                        {{ $kegiatan->judul }}
                     </p>
+
                     <span class="text-sm text-slate-500">
-                        18.30 WIB
+                        {{ \Carbon\Carbon::parse($kegiatan->tanggal)->translatedFormat('d F Y') }}
                     </span>
+
                 </div>
 
-                <div class="border-l-4 border-blue-500 pl-4">
-                    <p class="font-semibold">
-                        Rapat DKM
+                @empty
+
+                <div class="text-center py-8">
+
+                    <i class="fa-solid fa-calendar-xmark text-4xl text-slate-300"></i>
+
+                    <p class="mt-3 text-slate-500">
+                        Belum ada kegiatan.
                     </p>
-                    <span class="text-sm text-slate-500">
-                        13.00 WIB
-                    </span>
+
                 </div>
 
-                <div class="border-l-4 border-orange-500 pl-4">
-                    <p class="font-semibold">
-                        Santunan Anak Yatim
-                    </p>
-                    <span class="text-sm text-slate-500">
-                        09.00 WIB
-                    </span>
-                </div>
+                @endforelse
+
             </div>
+
         </div>
     </div>
 
@@ -194,6 +196,13 @@
 @endsection
 
 @push('scripts')
+
+<script>
+    window.dashboardData = {
+        labels: @json($labels),
+        chartDonasi: @json($chartDonasi)
+    };
+</script>
 
 @if(session('login_success'))
 

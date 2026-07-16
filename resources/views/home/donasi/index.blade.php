@@ -116,37 +116,37 @@
                                     type="button"
                                     class="nominal-btn py-4 rounded-2xl border hover:bg-emerald-50 hover:border-emerald-600 transition"
                                     data-value="10000">
-                                    Rp10.000
+                                    Rp 10.000
                                 </button>
                                 <button
                                     type="button"
                                     class="nominal-btn py-4 rounded-2xl border hover:bg-emerald-50 hover:border-emerald-600 transition"
                                     data-value="20000">
-                                    Rp20.000
+                                    Rp 20.000
                                 </button>
                                 <button
                                     type="button"
                                     class="nominal-btn py-4 rounded-2xl border hover:bg-emerald-50 hover:border-emerald-600 transition"
                                     data-value="50000">
-                                    Rp50.000
+                                    Rp 50.000
                                 </button>
                                 <button
                                     type="button"
                                     class="nominal-btn py-4 rounded-2xl border hover:bg-emerald-50 hover:border-emerald-600 transition"
                                     data-value="100000">
-                                    Rp100.000
+                                    Rp 100.000
                                 </button>
                                 <button
                                     type="button"
                                     class="nominal-btn py-4 rounded-2xl border hover:bg-emerald-50 hover:border-emerald-600 transition"
                                     data-value="250000">
-                                    Rp250.000
+                                    Rp 250.000
                                 </button>
                                 <button
                                     type="button"
                                     class="nominal-btn py-4 rounded-2xl border hover:bg-emerald-50 hover:border-emerald-600 transition"
                                     data-value="500000">
-                                    Rp500.000
+                                    Rp 500.000
                                 </button>
                             </div>
                         </div>
@@ -196,7 +196,7 @@
                                 <span
                                     id="previewNominal"
                                     class="font-bold text-emerald-600">
-                                    Rp0
+                                    Rp 0
                                 </span>
                             </div>
                             <div class="flex justify-between">
@@ -215,36 +215,9 @@
                                 <span
                                     id="previewTotal"
                                     class="font-bold text-emerald-600">
-                                    Rp0
+                                    Rp 0
                                 </span>
                             </div>
-                        </div>
-                    </div>
-                    <!-- Progress -->
-                    <div class="bg-white rounded-[35px] shadow-xl p-8" data-aos="fade-up" data-aos-delay="100">
-                        <h3 class="text-2xl font-bold">
-                            Target Pembangunan
-                        </h3>
-                        <p class="text-slate-500 mt-3">
-                            Renovasi Masjid Tahun 2026
-                        </p>
-                        <div class="mt-8">
-                            <div class="flex justify-between mb-2">
-                                <span>
-                                    Rp75.000.000
-                                </span>
-                                <span>
-                                    Rp100.000.000
-                                </span>
-                            </div>
-                            <div class="w-full bg-slate-200 rounded-full h-4">
-                                <div
-                                    class="bg-emerald-600 h-4 rounded-full w-3/4">
-                                </div>
-                            </div>
-                            <p class="mt-4 text-slate-500">
-                                75% target pembangunan telah tercapai.
-                            </p>
                         </div>
                     </div>
                     <!-- Aman -->

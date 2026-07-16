@@ -22,11 +22,19 @@
     <!-- Menu -->
     <nav class="flex-1 px-5 py-8 space-y-2">
 
-        <a href="{{ route('dashboard') }}"
+        <a href="{{ route('admin.dashboard') }}"
             class="{{ request()->routeIs('dashboard') ? 'sidebar-active' : 'sidebar-menu' }}">
 
             <i class="fa-solid fa-house"></i>
             Dashboard
+
+        </a>
+
+        <a href="#"
+            class="{{ request()->routeIs('user-role') ? 'sidebar-active' : 'sidebar-menu' }}">
+
+            <i class="fa-solid fa-users"></i>
+            Manajemen Role
 
         </a>
 
