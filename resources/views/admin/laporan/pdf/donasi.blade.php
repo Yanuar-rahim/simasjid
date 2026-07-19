@@ -4,10 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        @page {
-            margin: 25px 35px;
-        }
-
         body {
             font-family: DejaVu Sans, sans-serif;
             font-size: 12px;
