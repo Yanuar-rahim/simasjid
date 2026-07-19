@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\DonasiController as AdminDonasiController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
+use App\Http\Controllers\Admin\LaporanController;
+use App\Http\Controllers\Admin\MasjidController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\KegiatanController;
 use App\Http\Controllers\Admin\PengumumanController;
@@ -194,21 +196,65 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
         Route::resource('pengeluaran', PengeluaranController::class);
     });
-});
 
-Route::prefix('dashboard/profile')->group(function () {
+    Route::prefix('masjid')->group(function () {
 
-    Route::get('/', [AdminProfileController::class, 'index'])
-        ->name('admin.profile');
+        Route::get('/', [MasjidController::class, 'index'])
+            ->name('masjid.index');
 
-    Route::get('/edit', [AdminProfileController::class, 'edit'])
-        ->name('admin.profile.edit');
+        Route::post('/', [MasjidController::class, 'save'])
+            ->name('masjid.save');
+    });
 
-    Route::put('/update', [AdminProfileController::class, 'update'])
-        ->name('admin.profile.update');
+    /*
+|--------------------------------------------------------------------------
+| Laporan
+|--------------------------------------------------------------------------
+*/
 
-    Route::put('/password', [AdminProfileController::class, 'updatePassword'])
-        ->name('admin.profile.password');
+    Route::prefix('laporan')
+        ->name('laporan.')
+        ->controller(\App\Http\Controllers\Admin\LaporanController::class)
+        ->group(function () {
+
+            Route::get('/', 'index')->name('index');
+
+            Route::get('/keuangan', 'keuangan')
+                ->name('keuangan');
+
+            Route::get('/donasi', 'donasi')
+                ->name('donasi');
+
+            Route::get('/user', 'user')
+                ->name('user');
+
+            Route::get('/kegiatan', 'kegiatan')
+                ->name('kegiatan');
+        });
+
+    Route::prefix('admin/laporan')->group(function () {
+
+        Route::get('/', [LaporanController::class, 'index'])
+            ->name('laporan.index');
+
+        Route::get('/keuangan', [LaporanController::class, 'keuangan'])
+            ->name('laporan.keuangan');
+
+        Route::get('/keuangan/pdf', [LaporanController::class, 'exportPdf'])
+            ->name('laporan.keuangan.pdf');
+
+        Route::get('/keuangan/excel', [LaporanController::class, 'exportExcel'])
+            ->name('laporan.keuangan.excel');
+
+        Route::get('/donasi', [LaporanController::class, 'donasi'])
+            ->name('laporan.donasi');
+
+        Route::get('/laporan/donasi/export/excel', [LaporanController::class, 'exportDonasiExcel'])
+            ->name('laporan.donasi.excel');
+
+        Route::get('/laporan/donasi/export/pdf', [LaporanController::class, 'exportDonasiPdf'])
+            ->name('laporan.donasi.pdf');
+    });
 });
 
 require __DIR__ . '/auth.php';

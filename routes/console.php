@@ -9,4 +9,7 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::command('app:delete-old-activity-logs')
-    ->daily();
+    ->cron('0 0 * * *'); // setiap hari jam 00:00
+
+Schedule::command('logs:cleanup')
+    ->cron('0 0 * * *'); // setiap hari jam 00:00

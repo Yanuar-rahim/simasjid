@@ -23,7 +23,7 @@
         @include('partials.topbar')
 
         <!-- Content -->
-        <main class="pt-28 px-8 pb-8">
+        <main class="pt-20 px-8 pb-8">
 
             @yield('content')
 

@@ -165,7 +165,7 @@ Tentang
                                 Visi
                             </h3>
                             <p class="mt-3 text-slate-500">
-                                {{ $masjid->visi }}
+                                {{ $masjid->visi ?? '-'}}
                             </p>
                         </div>
                         <div class="card">
@@ -177,7 +177,7 @@ Tentang
                                 Misi
                             </h3>
                             <ul class="list-disc pl-5 space-y-2 ">
-                                @foreach(explode("\n", $masjid->misi) as $misi)
+                                @foreach(explode("\n", $masjid->misi ?? '-') as $misi)
                                     @if(trim($misi) != '')
                                         <li class="mt-3 text-slate-500">{{ $misi }}</li>
                                     @endif
@@ -774,19 +774,19 @@ Lokasi
                         Lokasi
                     </span>
                     <h2 class="title mt-2">
-                        {{ $masjid->nama_masjid }}
+                        {{ $masjid->nama_masjid ?? '-' }}
                     </h2>
                     <p class="subtitle">
-                        {{ $masjid->alamat }}
+                        {{ $masjid->alamat ?? '-' }}
                     </p>
                     <div class="space-y-5 mt-10">
                         <div>
                             <i class="fa-solid fa-phone text-emerald-700"></i>
-                            {{ $masjid->telepon }}
+                            {{ $masjid->telepon ?? '-' }}
                         </div>
                         <div>
                             <i class="fa-solid fa-envelope text-emerald-700"></i>
-                            {{ $masjid->email }}
+                            {{ $masjid->email ?? '-' }}
                         </div>
                         <div>
                             <i class="fa-solid fa-location-dot text-emerald-700"></i>
@@ -795,11 +795,23 @@ Lokasi
                     </div>
                 </div>
                 <div>
-                    <iframe
-                        class="rounded-3xl shadow-xl w-full h-96"
-                        src="{!! $masjid->google_maps !!}"
-                        loading="lazy">
-                    </iframe>
+                    @if($masjid && $masjid->google_maps)
+                        <iframe
+                            class="rounded-3xl shadow-xl w-full h-96"
+                            src="{{ $masjid->google_maps }}"
+                            loading="lazy">
+                        </iframe>
+                    @else
+                        <div class="w-full h-96 rounded-3xl bg-slate-100 border border-dashed border-slate-300 flex flex-col items-center justify-center">
+                            <i class="fa-solid fa-map-location-dot text-5xl text-slate-400 mb-4"></i>
+                            <h3 class="font-semibold text-slate-700">
+                                Google Maps belum tersedia
+                            </h3>
+                            <p class="text-slate-500 mt-2">
+                                Silakan lengkapi Profil Masjid terlebih dahulu.
+                            </p>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

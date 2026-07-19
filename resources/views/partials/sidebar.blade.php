@@ -17,12 +17,12 @@
     <!-- Menu -->
     <nav class="flex-1 px-5 py-8 space-y-2">
         <a href="{{ route('admin.dashboard') }}"
-            class="{{ request()->routeIs('dashboard') ? 'sidebar-active' : 'sidebar-menu' }}">
+            class="{{ request()->routeIs('admin.dashboard') ? 'sidebar-active' : 'sidebar-menu' }}">
             <i class="fa-solid fa-house"></i>
             Dashboard
         </a>
         <a href="{{ route('users.index') }}"
-            class="{{ request()->routeIs('user-role') ? 'sidebar-active' : 'sidebar-menu' }}">
+            class="{{ request()->routeIs('users.*') ? 'sidebar-active' : 'sidebar-menu' }}">
             <i class="fa-solid fa-users"></i>
             Manajemen Pengguna
         </a>
@@ -51,15 +51,15 @@
             <i class="fa-solid fa-images"></i>
             Galeri
         </a>
-        <a href="#"
-            class="{{ request()->routeIs('masjid.*') ? 'sidebar-active' : 'sidebar-menu' }}">
-            <i class="fa-solid fa-mosque"></i>
-            Profil Masjid
-        </a>
-        <a href="#"
+        <a href="{{ route('laporan.index') }}"
             class="{{ request()->routeIs('laporan.*') ? 'sidebar-active' : 'sidebar-menu' }}">
             <i class="fa-solid fa-chart-column"></i>
             Laporan
+        </a>
+        <a href="{{ route('masjid.index') }}"
+            class="{{ request()->routeIs('masjid.*') ? 'sidebar-active' : 'sidebar-menu' }}">
+            <i class="fa-solid fa-mosque"></i>
+            Profil Masjid
         </a>
         <a href="#"
             class="{{ request()->routeIs('setting.*') ? 'sidebar-active' : 'sidebar-menu' }}">
