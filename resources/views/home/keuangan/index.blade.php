@@ -45,7 +45,7 @@
                     <div
                         class="absolute -bottom-8 left-8 bg-white rounded-3xl shadow-xl p-6 w-72">
                         <p class="text-slate-500">
-                            Saldo Kas
+                            Total Pemasukan
                         </p>
                         <h3 class="text-3xl font-bold text-emerald-700 mt-2">
                             Rp {{ number_format($totalPemasukan,0,',','.') }}

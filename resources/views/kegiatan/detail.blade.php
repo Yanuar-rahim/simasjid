@@ -263,7 +263,7 @@
                 </div>
 
                 <a
-                    href="{{ route('home') }}#kegiatan"
+                    href="{{ route('user.kegiatan') }}"
                     class="btn-secondary">
 
                     Lihat Semua
@@ -298,12 +298,10 @@
                         </p>
 
                         <a
-                            href="{{ route('kegiatan.detail',$item->slug) }}"
-                            class="inline-flex items-center gap-2 mt-6 text-emerald-700 font-semibold hover:gap-3">
+                            href="{{ route('public.kegiatan.detail',$item->slug) }}"
+                            class="mt-8 block w-full py-3 rounded-2xl bg-emerald-600 text-white text-center hover:bg-emerald-700">
 
                             Selengkapnya
-
-                            <i class="fa-solid fa-arrow-right"></i>
 
                         </a>
 

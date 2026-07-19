@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Kegiatan;
 use App\Helpers\ActivityHelper;
+use App\Helpers\UserLogHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -113,6 +114,11 @@ class KegiatanController extends Controller
             'Menambahkan kegiatan ' . $request->judul,
             'fa-calendar-days',
             'orange'
+        );
+
+        UserLogHelper::store(
+            'Menambahkan kegiatan baru',
+            $request
         );
 
         return redirect()
