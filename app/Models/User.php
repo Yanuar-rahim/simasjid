@@ -21,6 +21,8 @@ class User extends Authenticatable
         'foto',
         'role',
         'password',
+        'last_login_at',
+        'last_seen',
     ];
 
     /**
@@ -39,6 +41,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'last_login_at' => 'datetime',
+            'last_seen' => 'datetime',
             'password' => 'hashed',
         ];
     }
@@ -56,5 +59,30 @@ class User extends Authenticatable
     public function pengeluaran()
     {
         return $this->hasMany(Pengeluaran::class);
+    }
+
+    public function logs()
+    {
+        return $this->hasMany(UserLog::class)
+            ->latest();
+    }
+
+    public function getOnlineStatusAttribute()
+    {
+        if (!$this->last_seen) {
+            return 'offline';
+        }
+
+        $menit = now()->diffInMinutes($this->last_seen);
+
+        if ($menit < 2) {
+            return 'online';
+        }
+
+        if ($menit < 10) {
+            return 'recent';
+        }
+
+        return 'offline';
     }
 }

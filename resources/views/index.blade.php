@@ -176,9 +176,13 @@ Tentang
                             <h3 class="font-bold text-xl mt-5">
                                 Misi
                             </h3>
-                            <p class="mt-3 text-slate-500">
-                                {{ $masjid->misi }}
-                            </p>
+                            <ul class="list-disc pl-5 space-y-2 ">
+                                @foreach(explode("\n", $masjid->misi) as $misi)
+                                    @if(trim($misi) != '')
+                                        <li class="mt-3 text-slate-500">{{ $misi }}</li>
+                                    @endif
+                                @endforeach
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -372,11 +376,9 @@ Tentang
             @endif
         </div>
     </section>
-
     <!-- ===========================
-Program Kegiatan
-============================ -->
-
+    Program Kegiatan
+    ============================ -->
     <section id="kegiatan" class="section bg-white">
         <div class="max-w-8xl mx-auto px-8 sm:px-14 lg:px-28">
             <div class="text-center mb-16">
@@ -389,10 +391,10 @@ Program Kegiatan
                 <p class="subtitle">
                     Berbagai kegiatan ibadah, pendidikan, dan sosial yang diselenggarakan oleh masjid.
                 </p>
-                <a href="{{ url('/kegiatan') }}" class="inline-flex items-center gap-2 mt-6 text-emerald-700 font-semibold hover:gap-3 transition-all">
+                <!-- <a href="{{ url('/kegiatan') }}" class="inline-flex items-center gap-2 mt-6 text-emerald-700 font-semibold hover:gap-3 transition-all">
                     Lihat Semua Kegiatan
                     <i class="fa-solid fa-arrow-right"></i>
-                </a>
+                </a> -->
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @if($kegiatan->count())
@@ -413,13 +415,12 @@ Program Kegiatan
                             {{ $item->judul }}
                         </h3>
                         <p class="text-slate-500 mt-4 leading-8">
-                            {{ Str::limit($item->deskripsi,51) }}
+                            {{ Str::limit($item->deskripsi,55) }}
                         </p>
                         <a
                             href="{{ route('public.kegiatan.detail', $item->slug) }}"
-                            class="inline-flex items-center gap-2 mt-6 text-emerald-700 font-semibold hover:gap-3 transition-all">
+                            class="mt-8 block w-full py-3 rounded-2xl bg-emerald-600 text-white text-center hover:bg-emerald-700">
                             Selengkapnya
-                            <i class="fa-solid fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
@@ -457,10 +458,10 @@ Pengumuman
                 <p class="subtitle">
                     Informasi terbaru mengenai kegiatan dan layanan masjid.
                 </p>
-                <a href="{{ url('/pengumuman') }}" class="inline-flex items-center gap-2 mt-6 text-emerald-700 font-semibold hover:gap-3 transition-all">
+                <!-- <a href="{{ url('/pengumuman') }}" class="inline-flex items-center gap-2 mt-6 text-emerald-700 font-semibold hover:gap-3 transition-all">
                     Lihat Semua Pengumuman
                     <i class="fa-solid fa-arrow-right"></i>
-                </a>
+                </a> -->
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @forelse($pengumuman as $item)
@@ -489,13 +490,12 @@ Pengumuman
                             {{ $item->judul }}
                         </h3>
                         <p class="text-slate-500 leading-8 mt-4">
-                            {{ Str::limit(strip_tags($item->isi),100) }}
+                            {{ Str::limit(strip_tags($item->isi),55) }}
                         </p>
                         <a
                             href="{{ route('public.pengumuman.detail',$item->slug) }}"
-                            class="inline-flex items-center gap-2 mt-6 text-emerald-700 font-semibold hover:gap-3 transition">
+                            class="mt-8 block w-full py-3 rounded-2xl bg-emerald-600 text-white text-center hover:bg-emerald-700">
                             Selengkapnya
-                            <i class="fa-solid fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>

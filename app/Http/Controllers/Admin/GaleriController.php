@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Galeri;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Helpers\ActivityHelper;
+use App\Helpers\UserLogHelper;
 use Illuminate\Support\Facades\Storage;
 
 class GaleriController extends Controller
@@ -35,7 +37,7 @@ class GaleriController extends Controller
         $request->validate([
 
             'judul' => 'required|max:255',
-            'gambar' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'gambar' => 'required|image|mimes:jpg,jpeg,png|max:4096',
             'deskripsi' => 'nullable',
             'tanggal' => 'required|date',
             'status' => 'required|boolean',
@@ -46,20 +48,25 @@ class GaleriController extends Controller
             ->store('galeri', 'public');
 
         Galeri::create([
-
             'user_id' => Auth::id(),
-
             'judul' => $request->judul,
-
             'gambar' => $gambar,
-
             'deskripsi' => $request->deskripsi,
-
             'tanggal' => $request->tanggal,
-
             'status' => $request->status,
-
         ]);
+
+        ActivityHelper::log(
+            'Galeri',
+            'Mengunggah foto ' . $request->judul,
+            'fa-images',
+            'blue'
+        );
+
+        UserLogHelper::store(
+            'Mengunggah foto galeri',
+            $request
+        );
 
         return redirect()
             ->route('galeri.index')
