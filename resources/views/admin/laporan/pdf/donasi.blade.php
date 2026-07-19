@@ -4,10 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        @page {
-            margin: 25px 35px;
-        }
-
         body {
             font-family: DejaVu Sans, sans-serif;
             font-size: 12px;
@@ -19,6 +15,12 @@
             font-size: 22px;
             font-weight: bold;
             color: #065F46;
+        }
+
+        .subtitle {
+            text-align:center;
+            margin-top:5px;
+            font-size:14px;
         }
 
         .periode {
@@ -87,7 +89,7 @@
     <div class="title">
         LAPORAN DONASI MASJID
     </div>
-    <div class="subtitle">
+    <div class="nama-masjid">
         {{ $masjid->nama_masjid ?? '-' }}
     </div>
     <div class="subtitle">
