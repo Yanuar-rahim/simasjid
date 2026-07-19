@@ -176,9 +176,13 @@ Tentang
                             <h3 class="font-bold text-xl mt-5">
                                 Misi
                             </h3>
-                            <p class="mt-3 text-slate-500">
-                                {{ $masjid->misi }}
-                            </p>
+                            <ul class="list-disc pl-5 space-y-2 ">
+                                @foreach(explode("\n", $masjid->misi) as $misi)
+                                    @if(trim($misi) != '')
+                                        <li class="mt-3 text-slate-500">{{ $misi }}</li>
+                                    @endif
+                                @endforeach
+                            </ul>
                         </div>
                     </div>
                 </div>
