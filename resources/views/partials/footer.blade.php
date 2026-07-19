@@ -46,11 +46,11 @@
                         </li>
                         <li>
                             <i class="fa-solid fa-phone mr-2"></i>
-                            {{ $masjid->telepon }}
+                            {{ $masjid->telepon ?? '-' }}
                         </li>
                         <li>
                             <i class="fa-solid fa-envelope mr-2"></i>
-                            {{ $masjid->email }}
+                            {{ $masjid->email ?? '-'}}
                         </li>
                     </ul>
                 </div>

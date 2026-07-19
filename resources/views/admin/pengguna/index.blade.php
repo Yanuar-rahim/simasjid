@@ -195,7 +195,19 @@
                                     class="w-10 h-10 rounded-xl bg-blue-100 hover:bg-blue-200 flex items-center justify-center transition">
                                     <i class="fa-solid fa-eye text-blue-600"></i>
                                 </a>
-                                @if($admin->id != auth()->id())
+                            @if($admin->id == auth()->id())
+                                <span
+                                    class="px-3 py-2 text-xs rounded-xl bg-slate-100 text-slate-500">
+                                    Akun Anda
+                                </span>
+                                @elseif($admin->online_status == 'online')
+                                <button
+                                    type="button"
+                                    class="online-user-delete w-10 h-10 rounded-xl bg-gray-100 text-gray-400 hover:bg-gray-200 transition"
+                                    title="Pengguna sedang online">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                                @else
                                 <form action="{{ route('users.destroy',$admin) }}"
                                     method="POST"
                                     class="delete-form">
@@ -206,12 +218,7 @@
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
                                 </form>
-                                @else
-                                <span
-                                    class="px-3 py-2 text-xs rounded-xl bg-slate-100 text-slate-500">
-                                    Akun Anda
-                                </span>
-                                @endif
+                            @endif
                             </div>
                         </td>
                     </tr>
@@ -344,7 +351,19 @@
                                     class="w-10 h-10 rounded-xl bg-blue-100 hover:bg-blue-200 flex items-center justify-center transition">
                                     <i class="fa-solid fa-eye text-blue-600"></i>
                                 </a>
-                                {{-- Hapus --}}
+                                @if($user->id == auth()->id())
+                                <span
+                                    class="px-3 py-2 text-xs rounded-xl bg-slate-100 text-slate-500">
+                                    Akun Anda
+                                </span>
+                                @elseif($user->online_status == 'online')
+                                <button
+                                    type="button"
+                                    class="online-user-delete w-10 h-10 rounded-xl bg-gray-100 text-gray-400 hover:bg-gray-200 transition"
+                                    title="Pengguna sedang online">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                                @else
                                 <form action="{{ route('users.destroy',$user) }}"
                                     method="POST"
                                     class="delete-form">
@@ -356,6 +375,7 @@
                                         <i class="fa-solid fa-trash text-red-600"></i>
                                     </button>
                                 </form>
+                                @endif
                             </div>
                         </td>
                     </tr>
@@ -433,6 +453,19 @@
                         form.submit();
                     }
                 });
+            });
+        });
+    });
+</script>
+
+<script>
+    document.querySelectorAll('.online-user-delete').forEach(button => {
+        button.addEventListener('click', function () {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Tidak dapat menghapus',
+                text: 'Pengguna masih sedang online.',
+                confirmButtonColor: '#059669'
             });
         });
     });

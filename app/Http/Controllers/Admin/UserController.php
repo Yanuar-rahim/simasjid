@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\UserLog;
 use App\Helpers\UserLogHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -55,6 +56,11 @@ class UserController extends Controller
 
         $totalOnline = User::where('last_seen', '>=', now()->subMinutes(2))
             ->count();
+
+        $logs = UserLog::with('user')
+            ->where('created_at', '>=', now()->subMinutes(10))
+            ->latest()
+            ->get();
 
         return view('admin.pengguna.index', compact(
             'admins',
@@ -139,44 +145,21 @@ class UserController extends Controller
     {
         // Tidak boleh menghapus akun sendiri
         if ($user->id == auth()->id()) {
-
-            return back()->with(
-                'error',
-                'Anda tidak dapat menghapus akun sendiri.'
-            );
+            return back()->with('error', 'Anda tidak dapat menghapus akun sendiri.');
         }
 
-        if ($user->role == 'admin') {
-
-            $jumlahAdmin = User::where('role', 'admin')->count();
-
-            if ($jumlahAdmin <= 1) {
-
-                return back()->with(
-                    'error',
-                    'Minimal harus ada satu Administrator di dalam sistem.'
-                );
-            }
+        // Tidak boleh menghapus akun yang sedang online
+        if ($user->online_status == 'online') {
+            return back()->with('error', 'Pengguna sedang online dan tidak dapat dihapus.');
         }
 
         // Hapus foto jika ada
-        if ($user->foto && Storage::disk('public')->exists($user->foto)) {
-
-            Storage::disk('public')->delete($user->foto);
+        if ($user->foto && \Storage::disk('public')->exists($user->foto)) {
+            \Storage::disk('public')->delete($user->foto);
         }
-
-        UserLogHelper::store(
-            'Menghapus pengguna',
-            $request
-        );
 
         $user->delete();
 
-        return redirect()
-            ->route('users.index')
-            ->with(
-                'success',
-                'Pengguna berhasil dihapus.'
-            );
+        return back()->with('success', 'Pengguna berhasil dihapus.');
     }
 }
