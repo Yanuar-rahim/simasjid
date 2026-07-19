@@ -187,7 +187,7 @@ class ProfileController extends Controller
             'name' => 'required|string|max:255',
             'phone' => 'nullable|max:20',
             'address' => 'nullable',
-            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:4096',
         ]);
 
         if ($request->hasFile('foto')) {

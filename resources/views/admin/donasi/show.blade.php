@@ -166,7 +166,7 @@
 
                 <div class="leading-8 text-slate-600">
 
-                    {!! nl2br(e($donasi->doa ?: '-')) !!}
+                    {!! nl2br(e($donasi->pesan ?: '-')) !!}
 
                 </div>
 

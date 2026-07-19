@@ -76,14 +76,11 @@
                         </p>
                         <h4 class="font-semibold mt-1 text-slate-800">
                             @if(Auth::user()->last_login_at)
-
                             {{ Auth::user()->last_login_at
                                 ->timezone('Asia/Makassar')
                                 ->translatedFormat('l, d F Y H:i') }}
                             @else
-
                             Login Pertama
-
                             @endif
                             Hari Ini
                         </h4>
@@ -93,7 +90,7 @@
         </div>
     </section>
     <!-- ===========================
-        STATISTIK DONASI
+    STATISTIK DONASI
     ============================ -->
     <section class="py-20 bg-white">
         <div class="max-w-8xl mx-auto px-8 sm:px-14 lg:px-28">
@@ -249,7 +246,6 @@
             </div>
         </div>
     </section>
-
     <!-- ===========================
         KEGIATAN TERBARU
     ============================ -->
@@ -288,7 +284,7 @@
                             {{ $item->judul }}
                         </h3>
                         <p class="text-slate-500 mt-4 leading-8">
-                            {{ Str::limit($item->deskripsi, 80) }}
+                            {{ Str::limit($item->deskripsi, 55) }}
                         </p>
                         <div class="mt-6 space-y-2 text-slate-600">
                             <div>
@@ -490,7 +486,7 @@
                             {{ $item->judul }}
                         </h3>
                         <p class="text-slate-500 leading-8 mt-4">
-                            {{ Str::limit(strip_tags($item->isi), 100) }}
+                            {{ Str::limit(strip_tags($item->isi), 55) }}
                         </p>
                         <a
                             href="{{ route('user.pengumuman.detail', $item->slug) }}"

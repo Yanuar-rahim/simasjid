@@ -334,7 +334,9 @@ class HomeController extends Controller
             ->paginate(6)
             ->withQueryString();
 
-        return view('kegiatan.index', compact('kegiatan'));
+        $masjid = Masjid::first();
+
+        return view('kegiatan.index', compact('kegiatan', 'masjid'));
     }
 
     public function publicPengumuman()
@@ -344,7 +346,9 @@ class HomeController extends Controller
             ->paginate(6)
             ->withQueryString();
 
-        return view('pengumuman.index', compact('pengumuman'));
+        $masjid = Masjid::first();
+
+        return view('pengumuman.index', compact('pengumuman', 'masjid'));
     }
 
     /*
@@ -365,8 +369,11 @@ class HomeController extends Controller
             ->take(3)
             ->get();
 
+        $masjid = Masjid::first();
+
         return view('kegiatan.detail', compact(
             'kegiatan',
+            'masjid',
             'lainnya'
         ));
     }
@@ -410,8 +417,11 @@ class HomeController extends Controller
             ->take(3)
             ->get();
 
+        $masjid = Masjid::first();
+
         return view('pengumuman.detail', compact(
             'pengumuman',
+            'masjid',   
             'pengumumanTerbaru'
         ));
     }

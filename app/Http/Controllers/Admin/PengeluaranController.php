@@ -86,7 +86,7 @@ class PengeluaranController extends Controller
             'nominal' => 'required|numeric',
             'tanggal' => 'required|date',
             'keterangan' => 'nullable',
-            'bukti' => 'nullable|image|max:2048',
+            'bukti' => 'nullable|image|max:4096',
         ]);
 
         $data = $request->only([

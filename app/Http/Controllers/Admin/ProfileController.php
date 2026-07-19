@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Helpers\UserLogHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -27,7 +28,7 @@ class ProfileController extends Controller
             'name' => 'required',
             'phone' => 'nullable',
             'address' => 'nullable',
-            'foto' => 'nullable|image|max:2048'
+            'foto' => 'nullable|image|max:4096'
         ]);
 
         if ($request->hasFile('foto')) {
@@ -52,6 +53,11 @@ class ProfileController extends Controller
             'password_lama' => 'required',
             'password' => 'required|confirmed|min:8'
         ]);
+
+        UserLogHelper::store(
+            'Mengubah password',
+            $request
+        );
 
         $admin = Auth::user();
 

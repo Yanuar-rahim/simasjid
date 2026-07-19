@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\KeuanganController;
 use App\Http\Controllers\Admin\PemasukanController;
 use App\Http\Controllers\Admin\PengeluaranController;
 use App\Http\Controllers\Admin\GaleriController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\DonasiController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Home\ProfileController as UserProfileController;
@@ -133,61 +134,63 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'admin'])->group(function () {
 
+    // Dashboard
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])
         ->name('admin.dashboard');
 
     /*
-    |-----------------------------
-    | Kegiatan Admin
-    |-----------------------------
+    |--------------------------------------------------------------------------
+    | Manajemen Pengguna
+    |--------------------------------------------------------------------------
+    */
+
+    Route::resource('users', UserController::class);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Kegiatan
+    |--------------------------------------------------------------------------
     */
 
     Route::resource('kegiatan', KegiatanController::class);
 
     /*
-    |-----------------------------
-    | Pengumuman Admin
-    |-----------------------------
+    |--------------------------------------------------------------------------
+    | Pengumuman
+    |--------------------------------------------------------------------------
     */
 
     Route::resource('pengumuman', PengumumanController::class);
 
+    /*
+    |--------------------------------------------------------------------------
+    | Galeri
+    |--------------------------------------------------------------------------
+    */
+
     Route::resource('galeri', GaleriController::class);
 
     /*
-    |-----------------------------
-    | Donasi Admin
-    |-----------------------------
+    |--------------------------------------------------------------------------
+    | Donasi
+    |--------------------------------------------------------------------------
     */
 
     Route::resource('donasi', AdminDonasiController::class)
         ->except(['create', 'store']);
 
     /*
-|--------------------------------------------------------------------------
-| Transparansi Keuangan
-|--------------------------------------------------------------------------
-*/
+    |--------------------------------------------------------------------------
+    | Keuangan
+    |--------------------------------------------------------------------------
+    */
 
     Route::prefix('admin/keuangan')->group(function () {
 
-        // Dashboard Keuangan
         Route::get('/', [KeuanganController::class, 'index'])
             ->name('keuangan.index');
 
-        /*
-    |--------------------------------------------------------------------------
-    | Pemasukan
-    |--------------------------------------------------------------------------
-    */
-
         Route::resource('pemasukan', PemasukanController::class);
-
-        /*
-    |--------------------------------------------------------------------------
-    | Pengeluaran
-    |--------------------------------------------------------------------------
-    */
 
         Route::resource('pengeluaran', PengeluaranController::class);
     });
