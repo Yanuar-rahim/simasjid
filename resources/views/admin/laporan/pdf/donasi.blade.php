@@ -21,6 +21,12 @@
             color: #065F46;
         }
 
+        .subtitle {
+            text-align:center;
+            margin-top:5px;
+            font-size:14px;
+        }
+
         .periode {
             text-align: center;
             margin-top: 8px;
@@ -87,7 +93,7 @@
     <div class="title">
         LAPORAN DONASI MASJID
     </div>
-    <div class="subtitle">
+    <div class="nama-masjid">
         {{ $masjid->nama_masjid ?? '-' }}
     </div>
     <div class="subtitle">
