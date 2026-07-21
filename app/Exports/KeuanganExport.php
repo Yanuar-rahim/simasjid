@@ -53,9 +53,7 @@ class KeuanganExport implements FromCollection, ShouldAutoSize, WithEvents
     public function registerEvents(): array
     {
         return [
-
             AfterSheet::class => function (AfterSheet $event) {
-
                 $sheet = $event->sheet->getDelegate();
 
                 /*
@@ -108,9 +106,7 @@ class KeuanganExport implements FromCollection, ShouldAutoSize, WithEvents
                             ->translatedFormat('d F Y');
 
                 } else {
-
                     $periode = 'Periode : Seluruh Data';
-
                 }
 
                 $sheet->setCellValue('A4', $periode);
@@ -138,9 +134,7 @@ class KeuanganExport implements FromCollection, ShouldAutoSize, WithEvents
                 */
 
                 $pemasukan = Pemasukan::query();
-
                 if ($this->mulai && $this->selesai) {
-
                     $pemasukan->whereBetween(
                         'tanggal',
                         [
@@ -148,7 +142,6 @@ class KeuanganExport implements FromCollection, ShouldAutoSize, WithEvents
                             $this->selesai
                         ]
                     );
-
                 }
 
                 $pemasukan = $pemasukan
@@ -162,9 +155,7 @@ class KeuanganExport implements FromCollection, ShouldAutoSize, WithEvents
                 */
 
                 $pengeluaran = Pengeluaran::query();
-
                 if ($this->mulai && $this->selesai) {
-
                     $pengeluaran->whereBetween(
                         'tanggal',
                         [
@@ -172,7 +163,6 @@ class KeuanganExport implements FromCollection, ShouldAutoSize, WithEvents
                             $this->selesai
                         ]
                     );
-
                 }
 
                 $pengeluaran = $pengeluaran

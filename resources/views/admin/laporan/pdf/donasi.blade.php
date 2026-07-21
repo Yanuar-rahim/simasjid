@@ -22,9 +22,9 @@
         }
 
         .subtitle {
-            text-align:center;
-            margin-top:5px;
-            font-size:14px;
+            text-align: center;
+            margin-top: 5px;
+            font-size: 14px;
         }
 
         .periode {
@@ -78,6 +78,16 @@
             background: #F8FAFC;
         }
 
+        .watermark {
+            position: fixed;
+            top: 35%;
+            left: 15%;
+            font-size: 90px;
+            color: #dddddd;
+            opacity: .15;
+            transform: rotate(-30deg);
+        }
+
         .footer {
             margin-top: 40px;
             width: 100%;
@@ -86,10 +96,26 @@
         .footer td {
             border: none;
         }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
+        }
+        
+        tr {
+            page-break-inside:avoid;
+        }
+
     </style>
 </head>
 
 <body>
+    <div class="watermark">
+        {{ $masjid->nama_masjid }}
+    </div>
     <div class="title">
         LAPORAN DONASI MASJID
     </div>
@@ -108,7 +134,7 @@
     </div>
     <div class="periode">
         @if($mulai && $selesai)
-        Periode :
+        Periode :   
         {{ \Carbon\Carbon::parse($mulai)->translatedFormat('d F Y') }}
         s/d
         {{ \Carbon\Carbon::parse($selesai)->translatedFormat('d F Y') }}
@@ -117,7 +143,25 @@
         Seluruh Data
         @endif
     </div>
+    <div class="subtitle">
+        Dicetak :
+        {{ $tanggalCetak->translatedFormat('d F Y H:i') }}
+    </div>
     <hr style="border:1px solid #444; margin-bottom:18px;">
+    <table style="margin-bottom:18px;">
+        <tr>
+            <td width="40%"><b>Total Donasi</b></td>
+            <td>
+                Rp {{ number_format($totalDonasi,0,',','.') }}
+            </td>
+        </tr>
+        <tr>
+            <td><b>Jumlah Transaksi</b></td>
+            <td>
+                {{ $donasi->count() }} transaksi
+            </td>
+        </tr>
+    </table>
     <table>
         <thead>
             <tr>
@@ -205,5 +249,17 @@
             </td>
         </tr>
     </table>
+    <script type="text/php">
+        if (isset($pdf)) {
+            $x = 520;
+            $y = 815;
+            $text = "Halaman {PAGE_NUM} / {PAGE_COUNT}";
+            $font = $fontMetrics->get_font("DejaVu Sans", "normal");
+            $size = 9;
+            $color = array(0,0,0);
+            $pdf->page_text($x, $y, $text, $font, $size, $color);
+        }
+    </script>
 </body>
+
 </html>
