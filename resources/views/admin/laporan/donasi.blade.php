@@ -4,14 +4,28 @@
 
 <div class="space-y-8">
     {{-- Header --}}
-    <div class="flex items-center justify-between">
-        <div>
-            <h1 class="text-3xl font-bold text-slate-800">
-                Laporan Donasi
-            </h1>
-            <p class="text-slate-500 mt-2">
-                Ringkasan seluruh transaksi donasi yang masuk ke sistem.
-            </p>
+    <div class="dashboard-card">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+            <div>
+                <div class="flex items-center gap-4">
+                    <div class="w-16 h-16 rounded-2xl bg-blue-100 flex items-center justify-center">
+                        <i class="fa-solid fa-hand-holding-heart text-3xl text-blue-600"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-3xl font-bold text-slate-800">
+                            Laporan Donasi
+                        </h1>
+                        <p class="text-slate-500 mt-2">
+                            Ringkasan seluruh transaksi donasi yang masuk ke sistem.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <a href="{{ route('laporan.index') }}"
+                class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-slate-800 hover:bg-slate-900 text-white transition">
+                <i class="fa-solid fa-arrow-left"></i>
+                Kembali
+            </a>
         </div>
     </div>
     {{-- Statistik --}}
@@ -91,7 +105,7 @@
                         type="date"
                         name="mulai"
                         value="{{ request('mulai') }}"
-                        class="w-full rounded-xl border-slate-300">
+                        class="mt-2 w-full rounded-2xl border border-slate-300 px-5 py-3 focus:border-emerald-600 focus:ring-emerald-600">
                 </div>
                 <div>
                     <label class="block text-sm font-medium mb-2">
@@ -101,7 +115,7 @@
                         type="date"
                         name="selesai"
                         value="{{ request('selesai') }}"
-                        class="w-full rounded-xl border-slate-300">
+                        class="mt-2 w-full rounded-2xl border border-slate-300 px-5 py-3 focus:border-emerald-600 focus:ring-emerald-600">
                 </div>
                 <div>
                     <label class="block text-sm font-medium mb-2">
@@ -109,7 +123,7 @@
                     </label>
                     <select
                         name="status"
-                        class="w-full rounded-xl border-slate-300">
+                        class="mt-2 w-full rounded-2xl border border-slate-300 px-5 py-3 focus:border-emerald-600 focus:ring-emerald-600">
                         <option value="">
                             Semua
                         </option>
@@ -133,7 +147,7 @@
                     </label>
                     <select
                         name="jenis"
-                        class="w-full rounded-xl border-slate-300">
+                        class="mt-2 w-full rounded-2xl border border-slate-300 px-5 py-3 focus:border-emerald-600 focus:ring-emerald-600">
                         <option value="">
                             Semua
                         </option>
