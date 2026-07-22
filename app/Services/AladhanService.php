@@ -30,7 +30,13 @@ class AladhanService
 
                     if ($response->successful()) {
 
-                        return $response->json()['data']['timings'];
+                        $timings = $response->json()['data']['timings'];
+
+                        foreach ($timings as $key => $value) {
+                            $timings[$key] = substr($value, 0, 5);
+                        }
+
+                        return $timings;
                     }
                 } catch (\Exception $e) {
 
@@ -39,11 +45,11 @@ class AladhanService
 
                 // fallback jika API mati
                 return [
-                    'Fajr'    => '-',
-                    'Dhuhr'   => '-',
-                    'Asr'     => '-',
-                    'Maghrib' => '-',
-                    'Isha'    => '-',
+                    'Fajr'    => '04:45',
+                    'Dhuhr'   => '12:05',
+                    'Asr'     => '15:20',
+                    'Maghrib' => '18:05',
+                    'Isha'    => '19:15',
                 ];
             }
         );

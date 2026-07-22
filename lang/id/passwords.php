@@ -1,11 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
 return [
-    'reset'     => 'Kata sandi Anda sudah direset!',
-    'sent'      => 'Kami sudah mengirim surel yang berisi tautan untuk mereset kata sandi Anda!',
-    'throttled' => 'Harap tunggu sebelum mencoba lagi.',
-    'token'     => 'Token pengaturan ulang kata sandi tidak sah.',
-    'user'      => 'Kami tidak dapat menemukan pengguna dengan alamat surel tersebut.',
+    'reset' => 'Password Anda berhasil diubah.',
+    'sent' => 'Kami telah mengirim tautan reset password ke email Anda.',
+    'throttled' => 'Silakan tunggu sebelum mencoba lagi.',
+    'token' => 'Token reset password tidak valid.',
+    'user' => 'Kami tidak menemukan pengguna dengan email tersebut.',
 ];

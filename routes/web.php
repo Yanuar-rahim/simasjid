@@ -17,8 +17,9 @@ use App\Http\Controllers\Admin\PengumumanController;
 use App\Http\Controllers\Admin\KeuanganController;
 use App\Http\Controllers\Admin\PemasukanController;
 use App\Http\Controllers\Admin\PengeluaranController;
+use App\Http\Controllers\Admin\TwoFactorController;
 use App\Http\Controllers\Admin\DonasiController as AdminDonasiController;
-use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
+use App\Http\Controllers\Admin\AdminProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\LaporanController;
 
 /*
@@ -83,7 +84,7 @@ Route::post(
 |--------------------------------------------------------------------------
 */
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
 
     /*
     |--------------------------------------------------------------------------
@@ -195,6 +196,18 @@ Route::middleware('auth')->group(function () {
         Route::delete('/destroy', [UserProfileController::class, 'destroy'])
             ->name('user.profile.destroy');
     });
+
+    Route::get('/profile/security', [TwoFactorController::class, 'index'])
+        ->name('admin.profile.security');
+
+    Route::post('/profile/security/enable', [TwoFactorController::class, 'enable'])
+        ->name('admin.2fa.enable');
+
+    Route::post('/profile/security/confirm', [TwoFactorController::class, 'confirm'])
+        ->name('admin.2fa.confirm');
+
+    Route::post('/profile/security/disable', [TwoFactorController::class, 'disable'])
+        ->name('admin.2fa.disable');
 });
 
 /*
@@ -203,7 +216,7 @@ Route::middleware('auth')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth', 'admin', 'verified'])->group(function () {
 
     /*
     |--------------------------------------------------------------------------
@@ -282,7 +295,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
             'pengeluaran',
             PengeluaranController::class
         );
-
     });
 
     /*
@@ -302,7 +314,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
             '/',
             [MasjidController::class, 'save']
         )->name('masjid.save');
-
     });
 
     /*
@@ -311,84 +322,99 @@ Route::middleware(['auth', 'admin'])->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::prefix('admin/laporan')
-    ->name('laporan.')
-    ->controller(LaporanController::class)
-    ->group(function () {
+    Route::prefix('admin/laporan')
+        ->name('laporan.')
+        ->controller(LaporanController::class)
+        ->group(function () {
 
-        /*
+            /*
         |--------------------------------------------------------------------------
         | Dashboard Laporan
         |--------------------------------------------------------------------------
         */
 
-        Route::get('/', 'index')
-            ->name('index');
+            Route::get('/', 'index')
+                ->name('index');
 
-        /*
+            /*
         |--------------------------------------------------------------------------
         | Laporan Keuangan
         |--------------------------------------------------------------------------
         */
 
-        Route::get('/keuangan', 'keuangan')
-            ->name('keuangan');
+            Route::get('/keuangan', 'keuangan')
+                ->name('keuangan');
 
-        Route::get('/keuangan/export/excel', 'exportExcel')
-            ->name('keuangan.excel');
+            Route::get('/keuangan/export/excel', 'exportExcel')
+                ->name('keuangan.excel');
 
-        Route::get('/keuangan/export/pdf', 'exportPdf')
-            ->name('keuangan.pdf');
+            Route::get('/keuangan/export/pdf', 'exportPdf')
+                ->name('keuangan.pdf');
 
-        /*
+            /*
         |--------------------------------------------------------------------------
         | Laporan Donasi
         |--------------------------------------------------------------------------
         */
 
-        Route::get('/donasi', 'donasi')
-            ->name('donasi');
+            Route::get('/donasi', 'donasi')
+                ->name('donasi');
 
-        Route::get('/donasi/export/excel', 'exportDonasiExcel')
-            ->name('donasi.excel');
+            Route::get('/donasi/export/excel', 'exportDonasiExcel')
+                ->name('donasi.excel');
 
-        Route::get('/donasi/export/pdf', 'exportDonasiPdf')
-            ->name('donasi.pdf');
+            Route::get('/donasi/export/pdf', 'exportDonasiPdf')
+                ->name('donasi.pdf');
 
-        /*
+            /*
         |--------------------------------------------------------------------------
         | Laporan Pengguna
         |--------------------------------------------------------------------------
         */
 
-        Route::get('/user', 'pengguna')
-            ->name('user');
+            Route::get('/user', 'pengguna')
+                ->name('user');
 
-        Route::get('/user/export/excel', 'exportPenggunaExcel')
-            ->name('pengguna.excel');
+            Route::get('/user/export/excel', 'exportPenggunaExcel')
+                ->name('pengguna.excel');
 
-        Route::get('/user/export/pdf', 'exportPenggunaPdf')
-            ->name('pengguna.pdf');
+            Route::get('/user/export/pdf', 'exportPenggunaPdf')
+                ->name('pengguna.pdf');
 
-        /*
+            /*
         |--------------------------------------------------------------------------
         | Laporan Kegiatan
         |--------------------------------------------------------------------------
         */
 
-        Route::get('/kegiatan', 'kegiatan')
-            ->name('kegiatan');
+            Route::get('/kegiatan', 'kegiatan')
+                ->name('kegiatan');
 
-        Route::get('/kegiatan/export/excel', 'exportKegiatanExcel')
-            ->name('kegiatan.excel');
+            Route::get('/kegiatan/export/excel', 'exportKegiatanExcel')
+                ->name('kegiatan.excel');
 
-        Route::get('/kegiatan/export/pdf', 'exportKegiatanPdf')
-            ->name('kegiatan.pdf');
+            Route::get('/kegiatan/export/pdf', 'exportKegiatanPdf')
+                ->name('kegiatan.pdf');
+        });
 
 
-        
-    });
+    Route::get('/admin/profile', [AdminProfileController::class, 'index'])
+        ->name('admin.profile');
 
+    Route::get('/admin/profile/edit', [AdminProfileController::class, 'edit'])
+        ->name('admin.profile.edit');
+
+    Route::patch('/admin/profile/update', [AdminProfileController::class, 'update'])
+        ->name('admin.profile.update');
+
+    Route::get('/admin/profile/password', [AdminProfileController::class, 'password'])
+        ->name('admin.profile.password');
+
+    Route::patch('/admin/profile/password', [AdminProfileController::class, 'updatePassword'])
+        ->name('admin.profile.password.update');
+
+    Route::delete('/admin/profile/delete-photo', [AdminProfileController::class, 'deletePhoto'])
+        ->name('admin.profile.deletePhoto');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -33,7 +33,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'email' => ['required', 'string', 'lowercase', 'email:dns', 'max:255', 'unique:' . User::class],
             'phone' => ['required', 'numeric', 'digits_between:10,15'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ], [
@@ -66,8 +66,8 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        return redirect()
-            ->route('login')
-            ->with('register_success', 'Registrasi berhasil.');
+        Auth::login($user);
+
+        return redirect()->route('verification.notice');
     }
 }

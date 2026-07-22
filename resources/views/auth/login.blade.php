@@ -122,7 +122,7 @@
                     </div>
                     <div class="flex justify-between items-center">
                         <label class="flex items-center gap-2">
-                            <input type="checkbox" name="remember">
+                            <input type="checkbox" name="remember" value="1">
                             <span class="text-sm">
                                 Ingat Saya
                             </span>

@@ -250,22 +250,9 @@ class LaporanController extends Controller
         if ($request->filled('keyword')) {
             $query->where(function ($q) use ($request) {
                 $q->where('judul', 'like', '%' . $request->keyword . '%')
+                    ->orWhere('pemateri', 'like', '%' . $request->keyword . '%')
                     ->orWhere('lokasi', 'like', '%' . $request->keyword . '%');
             });
-        }
-
-        /*
-    |--------------------------------------------------------------------------
-    | Filter Pemateri
-    |--------------------------------------------------------------------------
-    */
-
-        if ($request->filled('pemateri')) {
-            $query->where(
-                'pemateri',
-                'like',
-                '%' . $request->pemateri . '%'
-            );
         }
 
         /*
@@ -291,32 +278,25 @@ class LaporanController extends Controller
             ]);
         }
 
-        /*
-    |--------------------------------------------------------------------------
-    | Data
-    |--------------------------------------------------------------------------
-    */
-
         $kegiatan = $query
             ->latest('tanggal')
             ->paginate(10)
             ->withQueryString();
 
-        /*
-    |--------------------------------------------------------------------------
-    | Statistik
-    |--------------------------------------------------------------------------
-    */
-
         return view('admin.laporan.kegiatan', [
-            'kegiatan'      => $kegiatan,
+            'kegiatan' => $kegiatan,
             'totalKegiatan' => Kegiatan::count(),
-            'totalAktif'    => Kegiatan::where('status', 'aktif')->count(),
-            'totalDraft'    => Kegiatan::where('status', 'draft')->count(),
-            'totalPemateri' => Kegiatan::distinct('pemateri')->count('pemateri'),
-            'bulanIni'      => Kegiatan::whereMonth('tanggal', now()->month)
+            'aktif' => Kegiatan::where('status', 'aktif')->count(),
+            'draft' => Kegiatan::where('status', 'draft')->count(),
+
+            'bulanIni' => Kegiatan::whereMonth('tanggal', now()->month)
                 ->whereYear('tanggal', now()->year)
                 ->count(),
+                
+            'mingguIni' => Kegiatan::whereBetween('tanggal', [
+                now()->startOfWeek(),
+                now()->endOfWeek()
+            ])->count(),
         ]);
     }
 

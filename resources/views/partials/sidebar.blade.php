@@ -61,11 +61,11 @@
             <i class="fa-solid fa-mosque"></i>
             Profil Masjid
         </a>
-        <a href="#"
-            class="{{ request()->routeIs('setting.*') ? 'sidebar-active' : 'sidebar-menu' }}">
-            <i class="fa-solid fa-gear"></i>
-            Pengaturan
-        </a>
+        <!-- <a href="{{ route('admin.profile.security') }}"
+            class="{{ request()->routeIs('admin.profile.*') ? 'sidebar-active' : 'sidebar-menu' }}">
+            <i class="fa-solid fa-shield-halved"></i>
+            Two-Factor Authentication
+        </a> -->
     </nav>
 
     <!-- Footer -->
