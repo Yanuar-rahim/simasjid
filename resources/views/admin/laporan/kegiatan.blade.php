@@ -8,8 +8,8 @@
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
             <div>
                 <div class="flex items-center gap-4">
-                    <div class="w-16 h-16 rounded-2xl bg-amber-100 flex items-center justify-center">
-                        <i class="fa-solid fa-users text-3xl text-amber-600"></i>
+                    <div class="w-16 h-16 rounded-2xl bg-purple-100 flex items-center justify-center">
+                        <i class="fa-solid fa-calendar-days text-3xl text-purple-600"></i>
                     </div>
                     <div>
                         <h1 class="text-3xl font-bold text-slate-800">
@@ -57,31 +57,31 @@
             <p class="text-sm text-slate-500">
                 Aktif
             </p>
-            <h2 class="text-3xl font-bold mt-3 text-green-600">
-                {{ $totalAktif }}
+            <h2 class="text-3xl font-bold text-green-600 mt-3">
+                {{ $aktif }}
             </h2>
         </div>
         <div class="dashboard-card">
             <p class="text-sm text-slate-500">
                 Draft
             </p>
-            <h2 class="text-3xl font-bold mt-3 text-yellow-600">
-                {{ $totalDraft }}
+            <h2 class="text-3xl font-bold text-yellow-600 mt-3">
+                {{ $draft }}
             </h2>
         </div>
         <div class="dashboard-card">
             <p class="text-sm text-slate-500">
-                Pemateri
+                Minggu Ini
             </p>
-            <h2 class="text-3xl font-bold mt-3 text-indigo-600">
-                {{ $totalPemateri }}
+            <h2 class="text-3xl font-bold text-blue-600 mt-3">
+                {{ $mingguIni }}
             </h2>
         </div>
         <div class="dashboard-card">
             <p class="text-sm text-slate-500">
                 Bulan Ini
             </p>
-            <h2 class="text-3xl font-bold mt-3 text-cyan-600">
+            <h2 class="text-3xl font-bold text-indigo-600 mt-3">
                 {{ $bulanIni }}
             </h2>
         </div>

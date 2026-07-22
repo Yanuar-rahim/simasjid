@@ -47,6 +47,10 @@ class AuthenticatedSessionController extends Controller
         $user->last_login_at = now();
         $user->save();
 
+        if (!$user->hasVerifiedEmail()) {
+            return redirect()->route('verification.notice');
+        }
+
         if ($user->role == 'admin') {
             return redirect()->route('admin.dashboard');
         }

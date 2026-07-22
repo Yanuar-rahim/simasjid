@@ -178,9 +178,9 @@ Tentang
                             </h3>
                             <ul class="list-disc pl-5 space-y-2 ">
                                 @foreach(explode("\n", $masjid->misi ?? '-') as $misi)
-                                    @if(trim($misi) != '')
-                                        <li class="mt-3 text-slate-500">{{ $misi }}</li>
-                                    @endif
+                                @if(trim($misi) != '')
+                                <li class="mt-3 text-slate-500">{{ $misi }}</li>
+                                @endif
                                 @endforeach
                             </ul>
                         </div>
@@ -265,35 +265,45 @@ Tentang
             $jadwal = [
             [
             'nama'=>'Subuh',
-            'jam'=>substr($jadwalSholat['Fajr'],0,5),
+            'jam'=>isset($jadwalSholat['Fajr']) && $jadwalSholat['Fajr'] != '-'
+            ? substr($jadwalSholat['Fajr'],0,5)
+            : '00:00',
             'icon'=>'fa-cloud-moon',
             'warna'=>'text-indigo-500',
             'bg'=>'bg-indigo-100'
             ],
             [
             'nama'=>'Dzuhur',
-            'jam'=>substr($jadwalSholat['Dhuhr'],0,5),
+            'jam'=>isset($jadwalSholat['Dhuhr']) && $jadwalSholat['Dhuhr'] != '-'
+            ? substr($jadwalSholat['Dhuhr'],0,5)
+            : '00:00',
             'icon'=>'fa-sun',
             'warna'=>'text-yellow-500',
             'bg'=>'bg-yellow-100'
             ],
             [
             'nama'=>'Ashar',
-            'jam'=>substr($jadwalSholat['Asr'],0,5),
+            'jam'=>isset($jadwalSholat['Asr']) && $jadwalSholat['Asr'] != '-'
+            ? substr($jadwalSholat['Asr'],0,5)
+            : '00:00',
             'icon'=>'fa-cloud-sun',
             'warna'=>'text-orange-500',
             'bg'=>'bg-orange-100'
             ],
             [
             'nama'=>'Maghrib',
-            'jam'=>substr($jadwalSholat['Maghrib'],0,5),
+            'jam'=>isset($jadwalSholat['Maghrib']) && $jadwalSholat['Maghrib'] != '-'
+            ? substr($jadwalSholat['Maghrib'],0,5)
+            : '00:00',
             'icon'=>'fa-mountain-sun',
             'warna'=>'text-red-500',
             'bg'=>'bg-red-100'
             ],
             [
             'nama'=>'Isya',
-            'jam'=>substr($jadwalSholat['Isha'],0,5),
+            'jam'=>isset($jadwalSholat['Isha']) && $jadwalSholat['Isha'] != '-'
+            ? substr($jadwalSholat['Isha'],0,5)
+            : '00:00',
             'icon'=>'fa-star-and-crescent',
             'warna'=>'text-blue-500',
             'bg'=>'bg-blue-100'
@@ -309,6 +319,24 @@ Tentang
 
             $waktu = \Carbon\Carbon::today('Asia/Makassar')
             ->setTimeFromTimeString($item['jam']);
+
+            foreach($jadwal as $item){
+
+            if($item['jam'] == '00:00'){
+            continue;
+            }
+
+            $waktu = \Carbon\Carbon::today('Asia/Makassar')
+            ->setTimeFromTimeString($item['jam']);
+
+            if($now->lt($waktu)){
+            $nextPrayer = [
+            'nama'=>$item['nama'],
+            'jam'=>$item['jam']
+            ];
+            break;
+            }
+            }
 
             if($now->lt($waktu)){
             $nextPrayer = [
@@ -796,21 +824,21 @@ Lokasi
                 </div>
                 <div>
                     @if($masjid && $masjid->google_maps)
-                        <iframe
-                            class="rounded-3xl shadow-xl w-full h-96"
-                            src="{{ $masjid->google_maps }}"
-                            loading="lazy">
-                        </iframe>
+                    <iframe
+                        class="rounded-3xl shadow-xl w-full h-96"
+                        src="{{ $masjid->google_maps }}"
+                        loading="lazy">
+                    </iframe>
                     @else
-                        <div class="w-full h-96 rounded-3xl bg-slate-100 border border-dashed border-slate-300 flex flex-col items-center justify-center">
-                            <i class="fa-solid fa-map-location-dot text-5xl text-slate-400 mb-4"></i>
-                            <h3 class="font-semibold text-slate-700">
-                                Google Maps belum tersedia
-                            </h3>
-                            <p class="text-slate-500 mt-2">
-                                Silakan lengkapi Profil Masjid terlebih dahulu.
-                            </p>
-                        </div>
+                    <div class="w-full h-96 rounded-3xl bg-slate-100 border border-dashed border-slate-300 flex flex-col items-center justify-center">
+                        <i class="fa-solid fa-map-location-dot text-5xl text-slate-400 mb-4"></i>
+                        <h3 class="font-semibold text-slate-700">
+                            Google Maps belum tersedia
+                        </h3>
+                        <p class="text-slate-500 mt-2">
+                            Admin belum melengkapi data.
+                        </p>
+                    </div>
                     @endif
                 </div>
             </div>

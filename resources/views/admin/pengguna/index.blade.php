@@ -464,7 +464,7 @@
             Swal.fire({
                 icon: 'warning',
                 title: 'Tidak dapat menghapus',
-                text: 'Pengguna masih sedang online.',
+                text: 'Pengguna sedang online.',
                 confirmButtonColor: '#059669'
             });
         });
