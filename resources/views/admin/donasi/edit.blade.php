@@ -194,64 +194,38 @@
 
                     <option value="Diterima"
                         {{ $donasi->status=='Diterima'?'selected':'' }}>
-
                         Diterima
-
                     </option>
-
                     <option value="Ditolak"
                         {{ $donasi->status=='Ditolak'?'selected':'' }}>
-
                         Ditolak
-
                     </option>
-
                 </select>
-
             </div>
-
             {{-- Catatan --}}
-
             <div class="md:col-span-2">
-
                 <label class="font-semibold">
-
                     Catatan Admin
-
                 </label>
-
                 <textarea
                     name="catatan_admin"
                     rows="5"
                     class="mt-2 w-full rounded-2xl border border-slate-300 px-5 py-3">{{ old('catatan_admin',$donasi->catatan_admin) }}</textarea>
-
             </div>
-
         </div>
-
         <div class="flex justify-end gap-4 mt-10">
-
             <a
                 href="{{ route('donasi.show',$donasi->id) }}"
                 class="px-6 py-3 rounded-2xl border border-slate-300">
-
                 Batal
-
             </a>
-
             <button
                 class="px-7 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white">
-
                 <i class="fa-solid fa-circle-check mr-2"></i>
-
                 Simpan Verifikasi
-
             </button>
-
         </div>
-
     </form>
-
 </div>
 
 @endsection

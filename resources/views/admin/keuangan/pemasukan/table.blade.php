@@ -112,8 +112,11 @@
                     <td colspan="6"
                         class="py-20 text-center text-slate-500">
                         <i class="fa-solid fa-wallet text-5xl text-slate-300"></i>
-                        <p class="mt-5 text-xl font-semibold">
+                        <h3 class="mt-5 text-xl font-semibold">
                             Belum ada data pemasukan
+                        </h3>
+                        <p class="text-slate-500 mt-2">
+                            Data pemasukan akan muncul di sini.
                         </p>
                     </td>
                 </tr>

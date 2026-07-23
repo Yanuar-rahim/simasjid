@@ -122,134 +122,163 @@
                 </div>
             </div>
             {{-- Statistik Akun --}}
-<div class="dashboard-card">
-    <div class="flex items-center justify-between mb-6">
-        <h3 class="text-xl font-bold text-slate-800">
-            Statistik Akun
-        </h3>
-        <i class="fa-solid fa-chart-pie text-indigo-600 text-xl"></i>
-    </div>
-    <div class="grid grid-cols-2 lg:grid-cols-3 gap-5">
-        {{-- Role --}}
-        <div class="rounded-2xl bg-white p-5 shadow-sm hover:shadow-md transition-all duration-300">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-sm text-slate-500">
-                        Role
-                    </p>
-                    <h4 class="mt-2 text-xl font-bold text-slate-800">
-                        {{ ucfirst($user->role) }}
-                    </h4>
+            <div class="dashboard-card">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-bold text-slate-800">
+                        Statistik Akun
+                    </h3>
+                    <i class="fa-solid fa-chart-pie text-indigo-600 text-xl"></i>
                 </div>
-                <div class="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center">
-                    <i class="fa-solid fa-user-shield text-emerald-600"></i>
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-5">
+                    {{-- Role --}}
+                    <div class="rounded-2xl bg-white p-5 shadow-sm hover:shadow-md transition-all duration-300">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-slate-500">
+                                    Role
+                                </p>
+                                <h4 class="mt-2 text-xl font-bold text-slate-800">
+                                    {{ ucfirst($user->role) }}
+                                </h4>
+                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center">
+                                <i class="fa-solid fa-user-shield text-emerald-600"></i>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- Status --}}
+                    <div class="rounded-2xl bg-white p-5 shadow-sm hover:shadow-md transition-all duration-300">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-slate-500">
+                                    Status
+                                </p>
+                                <h4 class="mt-2 text-xl font-bold">
+                                    @if($user->last_seen && $user->last_seen >= now()->subMinutes(5))
+                                    <span class="text-green-600">
+                                        Online
+                                    </span>
+                                    @else
+                                    <span class="text-slate-600">
+                                        Offline
+                                    </span>
+                                    @endif
+                                </h4>
+                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center">
+                                <i class="fa-solid fa-circle-check text-green-600"></i>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- Terdaftar --}}
+                    <div class="rounded-2xl bg-white p-5 shadow-sm hover:shadow-md transition-all duration-300">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-slate-500">
+                                    Terdaftar
+                                </p>
+                                <h4 class="mt-2 text-lg font-bold text-slate-800">
+                                    {{ $user->created_at->translatedFormat('d F Y') }}
+                                </h4>
+                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
+                                <i class="fa-solid fa-calendar-days text-blue-600"></i>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- Two-Factor Authentication --}}
+                    <div class="rounded-2xl bg-white p-5 shadow-sm hover:shadow-md transition-all duration-300">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-slate-500">
+                                    Two-Factor Authentication
+                                </p>
+
+                                <h4 class="mt-2 text-xl font-bold">
+                                    @if($user->two_factor_confirmed_at)
+                                    <span class="text-green-600">
+                                        Aktif
+                                    </span>
+                                    @else
+                                    <span class="text-red-600">
+                                        Tidak Aktif
+                                    </span>
+                                    @endif
+                                </h4>
+                            </div>
+                            <div class="w-12 h-12 rounded-xl
+            {{ $user->two_factor_confirmed_at ? 'bg-emerald-100' : 'bg-red-100' }}
+            flex items-center justify-center">
+                                <i class="fa-solid fa-shield-halved
+                {{ $user->two_factor_confirmed_at ? 'text-emerald-600' : 'text-red-600' }}">
+                                </i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        {{-- Status --}}
-        <div class="rounded-2xl bg-white p-5 shadow-sm hover:shadow-md transition-all duration-300">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-sm text-slate-500">
-                        Status
-                    </p>
-                    <h4 class="mt-2 text-xl font-bold">
-                        @if($user->last_seen && $user->last_seen >= now()->subMinutes(5))
+            <div class="dashboard-card">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-bold text-slate-800">
+                        Aktivitas Akun
+                    </h3>
+                    <i class="fa-solid fa-chart-line text-emerald-600 text-xl"></i>
+                </div>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="rounded-2xl bg-white p-5 shadow-sm hover:shadow-md transition-all duration-300">
+                        <p class="text-slate-500 text-sm">
+                            Bergabung Sejak
+                        </p>
+                        <h4 class="text-lg font-bold mt-2">
+                            {{ $user->created_at->translatedFormat('d F Y') }}
+                        </h4>
+                    </div>
+                    <div class="rounded-2xl bg-white p-5 shadow-sm hover:shadow-md transition-all duration-300">
+                        <p class="text-slate-500 text-sm">
+                            Login Terakhir
+                        </p>
+                        <h4 class="text-lg font-bold mt-2">
+                            @if($user->last_login_at)
+                            {{ $user->last_login_at->diffForHumans() }}
+                            @else
+                            -
+                            @endif
+                        </h4>
+                    </div>
+                    <div class="rounded-2xl bg-white p-5 shadow-sm hover:shadow-md transition-all duration-300">
+                        <p class="text-slate-500 text-sm">
+                            Status Akun
+                        </p>
+                        <h4 class="text-lg font-bold mt-2">
+                            @if($user->last_seen && $user->last_seen >= now()->subMinutes(5))
                             <span class="text-green-600">
                                 Online
                             </span>
-                        @else
+                            @else
                             <span class="text-slate-600">
                                 Offline
                             </span>
-                        @endif
-                    </h4>
-                </div>
-                <div class="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center">
-                    <i class="fa-solid fa-circle-check text-green-600"></i>
-                </div>
-            </div>
-        </div>
-        {{-- Terdaftar --}}
-        <div class="rounded-2xl bg-white p-5 shadow-sm hover:shadow-md transition-all duration-300">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-sm text-slate-500">
-                        Terdaftar
-                    </p>
-                    <h4 class="mt-2 text-lg font-bold text-slate-800">
-                        {{ $user->created_at->translatedFormat('d F Y') }}
-                    </h4>
-                </div>
-                <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
-                    <i class="fa-solid fa-calendar-days text-blue-600"></i>
+                            @endif
+                        </h4>
+                    </div>
+                    <div class="rounded-2xl bg-white p-5 shadow-sm hover:shadow-md transition-all duration-300">
+                        <p class="text-slate-500 text-sm">
+                            Email Terverifikasi
+                        </p>
+                        <h4 class="text-lg font-bold mt-2">
+                            @if($user->email_verified_at)
+                            <span class="text-green-600">
+                                Sudah Diverifikasi
+                            </span>
+                            @else
+                            <span class="text-red-500">
+                                Belum
+                            </span>
+                            @endif
+                        </h4>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-            <div class="dashboard-card">
-    <div class="flex items-center justify-between mb-6">
-        <h3 class="text-xl font-bold text-slate-800">
-            Aktivitas Akun
-        </h3>
-        <i class="fa-solid fa-chart-line text-emerald-600 text-xl"></i>
-    </div>
-    <div class="grid md:grid-cols-2 gap-6">
-        <div class="rounded-2xl bg-white p-5 shadow-sm hover:shadow-md transition-all duration-300">
-            <p class="text-slate-500 text-sm">
-                Bergabung Sejak
-            </p>
-            <h4 class="text-lg font-bold mt-2">
-                {{ $user->created_at->translatedFormat('d F Y') }}
-            </h4>
-        </div>
-        <div class="rounded-2xl bg-white p-5 shadow-sm hover:shadow-md transition-all duration-300">
-            <p class="text-slate-500 text-sm">
-                Login Terakhir
-            </p>
-            <h4 class="text-lg font-bold mt-2">
-                @if($user->last_login_at)
-                    {{ $user->last_login_at->diffForHumans() }}
-                @else
-                    -
-                @endif
-            </h4>
-        </div>
-        <div class="rounded-2xl bg-white p-5 shadow-sm hover:shadow-md transition-all duration-300">
-            <p class="text-slate-500 text-sm">
-                Status Akun
-            </p>
-            <h4 class="text-lg font-bold mt-2">
-                @if($user->last_seen && $user->last_seen >= now()->subMinutes(5))
-                    <span class="text-green-600">
-                        Online
-                    </span>
-                @else
-                    <span class="text-slate-600">
-                        Offline
-                    </span>
-                @endif
-            </h4>
-        </div>
-        <div class="rounded-2xl bg-white p-5 shadow-sm hover:shadow-md transition-all duration-300">
-            <p class="text-slate-500 text-sm">
-                Email Terverifikasi
-            </p>
-            <h4 class="text-lg font-bold mt-2">
-                @if($user->email_verified_at)
-                    <span class="text-green-600">
-                        Sudah Diverifikasi
-                    </span>
-                @else
-                    <span class="text-red-500">
-                        Belum
-                    </span>
-                @endif
-            </h4>
-        </div>
-    </div>
-</div>
             {{-- Informasi Kontak --}}
             <div class="dashboard-card">
                 <div class="flex items-center gap-3 mb-6">
