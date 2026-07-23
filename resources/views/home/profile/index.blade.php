@@ -102,6 +102,111 @@
                             @include('home.profile.partials.update-password-form')
                         </div>
                     </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <!-- Verifikasi 2 Faktor -->
+                        <div class="flex items-center justify-between mb-8">
+                            <div>
+                                <h2 class="text-2xl font-bold text-slate-800">
+                                    Two-Factor Authentication
+                                </h2>
+                                <p class="text-slate-500 mt-2">
+                                    Lindungi akun Anda dengan verifikasi dua langkah menggunakan
+                                    Google Authenticator.
+                                </p>
+                            </div>
+                            @if(Auth::user()->two_factor_confirmed_at)
+                            <span
+                                class="px-4 py-2 rounded-full bg-green-100 text-green-700 font-semibold">
+                                Aktif
+                            </span>
+                            @else
+                            <span
+                                class="px-4 py-2 rounded-full bg-red-100 text-red-700 font-semibold">
+                                Belum Aktif
+                            </span>
+                            @endif
+                        </div>
+                        @if(!Auth::user()->two_factor_confirmed_at)
+                        <div class="space-y-8">
+                            <div>
+                                <h3 class="font-semibold text-lg">
+                                    1. Scan QR Code
+                                </h3>
+                                <p class="text-slate-500 mt-2">
+                                    Scan QR Code berikut menggunakan aplikasi
+                                    Google Authenticator.
+                                </p>
+                            </div>
+                            <div class="flex justify-center">
+                                {!! $qrCode !!}
+                            </div>
+                            <div class="bg-slate-100 rounded-2xl p-5">
+                                <p class="text-sm text-slate-500">
+                                    Secret Key
+                                </p>
+                                <div class="mt-2 font-mono text-lg break-all">
+                                    {{ $secret }}
+                                </div>
+                            </div>
+                            <form
+                                method="POST"
+                                action="{{ route('user.2fa.enable') }}"
+                                class="space-y-5">
+                                @csrf
+                                <div>
+                                    <label class="block mb-2 font-medium">
+                                        Masukkan Kode OTP
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="code"
+                                        maxlength="6"
+                                        class="w-full mt-3 px-5 py-2 text-lg rounded-2xl border border-slate-300 focus:border-emerald-600 focus:ring-emerald-600 transition"
+                                        placeholder="123456">
+                                    @error('code')
+                                    <p class="text-red-500 mt-2 text-sm">
+                                        {{ $message }}
+                                    </p>
+                                    @enderror
+                                </div>
+                                <button
+                                    class="px-6 py-3 rounded-xl bg-emerald-600 text-white hover:bg-emerald-700">
+                                    Aktifkan Two-Factor Authentication
+                                </button>
+                            </form>
+                        </div>
+                        @else
+                        <div
+                            class="rounded-2xl bg-green-50 border border-green-200 p-6">
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-14 h-14 rounded-2xl bg-green-500 flex items-center justify-center">
+                                    <i class="fa-solid fa-shield-halved text-white text-xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-lg font-bold text-green-700">
+                                        Two-Factor Authentication Aktif
+                                    </h3>
+                                    <p class="mt-2 text-green-600 leading-7">
+                                        Akun Anda telah dilindungi menggunakan
+                                        Google Authenticator.
+                                        Setiap login akan meminta kode OTP.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <form
+                            action="{{ route('user.2fa.disable') }}"
+                            method="POST"
+                            class="mt-8">
+                            @csrf
+                            <button
+                                class="px-6 py-3 rounded-xl bg-red-600 text-white hover:bg-red-700">
+                                Nonaktifkan Two-Factor Authentication
+                            </button>
+                        </form>
+                        @endif
+                    </div>
                     <!-- Hapus Akun -->
                     <div class="bg-white rounded-3xl shadow-lg p-8 border border-red-100">
                         <div class="max-w-8xl">

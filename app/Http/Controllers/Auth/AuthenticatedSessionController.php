@@ -47,11 +47,30 @@ class AuthenticatedSessionController extends Controller
         $user->last_login_at = now();
         $user->save();
 
+        // Email wajib sudah diverifikasi
         if (!$user->hasVerifiedEmail()) {
             return redirect()->route('verification.notice');
         }
 
-        if ($user->role == 'admin') {
+        // Jika TOTP aktif
+        if (
+            $user->two_factor_secret &&
+            $user->two_factor_confirmed_at
+        ) {
+
+            session()->forget('2fa_verified');
+
+            if ($user->role === 'admin') {
+                return redirect()->route('admin.2fa.index');
+            }
+
+            return redirect()->route('user.2fa.index');
+        }
+
+        // Jika TOTP belum aktif
+        session(['2fa_verified' => true]);
+
+        if ($user->role === 'admin') {
             return redirect()->route('admin.dashboard');
         }
 
@@ -83,6 +102,7 @@ class AuthenticatedSessionController extends Controller
 
         Auth::guard('web')->logout();
 
+        $request->session()->forget('2fa_verified');
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

@@ -3,9 +3,7 @@
 @section('content')
 
 <div class="space-y-8">
-
     <!-- HEADER -->
-
     <div class="flex items-center justify-between">
         <div class="flex items-center gap-4">
             <div>
@@ -18,13 +16,9 @@
             </div>
         </div>
     </div>
-
     <form action="{{ route('pemasukan.store') }}" method="POST">
-
         @csrf
-
         <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
-
             {{-- Header --}}
             <div class="px-8 py-6 border-b border-slate-200">
                 <h2 class="text-xl font-bold text-slate-800">
@@ -34,62 +28,45 @@
                     Lengkapi seluruh informasi pemasukan kas masjid.
                 </p>
             </div>
-
             {{-- Body --}}
             <div class="p-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-
                     {{-- Donasi --}}
                     <div>
                         <label class="block text-sm font-semibold text-slate-700 mb-2">
                             Donasi (Opsional)
                         </label>
-
                         <select
                             id="donasiSelect"
                             name="donasi_id"
                             class="w-full rounded-xl border border-slate-300 shadow-sm px-4 py-3
                     focus:border-emerald-500 focus:ring-emerald-500">
-
                             <option value="">
                                 Input Manual
                             </option>
-
-                            @forelse($donasi as $item)
-
+                            <!-- @forelse($donasi as $item)
                             <option
                                 value="{{ $item->id }}"
                                 data-nominal="{{ $item->nominal }}"
                                 data-sumber="Donasi Online">
-
                                 #{{ $item->id }}
                                 -
                                 {{ $item->nama }}
                                 -
                                 Rp {{ number_format($item->nominal,0,',','.') }}
-
                             </option>
-
                             @empty
-
                             <option disabled>
-
                                 Tidak ada donasi yang belum dicatat
-
                             </option>
-
-                            @endforelse
-
+                            @endforelse -->
                         </select>
-
                     </div>
-
                     {{-- Sumber --}}
                     <div>
                         <label class="block text-sm font-semibold text-slate-700 mb-2">
                             Sumber Pemasukan
                         </label>
-
                         <input
                             id="sumber"
                             type="text"
@@ -98,13 +75,11 @@
                             class="w-full rounded-xl border border-slate-300 shadow-sm px-4 py-3
                     focus:border-emerald-500 focus:ring-emerald-500">
                     </div>
-
                     {{-- Nominal --}}
                     <div>
                         <label class="block text-sm font-semibold text-slate-700 mb-2">
                             Nominal
                         </label>
-
                         <input
                             id="nominal"
                             type="number"
@@ -113,7 +88,6 @@
                             class="w-full rounded-xl border border-slate-300 shadow-sm px-4 py-3
                     focus:border-emerald-500 focus:ring-emerald-500">
                     </div>
-
                     {{-- Tanggal --}}
                     <div>
                         <label class="block text-sm font-semibold text-slate-700 mb-2">
@@ -126,9 +100,7 @@
                             class="w-full rounded-xl border border-slate-300 shadow-sm px-4 py-3
                     focus:border-emerald-500 focus:ring-emerald-500">
                     </div>
-
                 </div>
-
                 {{-- Keterangan --}}
                 <div class="mt-8">
                     <label class="block text-sm font-semibold text-slate-700 mb-2">
@@ -142,7 +114,6 @@
                 focus:border-emerald-500 focus:ring-emerald-500"></textarea>
                 </div>
             </div>
-
             {{-- Footer --}}
             <div class="px-8 py-6 border-t border-slate-200 bg-slate-50 flex justify-end gap-3">
                 <a

@@ -136,9 +136,12 @@
                     <td colspan="7"
                         class="text-center py-20">
                         <i class="fa-solid fa-file-invoice-dollar text-5xl text-slate-300"></i>
-                        <p class="mt-5 text-xl font-semibold text-slate-500">
+                        <h3 class="mt-5 text-xl font-semibold text-slate-500">
                             Belum ada data pengeluaran
-                        </p>
+                        </h3>
+                        <p class="text-slate-500 mt-2">
+                                Data pengeluaran akan muncul di sini.
+                            </p>
                     </td>
                 </tr>
                 @endforelse

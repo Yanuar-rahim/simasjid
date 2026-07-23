@@ -8,6 +8,7 @@ use App\Models\Donasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use PragmaRX\Google2FAQRCode\Google2FA;
 
 class ProfileController extends Controller
 {
@@ -156,22 +157,48 @@ class ProfileController extends Controller
             $level = 'Sahabat Masjid';
         }
 
-        return view('home.profile.index', compact(
-            'masjid',
-            'user',
-            'totalDonasi',
-            'jumlahDonasi',
-            'donasiTerakhir',
-            'target',
-            'sisaDonasi',
-            'sisaDonasiCount',
-            'level',
-            'progress',
-            'badgePemula',
-            'badgeAktif',
-            'badgeEmas',
-            'badgeSahabat'
-        ));
+        $google2fa = new Google2FA();
+
+        $secret = null;
+        $qrCode = null;
+
+        if (!$user->two_factor_secret) {
+
+            $secret = $google2fa->generateSecretKey();
+
+            $user->update([
+                'two_factor_secret' => encrypt($secret),
+            ]);
+        } else {
+
+            $secret = decrypt($user->two_factor_secret);
+        }
+
+        $qrCode = $google2fa->getQRCodeInline(
+            config('app.name'),
+            $user->email,
+            $secret
+        );
+
+        return view(
+            'home.profile.index',
+            compact(
+                'user',
+                'totalDonasi',
+                'jumlahDonasi',
+                'badgePemula',
+                'badgeAktif',
+                'badgeEmas',
+                'badgeSahabat',
+                'target',
+                'progress',
+                'level',
+                'sisaDonasi',
+                'sisaDonasiCount',
+                'secret',
+                'qrCode'
+            )
+        );
     }
 
     public function edit()
@@ -225,5 +252,36 @@ class ProfileController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
         return back()->with('success', 'Password berhasil diubah.');
+    }
+
+    public function destroy(Request $request)
+    {
+        $request->validate([
+            'password' => ['required'],
+        ]);
+
+        $user = Auth::user();
+        if (!Hash::check($request->password, $user->password)) {
+
+            return back()->withErrors([
+                'password' => 'Password yang Anda masukkan salah.',
+            ]);
+        }
+
+        if ($user->foto && Storage::disk('public')->exists($user->foto)) {
+            Storage::disk('public')->delete($user->foto);
+        }
+
+        Auth::logout();
+        $user->delete();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()
+            ->route('login')
+            ->with(
+                'success',
+                'Akun berhasil dihapus.'
+        );
     }
 }
