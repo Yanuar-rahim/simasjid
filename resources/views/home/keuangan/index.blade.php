@@ -368,7 +368,7 @@
             </div>
             @else
             <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-8 mt-16">
-                @foreach($rekapBulanan as $item)
+                @foreach($rekapBulanan as $index => $item)
                 <div
                     class="bg-white rounded-3xl shadow-lg p-8"
                     data-aos="zoom-in"
