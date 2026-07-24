@@ -196,6 +196,7 @@ class ProfileController extends Controller
                 'sisaDonasi',
                 'sisaDonasiCount',
                 'secret',
+                'masjid',
                 'qrCode'
             )
         );
